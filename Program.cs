@@ -93,7 +93,8 @@ namespace PombotTest
         internal static bool maxCurve;
         internal static bool historyComplete;
         internal static bool manualEntry; //-->TO CHECK
-        private static Queue<double> maxPeriods = new Queue<double>(); //periods to be a 5R = 2 pts
+        private static Queue<double> periods = new Queue<double>(); //periods to be a 5R = 2 pts
+        private static Queue<double> maxPeriods = new Queue<double>();
         private static Queue<double> minPeriods = new Queue<double>();
         #endregion
 
@@ -121,8 +122,9 @@ namespace PombotTest
                 {
                     Brick.initial += Program.renkoPeriod;
                     Brick.final = Brick.initial + Program.renkoPeriod;
-                    RSI.maxPeriods.Enqueue(Brick.final);
-                    RSI.minPeriods.Enqueue(0);
+                    RSI.periods.Enqueue(Brick.final);
+                    //RSI.maxPeriods.Enqueue(Brick.final);
+                    //RSI.minPeriods.Enqueue(0);
 
                     //if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
                     //if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
@@ -134,10 +136,11 @@ namespace PombotTest
                 {
                     if (Program.temp - Brick.initial > Program.renkoPeriod)
                     {
-                        Brick.final = Brick.initial + Program.renkoPeriod;
-                        RSI.maxPeriods.Enqueue(Brick.final);
-                        RSI.minPeriods.Enqueue(0);
                         RSI.maxCurve = true;
+                        Brick.final = Brick.initial + Program.renkoPeriod;
+                        RSI.periods.Enqueue(Brick.final);
+                        //RSI.maxPeriods.Enqueue(Brick.final);
+                        //RSI.minPeriods.Enqueue(0);
 
                         //if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
                         //if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
@@ -154,9 +157,10 @@ namespace PombotTest
                     if (Program.temp - Brick.initial < -Program.renkoPeriod)
                     {
                         Brick.final = Brick.initial - Program.renkoPeriod;
-                        RSI.minPeriods.Enqueue(Brick.final);
-                        RSI.maxPeriods.Enqueue(0);
                         RSI.maxCurve = false;
+                        RSI.periods.Enqueue(Brick.final);
+                        //RSI.minPeriods.Enqueue(Brick.final);
+                        //RSI.maxPeriods.Enqueue(0);
 
                         //if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
                         //if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
@@ -169,8 +173,9 @@ namespace PombotTest
                 {
                     Brick.initial -= Program.renkoPeriod;
                     Brick.final = Brick.initial - Program.renkoPeriod;
-                    RSI.minPeriods.Enqueue(Brick.final);
-                    RSI.maxPeriods.Enqueue(0);
+                    RSI.periods.Enqueue(Brick.final);
+                    //RSI.minPeriods.Enqueue(Brick.final);
+                    //RSI.maxPeriods.Enqueue(0);
 
                     //if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
                     //if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
@@ -180,13 +185,18 @@ namespace PombotTest
                 }
             }
 
-            historyComplete = (maxPeriods.Count() > Program.historySize && minPeriods.Count() > Program.historySize) ? true : false;
+            historyComplete = (periods.Count() > Program.historySize) ? true : false;
 
             if (historyComplete) Strategy();
         }
 
         private static void Strategy()
         {
+            for (int i = 1; i < RSI.periods.Count(); i++)
+            {
+                if ((RSI.periods.ElementAt(i) - RSI.periods.ElementAt(i - 1)) > 0) { RSI.maxPeriods.Enqueue(RSI.periods.ElementAt(i));
+            }
+
             highMean = (maxPeriods.Sum() - maxPeriods.Peek()) / maxPeriods.Count(); //mean of MaxPeriods
             lowMean = (minPeriods.Sum() - minPeriods.Peek()) / minPeriods.Count(); //mean of MinPeriods 
             rsUP = (highMean * (Program.historySize - 1) + maxPeriods.Peek()) / Program.historySize;
