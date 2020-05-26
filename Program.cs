@@ -94,7 +94,7 @@ namespace PombotTest
         internal static bool maxCurve;
         internal static bool historyComplete;
         internal static bool manualEntry; //-->TO CHECK
-        internal static Queue<double> periods = new Queue<double>(); //periods to be a 5R = 2 pts
+        //internal static Queue<double> periods = new Queue<double>(); //periods to be a 5R = 2 pts
         private static Queue<double> maxPeriods = new Queue<double>();
         private static Queue<double> minPeriods = new Queue<double>();
         #endregion
@@ -124,7 +124,7 @@ namespace PombotTest
                 {
                     Brick.initial += Program.renkoPeriod;
                     Brick.final = Brick.initial + Program.renkoPeriod;
-                    RSI.periods.Enqueue(Brick.final);
+                    //RSI.periods.Enqueue(Brick.final);
                     RSI.maxPeriods.Enqueue(Program.renkoPeriod);
                     RSI.minPeriods.Enqueue(0);
 
@@ -137,7 +137,7 @@ namespace PombotTest
                     {
                         RSI.maxCurve = true;
                         Brick.final = Brick.initial + Program.renkoPeriod;
-                        RSI.periods.Enqueue(Brick.final);
+                        //RSI.periods.Enqueue(Brick.final);
                         RSI.maxPeriods.Enqueue(2 * Program.renkoPeriod);
                         RSI.minPeriods.Enqueue(0);
 
@@ -154,8 +154,8 @@ namespace PombotTest
                     {
                         Brick.final = Brick.initial - Program.renkoPeriod;
                         RSI.maxCurve = false;
-                        RSI.periods.Enqueue(Brick.final);
-                        RSI.minPeriods.Enqueue(-2 * Program.renkoPeriod);
+                        //RSI.periods.Enqueue(Brick.final);
+                        RSI.minPeriods.Enqueue(2 * Program.renkoPeriod);
                         RSI.maxPeriods.Enqueue(0);
 
                         //Console.WriteLine("<=== Reverse Point Added to minCurve: " + Brick.final.ToString("0.00"));
@@ -166,7 +166,7 @@ namespace PombotTest
                 {
                     Brick.initial -= Program.renkoPeriod;
                     Brick.final = Brick.initial - Program.renkoPeriod;
-                    RSI.periods.Enqueue(Brick.final);
+                    //RSI.periods.Enqueue(Brick.final);
                     RSI.minPeriods.Enqueue(Program.renkoPeriod);
                     RSI.maxPeriods.Enqueue(0);
 
@@ -175,32 +175,31 @@ namespace PombotTest
                 }
             }
 
-            Console.WriteLine($"Calibration Load:  {periods.Count() * 100 / Program.historySize} %");
-
+            Console.WriteLine($"Calibration Load:  {maxPeriods.Count() * 100 / Program.historySize} %");
             //Strategy Call
-            historyComplete = (periods.Count() > Program.historySize) ? true : false;
+            historyComplete = (maxPeriods.Count() > Program.historySize) ? true : false;
             if (historyComplete) Strategy();
         }
 
         private static void Strategy()
         {
-            highMean = (maxPeriods.Sum() - maxPeriods.Peek()) / maxPeriods.Count(); //mean of MaxPeriods
-            lowMean = (minPeriods.Sum() - minPeriods.Peek()) / minPeriods.Count(); //mean of MinPeriods 
-            rsUP = (highMean * (Program.historySize - 1) + maxPeriods.Peek()) / Program.historySize;
-            rsDown = (lowMean * (Program.historySize - 1) + minPeriods.Peek()) / Program.historySize;
+            highMean = (maxPeriods.Sum() - maxPeriods.ElementAt(Program.historySize)) / Program.historySize; //mean of MaxPeriods
+            lowMean = (minPeriods.Sum() - minPeriods.ElementAt(Program.historySize)) / Program.historySize; //mean of MinPeriods 
+            rsUP = (highMean * (Program.historySize - 1) + maxPeriods.ElementAt(Program.historySize)) / Program.historySize;
+            rsDown = (lowMean * (Program.historySize - 1) + minPeriods.ElementAt(Program.historySize)) / Program.historySize;
             rsiMean = 100 - (100 / (1 + (rsUP / rsDown))); //RSI index for the historySize (N periods)
-
             RSI.maxPeriods.Dequeue();
             RSI.minPeriods.Dequeue();
-            RSI.periods.Dequeue();
+            //RSI.periods.Dequeue();
 
             threePerMean.Enqueue(rsiMean);
             if (threePerMean.Count() > Program.plot3Size)
             {
                 threePerMean.Dequeue();
                 plot3Mean = threePerMean.Average();
-                Console.WriteLine("\n=====Strategy====");
+                Console.WriteLine("=====Strategy====");
                 Console.WriteLine($"RSI20: {rsiMean.ToString("0.00")} --- Plot3: {plot3Mean.ToString("0.00")}");
+                Console.SetCursorPosition(0, Console.CursorTop - 3);
             }
 
 
