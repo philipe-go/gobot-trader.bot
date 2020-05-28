@@ -38,6 +38,7 @@ namespace PombotTest
             //Brick.final = 0;
             Console.Write("\t-Enter the final value of the previous Brick then press ENTER: ");
             Brick.final = float.Parse(Console.ReadLine());
+            //TO BE TESTED SECOND RSI.initialPer = Brick.final;
             temp = Brick.final;
             RSI.historyComplete = false;
             refreshtemp = false;
@@ -66,12 +67,12 @@ namespace PombotTest
 
             refreshtemp = true;
 
-            Console.WriteLine($"Current Measure: {temp.ToString("0.00")}");
+            Console.WriteLine($"...Current Measure: {temp.ToString("0.00")}");
         }
 
         private static void OnDisconnected(object sender, DdeDisconnectedEventArgs args)
         {
-            Console.WriteLine($"OnDisconnected = IsServerInitiated= {args.IsServerInitiated.ToString()} = IsDisposed= {args.IsDisposed.ToString()}");
+            Console.WriteLine($"Disconnected = IsServerInitiated = {args.IsServerInitiated.ToString()} = IsDisposed= {args.IsDisposed.ToString()}");
         }
 
         public static void ClearLine()
@@ -80,12 +81,13 @@ namespace PombotTest
             Console.Write(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(0, Console.CursorTop - 1);
         }
-    }
+
+    }//class Program
 
     internal abstract class Brick
     {
         internal static float initial, final;
-    }
+    }//class Brick
 
     internal abstract class RSI
     {
@@ -93,6 +95,7 @@ namespace PombotTest
         internal static bool maxCurve;
         internal static bool historyComplete;
         internal static bool manualEntry; //-->TO CHECK
+        //internal static double initialPer;
         private static Queue<double> periods = new Queue<double>(); //periods to be a 5R = 2 pts
         private static Queue<double> maxPeriods = new Queue<double>();
         private static Queue<double> minPeriods = new Queue<double>();
@@ -101,10 +104,9 @@ namespace PombotTest
         #region Strategy Variables
         private static double lowMean = 0;
         private static double highMean = 0;
-        private static double rsUP = 0;
-        private static double rsDown = 0;
         private static double rsiMean = 0;
         private static double plot3Mean = 0;
+        private static bool firstPass = true;
         private static Queue<double> threePerMean = new Queue<double>();
         #endregion
 
@@ -116,21 +118,25 @@ namespace PombotTest
 
         internal static void RSICurve()
         {
+            Program.ClearLine();
             if (Program.temp - Brick.final > Program.renkoPeriod) //complete period for ascending curve
             {
                 if (RSI.maxCurve) //ascending curve
                 {
                     Brick.initial += Program.renkoPeriod;
                     Brick.final = Brick.initial + Program.renkoPeriod;
-                    RSI.periods.Enqueue(Brick.final);
-                    //RSI.maxPeriods.Enqueue(Brick.final);
-                    //RSI.minPeriods.Enqueue(0);
 
-                    //if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
-                    //if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
-                    Console.WriteLine("Added to maxCurve: " + Brick.final.ToString("0.00"));
-                    Console.WriteLine("Added to minCurve: " + 0);
-                    //Console.WriteLine($"\n --- max periods count = {RSI.maxPeriods.Count()} ---\n");
+                    RSI.maxPeriods.Enqueue(Program.renkoPeriod);
+                    RSI.minPeriods.Enqueue(0);
+                    periods.Enqueue(Brick.final);
+                    if (RSI.periods.Count() > 2) RSI.periods.Dequeue();
+                    if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
+                    if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
+
+                    //POSSIBLE NEW solution
+                    //periods.Enqueue(Brick.final);
+                    //if (periods.Count() > Program.historySize + 1) periods.Dequeue();
+                    if (historyComplete) Strategy();
                 }
                 else if (!RSI.maxCurve) //reversion of descending curve point
                 {
@@ -138,17 +144,24 @@ namespace PombotTest
                     {
                         RSI.maxCurve = true;
                         Brick.final = Brick.initial + Program.renkoPeriod;
-                        RSI.periods.Enqueue(Brick.final);
-                        //RSI.maxPeriods.Enqueue(Brick.final);
-                        //RSI.minPeriods.Enqueue(0);
 
-                        //if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
-                        //if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
-                        Console.WriteLine("===> Reverse Point Added to maxCurve: " + Brick.final.ToString("0.00"));
-                        Console.WriteLine("Added to minCurve: " + 0);
-                        //Console.WriteLine($"\n--- max periods count = {RSI.maxPeriods.Count()} ---\n");
+                        RSI.maxPeriods.Enqueue(2 * Program.renkoPeriod);
+                        RSI.minPeriods.Enqueue(0);
+                        periods.Enqueue(Brick.final);
+                        if (RSI.periods.Count() > 2) RSI.periods.Dequeue();
+                        if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
+                        if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
+
+                        //POSSIBLE NEW solution
+                        //periods.Enqueue(Brick.final);
+                        //if (periods.Count() > Program.historySize + 1) periods.Dequeue();
+
+
+                        //Console.WriteLine("===> Reverse Point from LOW to HIGH);
+                        if (historyComplete) Strategy();
                     }
                 }
+                
             }
             if (Program.temp - Brick.final < -Program.renkoPeriod) //complete period for descending curve
             {
@@ -156,64 +169,111 @@ namespace PombotTest
                 {
                     if (Program.temp - Brick.initial < -Program.renkoPeriod)
                     {
-                        Brick.final = Brick.initial - Program.renkoPeriod;
                         RSI.maxCurve = false;
-                        RSI.periods.Enqueue(Brick.final);
-                        //RSI.minPeriods.Enqueue(Brick.final);
-                        //RSI.maxPeriods.Enqueue(0);
+                        Brick.final = Brick.initial - Program.renkoPeriod;
 
-                        //if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
-                        //if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
-                        Console.WriteLine("<=== Reverse Point Added to minCurve: " + Brick.final.ToString("0.00"));
-                        Console.WriteLine("Added to maxCurve: " + 0);
-                        //Console.WriteLine($"\n --- min periods count = {RSI.minPeriods.Count()} --- \n");
+                        RSI.minPeriods.Enqueue(2 * Program.renkoPeriod);
+                        RSI.maxPeriods.Enqueue(0);
+                        periods.Enqueue(Brick.final);
+                        if (RSI.periods.Count() > 2) RSI.periods.Dequeue();
+                        if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
+                        if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
+
+                        //POSSIBLE NEW solution
+                        //periods.Enqueue(Brick.final);
+                        //if (periods.Count() > Program.historySize + 1) periods.Dequeue();
+
+
+                        //Console.WriteLine("<=== Reverse Point from HIGH  to LOW);
+                        if (historyComplete) Strategy();
                     }
                 }
                 else if (!RSI.maxCurve) //descending curve
                 {
                     Brick.initial -= Program.renkoPeriod;
                     Brick.final = Brick.initial - Program.renkoPeriod;
-                    RSI.periods.Enqueue(Brick.final);
-                    //RSI.minPeriods.Enqueue(Brick.final);
-                    //RSI.maxPeriods.Enqueue(0);
 
-                    //if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
-                    //if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
-                    Console.WriteLine("Added to minCurve: " + Brick.final.ToString("0.00"));
-                    Console.WriteLine("Added to maxCurve: " + 0);
-                    //Console.WriteLine($"\n --- min periods count = {RSI.minPeriods.Count()} ---\n");
+                    RSI.minPeriods.Enqueue(Program.renkoPeriod);
+                    RSI.maxPeriods.Enqueue(0);
+                    periods.Enqueue(Brick.final);
+                    if (RSI.periods.Count() > 2) RSI.periods.Dequeue();
+                    if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
+                    if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
+
+                    //POSSIBLE NEW solution 
+                    //periods.Enqueue(Brick.final);
+                    //if (periods.Count() > Program.historySize + 1) periods.Dequeue();
+                    if (historyComplete) Strategy();
                 }
             }
 
-            historyComplete = (periods.Count() > Program.historySize) ? true : false;
+            Console.WriteLine($"Calibration Load:  {maxPeriods.Count() * 100 / Program.historySize} %");
+            //Console.WriteLine($"Calibration Load:  {periods.Count() * 100 / Program.historySize} %");
 
-            if (historyComplete) Strategy();
+            //Strategy Call
+            historyComplete = (maxPeriods.Count() == Program.historySize) ? true : false;
+            //historyComplete = (periods.Count() == Program.historySize + 1) ? true : false;
+            //if (historyComplete) Strategy();
         }
 
         private static void Strategy()
         {
-            for (int i = 1; i < RSI.periods.Count(); i++)
+            Console.WriteLine("=====Strategy====");
+
+            if (firstPass)
             {
-                if ((RSI.periods.ElementAt(i) - RSI.periods.ElementAt(i - 1)) > 0) { RSI.maxPeriods.Enqueue(RSI.periods.ElementAt(i));
+                highMean = maxPeriods.Sum() / Program.historySize; //can use maxPeriods.Average() from LinQ
+                lowMean = minPeriods.Sum() / Program.historySize; //can use maxPeriods.Average() from LinQ
+            }
+            else
+            {
+                highMean = (highMean * (Program.historySize - 1)/ Program.historySize) + (RSI.periods.Last() - RSI.periods.First() > 0 ? RSI.periods.Last() - RSI.periods.First() : 0) / Program.historySize; //mean of MaxPeriods
+                lowMean = (lowMean * (Program.historySize - 1)/ Program.historySize) + (RSI.periods.Last() - RSI.periods.First() < 0 ? Math.Abs(RSI.periods.Last() - RSI.periods.First()) : 0) / Program.historySize; //mean of MinPeriods 
             }
 
-            highMean = (maxPeriods.Sum() - maxPeriods.Peek()) / maxPeriods.Count(); //mean of MaxPeriods
-            lowMean = (minPeriods.Sum() - minPeriods.Peek()) / minPeriods.Count(); //mean of MinPeriods 
-            rsUP = (highMean * (Program.historySize - 1) + maxPeriods.Peek()) / Program.historySize;
-            rsDown = (lowMean * (Program.historySize - 1) + minPeriods.Peek()) / Program.historySize;
-            rsiMean = 100 - (100 / (1 + (rsUP / rsDown))); //RSI index for the historySize (N periods)
+            //double diff = periods.First() - RSI.initialPer;
+            //if (diff < 0)
+            //{
+            //    minPeriods.Enqueue(diff);
+            //    maxPeriods.Enqueue(0);
+            //}
+            //else
+            //{
+            //    maxPeriods.Enqueue(diff);
+            //    minPeriods.Enqueue(0);
+            //}
+
+            //for (int i = 1; i < periods.Count(); i++)
+            //{
+            //    diff = periods.ElementAt(i) - periods.ElementAt(i - 1);
+            //    if (diff < 0)
+            //    {
+            //        minPeriods.Enqueue(diff);
+            //        maxPeriods.Enqueue(0);
+            //    }
+            //    else
+            //    {
+            //        maxPeriods.Enqueue(diff);
+            //        minPeriods.Enqueue(0);
+            //    }
+            //}
+            //highMean = maxPeriods.Sum() / Program.historySize;
+            //lowMean = minPeriods.Sum() / Program.historySize;
+            //highMean = highMean * (Program.historySize - 1) + (periods.Last() - periods.ElementAt(Program.historySize - 1) > 0 ? periods.Last() - periods.ElementAt(Program.historySize - 1) : 0) / Program.historySize;
+            //lowMean = lowMean * (Program.historySize - 1) + (periods.Last() - periods.ElementAt(Program.historySize - 1) < 0 ? periods.Last() - periods.ElementAt(Program.historySize - 1) : 0) / Program.historySize;
+
+
+            rsiMean = (lowMean != 0) ? 100 - (100 / (1 + (highMean / lowMean))) : (highMean != 0) ? 100 : 50; //RSI index for the historySize (N periods)
 
             threePerMean.Enqueue(rsiMean);
             if (threePerMean.Count() > Program.plot3Size)
             {
                 threePerMean.Dequeue();
-                plot3Mean = threePerMean.Sum() / threePerMean.Count();
-                Console.WriteLine("\n=====Strategy====");
-                Console.WriteLine($"RSI 20 per: {rsiMean.ToString("0.00")} --- Plot3 per: {plot3Mean.ToString("0.00")}");
+                plot3Mean = threePerMean.Average();
+                Console.WriteLine($"{DateTime.Now} - RSI20: {rsiMean.ToString("0.00")} --- Plot3: {plot3Mean.ToString("0.00")}\n");
             }
 
-            RSI.maxPeriods.Dequeue();
-            RSI.minPeriods.Dequeue();
+            firstPass = false;
 
             //         Inicio
             //                    Plot(RSI(20, 0));             //  IFR de 20 Períodos
@@ -244,7 +304,9 @@ namespace PombotTest
             //          SellShortAtMarket;
             //         Fim; 
             //         Fim;
-        }
-    }
 
-}
+        }//RSI.Strategy
+
+    }//class RSI
+
+}//namespace
