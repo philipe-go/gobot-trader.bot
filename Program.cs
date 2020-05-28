@@ -95,7 +95,6 @@ namespace PombotTest
         internal static bool maxCurve;
         internal static bool historyComplete;
         internal static bool manualEntry; //-->TO CHECK
-        //internal static double initialPer;
         private static Queue<double> periods = new Queue<double>(); //periods to be a 5R = 2 pts
         private static Queue<double> maxPeriods = new Queue<double>();
         private static Queue<double> minPeriods = new Queue<double>();
@@ -133,9 +132,6 @@ namespace PombotTest
                     if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
                     if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
 
-                    //POSSIBLE NEW solution
-                    //periods.Enqueue(Brick.final);
-                    //if (periods.Count() > Program.historySize + 1) periods.Dequeue();
                     if (historyComplete) Strategy();
                 }
                 else if (!RSI.maxCurve) //reversion of descending curve point
@@ -151,11 +147,6 @@ namespace PombotTest
                         if (RSI.periods.Count() > 2) RSI.periods.Dequeue();
                         if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
                         if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
-
-                        //POSSIBLE NEW solution
-                        //periods.Enqueue(Brick.final);
-                        //if (periods.Count() > Program.historySize + 1) periods.Dequeue();
-
 
                         //Console.WriteLine("===> Reverse Point from LOW to HIGH);
                         if (historyComplete) Strategy();
@@ -179,11 +170,6 @@ namespace PombotTest
                         if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
                         if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
 
-                        //POSSIBLE NEW solution
-                        //periods.Enqueue(Brick.final);
-                        //if (periods.Count() > Program.historySize + 1) periods.Dequeue();
-
-
                         //Console.WriteLine("<=== Reverse Point from HIGH  to LOW);
                         if (historyComplete) Strategy();
                     }
@@ -200,20 +186,14 @@ namespace PombotTest
                     if (RSI.minPeriods.Count() > Program.historySize) RSI.minPeriods.Dequeue();
                     if (RSI.maxPeriods.Count() > Program.historySize) RSI.maxPeriods.Dequeue();
 
-                    //POSSIBLE NEW solution 
-                    //periods.Enqueue(Brick.final);
-                    //if (periods.Count() > Program.historySize + 1) periods.Dequeue();
                     if (historyComplete) Strategy();
                 }
             }
 
             Console.WriteLine($"Calibration Load:  {maxPeriods.Count() * 100 / Program.historySize} %");
-            //Console.WriteLine($"Calibration Load:  {periods.Count() * 100 / Program.historySize} %");
 
             //Strategy Call
             historyComplete = (maxPeriods.Count() == Program.historySize) ? true : false;
-            //historyComplete = (periods.Count() == Program.historySize + 1) ? true : false;
-            //if (historyComplete) Strategy();
         }
 
         private static void Strategy()
@@ -230,38 +210,6 @@ namespace PombotTest
                 highMean = (highMean * (Program.historySize - 1)/ Program.historySize) + (RSI.periods.Last() - RSI.periods.First() > 0 ? RSI.periods.Last() - RSI.periods.First() : 0) / Program.historySize; //mean of MaxPeriods
                 lowMean = (lowMean * (Program.historySize - 1)/ Program.historySize) + (RSI.periods.Last() - RSI.periods.First() < 0 ? Math.Abs(RSI.periods.Last() - RSI.periods.First()) : 0) / Program.historySize; //mean of MinPeriods 
             }
-
-            //double diff = periods.First() - RSI.initialPer;
-            //if (diff < 0)
-            //{
-            //    minPeriods.Enqueue(diff);
-            //    maxPeriods.Enqueue(0);
-            //}
-            //else
-            //{
-            //    maxPeriods.Enqueue(diff);
-            //    minPeriods.Enqueue(0);
-            //}
-
-            //for (int i = 1; i < periods.Count(); i++)
-            //{
-            //    diff = periods.ElementAt(i) - periods.ElementAt(i - 1);
-            //    if (diff < 0)
-            //    {
-            //        minPeriods.Enqueue(diff);
-            //        maxPeriods.Enqueue(0);
-            //    }
-            //    else
-            //    {
-            //        maxPeriods.Enqueue(diff);
-            //        minPeriods.Enqueue(0);
-            //    }
-            //}
-            //highMean = maxPeriods.Sum() / Program.historySize;
-            //lowMean = minPeriods.Sum() / Program.historySize;
-            //highMean = highMean * (Program.historySize - 1) + (periods.Last() - periods.ElementAt(Program.historySize - 1) > 0 ? periods.Last() - periods.ElementAt(Program.historySize - 1) : 0) / Program.historySize;
-            //lowMean = lowMean * (Program.historySize - 1) + (periods.Last() - periods.ElementAt(Program.historySize - 1) < 0 ? periods.Last() - periods.ElementAt(Program.historySize - 1) : 0) / Program.historySize;
-
 
             rsiMean = (lowMean != 0) ? 100 - (100 / (1 + (highMean / lowMean))) : (highMean != 0) ? 100 : 50; //RSI index for the historySize (N periods)
 
