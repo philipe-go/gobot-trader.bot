@@ -152,7 +152,7 @@ namespace PombotTest
                         if (historyComplete) Strategy();
                     }
                 }
-                
+
             }
             if (Program.temp - Brick.final < -Program.renkoPeriod) //complete period for descending curve
             {
@@ -207,11 +207,16 @@ namespace PombotTest
             }
             else
             {
-                highMean = (highMean * (Program.historySize - 1)/ Program.historySize) + (RSI.periods.Last() - RSI.periods.First() > 0 ? RSI.periods.Last() - RSI.periods.First() : 0) / Program.historySize; //mean of MaxPeriods
-                lowMean = (lowMean * (Program.historySize - 1)/ Program.historySize) + (RSI.periods.Last() - RSI.periods.First() < 0 ? Math.Abs(RSI.periods.Last() - RSI.periods.First()) : 0) / Program.historySize; //mean of MinPeriods 
+                highMean = (highMean * (Program.historySize - 1) / Program.historySize) + (RSI.periods.Last() - RSI.periods.First() > 0 ? RSI.periods.Last() - RSI.periods.First() : 0) / Program.historySize; //mean of MaxPeriods
+                lowMean = (lowMean * (Program.historySize - 1) / Program.historySize) + (RSI.periods.Last() - RSI.periods.First() < 0 ? Math.Abs(RSI.periods.Last() - RSI.periods.First()) : 0) / Program.historySize; //mean of MinPeriods 
             }
 
+            Math.Round(highMean, 2);
+            Math.Round(lowMean, 2);
+
             rsiMean = (lowMean != 0) ? 100 - (100 / (1 + (highMean / lowMean))) : (highMean != 0) ? 100 : 50; //RSI index for the historySize (N periods)
+
+            Math.Round(rsiMean, 2);
 
             threePerMean.Enqueue(rsiMean);
             if (threePerMean.Count() > Program.plot3Size)
