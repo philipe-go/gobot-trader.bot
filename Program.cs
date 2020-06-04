@@ -21,7 +21,7 @@ namespace PombotTest
         static void Main(string[] args)
         {
             string app = "profitchart";
-            string ticker = "DOLM20";
+            string ticker = "DOLN20";
             string col = "ULT";
             string item = $"{ticker}.{col}";
             string service = "cot";
@@ -32,7 +32,8 @@ namespace PombotTest
             client.Connect();
             Console.WriteLine("Connected");
 
-
+            Console.WriteLine("Do you want to use inversion (condition 3) on the Strategy? (y / n)");
+            RSI.useInversion = (Console.ReadLine() == "y") ? true : false;
             Console.Write("\nEnter the reference value for the first measurement. \n\t-Enter the initial value of the previous Brick then press ENTER: ");
             Brick.initial = float.Parse(Console.ReadLine());
             //Brick.final = 0;
@@ -43,7 +44,6 @@ namespace PombotTest
             RSI.historyComplete = false;
             refreshtemp = false;
             RSI.maxCurve = Brick.initial < Brick.final ? true : false;
-
 
             client.StartAdvise(item, 1, true, 500);
             client.Advise += OnAdvise;
@@ -107,6 +107,12 @@ namespace PombotTest
         private static double plot3Mean = 0;
         private static bool firstPass = true;
         private static Queue<double> threePerMean = new Queue<double>();
+        #endregion
+
+        #region Strategy Options
+        private static bool isBought = false;
+        private static bool isSold = false;
+        internal static bool useInversion = false;
         #endregion
 
         //-->TO CHECK if Manual Entry will be implemented
@@ -223,43 +229,80 @@ namespace PombotTest
             {
                 threePerMean.Dequeue();
                 plot3Mean = threePerMean.Average();
-                Console.WriteLine($"{DateTime.Now} - RSI20: {rsiMean.ToString("0.00")} --- Plot3: {plot3Mean.ToString("0.00")}\n");
+                Console.WriteLine($"{DateTime.Now} - RSI20: {rsiMean.ToString("0.00")} --- Plot3: {plot3Mean.ToString("0.00")}");
+                RSI.CallStrategyAction();
             }
 
             firstPass = false;
-
-            //         Inicio
-            //                    Plot(RSI(20, 0));             //  IFR de 20 Períodos
-            //         Plot2(50);                   //   Linha de 50% de IFR
-            //         Plot3(Media(3, RSI(20, 0))); //    MMA de 3 Períodos 
-            //         Inicio
-            //Verifica se está vendido
-            //          Se(IsSold) então
-            //           Inicio
-            //               Fecha a posição vendida com uma compra caso
-            //               o IFR fique acima da MMA 3
-            //                    Se(RSI(20, 0) > Media(3, RSI(20, 0)))  então
-            //               BuyToCoverAtMarket;
-            //         Fim
-            //        Verifica se está comprado
-            //       Senão Se(IsBought) então
-            //        Inicio
-            //               Fecha a posição comprada com uma venda caso
-            //               o IFR fique abaixo da MMA 31
-            //                    Se(RSI(20, 0) < Media(3, RSI(20, 0))) então
-            //               SellToCoverAtMarket;
-            //         Fim
-            //        Verifica se deve abrir uma posição de compra ou venda
-            //        utilizando o valor do IFR em relação à MMA 3 e considerando 50 % IFR
-            //                  Senão Se(RSI(20, 0) > Media(3, RSI(20, 0))) e(RSI(20, 0) > (50)) então
-            //                  BuyAtMarket
-            //          Senão Se(RSI(20, 0) < Media(3, RSI(20, 0))) e(RSI(20, 0) < (50)) então
-            //          SellShortAtMarket;
-            //         Fim; 
-            //         Fim;
-
         }//RSI.Strategy
+
+        private static void CallStrategyAction()
+        {
+            if (rsiMean > 50) //Condition 1 and 2 for Buy
+            {
+                if (rsiMean > plot3Mean) //buy
+                {
+                    if (!isBought) Console.WriteLine($"{DateTime.Now} ===> BUY <====\n");
+                    isBought = true;
+                    isSold = false;
+                }
+                else if (useInversion) //zero position
+                {
+                    if (isBought || isSold) Console.WriteLine($" {DateTime.Now} ===> Zero <====\n");
+                    isBought = false;
+                    isSold = false;
+                }
+            }
+
+            else if (rsiMean < 50) //Condition 1 and 2 for Sell
+            {
+                if (rsiMean < plot3Mean) //sell
+                {
+                    if (!isSold) Console.WriteLine($"{DateTime.Now} ===> SELL <====\n");
+                    isBought = false;
+                    isSold = true;
+                }
+                else if (useInversion) //zero position
+                {
+                    if (isBought || isSold) Console.WriteLine($" {DateTime.Now} ===> Zero <====\n");
+                    isBought = false;
+                    isSold = false;
+                }
+            }
+        }
 
     }//class RSI
 
 }//namespace
+
+#region Strategy Comment
+//         Inicio
+//                    Plot(RSI(20, 0));             //  IFR de 20 Períodos
+//         Plot2(50);                   //   Linha de 50% de IFR
+//         Plot3(Media(3, RSI(20, 0))); //    MMA de 3 Períodos 
+//         Inicio
+//Verifica se está vendido
+//          Se(IsSold) então
+//           Inicio
+//               Fecha a posição vendida com uma compra caso
+//               o IFR fique acima da MMA 3
+//                    Se(RSI(20, 0) > Media(3, RSI(20, 0)))  então
+//               BuyToCoverAtMarket;
+//         Fim
+//        Verifica se está comprado
+//       Senão Se(IsBought) então
+//        Inicio
+//               Fecha a posição comprada com uma venda caso
+//               o IFR fique abaixo da MMA 31
+//                    Se(RSI(20, 0) < Media(3, RSI(20, 0))) então
+//               SellToCoverAtMarket;
+//         Fim
+//        Verifica se deve abrir uma posição de compra ou venda
+//        utilizando o valor do IFR em relação à MMA 3 e considerando 50 % IFR
+//                  Senão Se(RSI(20, 0) > Media(3, RSI(20, 0))) e(RSI(20, 0) > (50)) então
+//                  BuyAtMarket
+//          Senão Se(RSI(20, 0) < Media(3, RSI(20, 0))) e(RSI(20, 0) < (50)) então
+//          SellShortAtMarket;
+//         Fim; 
+//         Fim;
+#endregion
