@@ -14,7 +14,7 @@ namespace PombotTest
     {
         internal static int historySize = 20;
         internal static int plot3Size = 3;
-        internal static float renkoPeriod = 5; //for 5R graphs
+        internal static float renkoPeriod = 3; //for 5R graphs
         internal static float temp;
         internal static bool refreshtemp = false;
 
