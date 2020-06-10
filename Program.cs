@@ -242,13 +242,19 @@ namespace PombotTest
             {
                 if (rsiMean > plot3Mean) //buy
                 {
-                    if (!isBought) Console.WriteLine($"{DateTime.Now} ===> BUY <====\n");
+                    if (!isBought)
+                    {
+                        Console.WriteLine($"{DateTime.Now} ===> BUY <====\n");
+                    }
                     isBought = true;
                     isSold = false;
                 }
                 else if (useInversion) //zero position
                 {
-                    if (isBought || isSold) Console.WriteLine($" {DateTime.Now} ===> Zero <====\n");
+                    if (isBought || isSold)
+                    {
+                        Console.WriteLine($" {DateTime.Now} ===> Zero <====\n");
+                    }
                     isBought = false;
                     isSold = false;
                 }
@@ -258,13 +264,19 @@ namespace PombotTest
             {
                 if (rsiMean < plot3Mean) //sell
                 {
-                    if (!isSold) Console.WriteLine($"{DateTime.Now} ===> SELL <====\n");
+                    if (!isSold)
+                    {
+                        Console.WriteLine($"{DateTime.Now} ===> SELL <====\n");
+                    }
                     isBought = false;
                     isSold = true;
                 }
                 else if (useInversion) //zero position
                 {
-                    if (isBought || isSold) Console.WriteLine($" {DateTime.Now} ===> Zero <====\n");
+                    if (isBought || isSold)
+                    {
+                        Console.WriteLine($" {DateTime.Now} ===> Zero <====\n");
+                    }
                     isBought = false;
                     isSold = false;
                 }
