@@ -42,11 +42,16 @@
             this.userPic = new System.Windows.Forms.PictureBox();
             this.passPic = new System.Windows.Forms.PictureBox();
             this.mailPic = new System.Windows.Forms.PictureBox();
+            this.winNameLB = new System.Windows.Forms.Label();
+            this.closeBT = new System.Windows.Forms.Button();
+            this.formNamePN = new System.Windows.Forms.Panel();
             this.PomBotIcon = new System.Windows.Forms.PictureBox();
+            this.passwordShowBT = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.namePic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mailPic)).BeginInit();
+            this.formNamePN.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PomBotIcon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,6 +82,7 @@
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(81, 13);
             this.name.TabIndex = 101;
+            this.name.TabStop = false;
             this.name.Tag = "1";
             this.name.Text = "PomBot v1.0";
             // 
@@ -97,12 +103,13 @@
             this.passwordTB.HideSelection = false;
             this.passwordTB.Location = new System.Drawing.Point(81, 355);
             this.passwordTB.Name = "passwordTB";
-            this.passwordTB.Size = new System.Drawing.Size(230, 19);
+            this.passwordTB.Size = new System.Drawing.Size(204, 19);
             this.passwordTB.TabIndex = 4;
             this.passwordTB.Tag = "3";
             this.passwordTB.Text = "password";
             this.passwordTB.Click += new System.EventHandler(this.passwordTB_Click);
             this.passwordTB.Enter += new System.EventHandler(this.passwordTB_Enter);
+            this.passwordTB.Leave += new System.EventHandler(this.passwordTB_Leave);
             // 
             // mailLn
             // 
@@ -127,6 +134,7 @@
             this.mailTB.Text = "e-mail";
             this.mailTB.Click += new System.EventHandler(this.mailTB_Click);
             this.mailTB.Enter += new System.EventHandler(this.mailTB_Enter);
+            this.mailTB.Leave += new System.EventHandler(this.mailTB_Leave);
             // 
             // userLn
             // 
@@ -151,6 +159,7 @@
             this.userTB.Text = "username";
             this.userTB.Click += new System.EventHandler(this.userTB_Click);
             this.userTB.Enter += new System.EventHandler(this.userTB_Enter);
+            this.userTB.Leave += new System.EventHandler(this.userTB_Leave);
             // 
             // nameLn
             // 
@@ -175,6 +184,7 @@
             this.nameTB.Text = "full name";
             this.nameTB.Click += new System.EventHandler(this.nameTB_Click);
             this.nameTB.Enter += new System.EventHandler(this.nameTB_Enter);
+            this.nameTB.Leave += new System.EventHandler(this.nameTB_Leave);
             // 
             // namePic
             // 
@@ -220,17 +230,78 @@
             this.mailPic.TabIndex = 103;
             this.mailPic.TabStop = false;
             // 
+            // winNameLB
+            // 
+            this.winNameLB.AutoSize = true;
+            this.winNameLB.Font = new System.Drawing.Font("Earth 2073", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.winNameLB.Location = new System.Drawing.Point(13, 6);
+            this.winNameLB.Name = "winNameLB";
+            this.winNameLB.Size = new System.Drawing.Size(76, 14);
+            this.winNameLB.TabIndex = 102;
+            this.winNameLB.Text = "REGISTER";
+            // 
+            // closeBT
+            // 
+            this.closeBT.BackColor = System.Drawing.Color.Transparent;
+            this.closeBT.BackgroundImage = global::Pombot_UI.Properties.Resources.close;
+            this.closeBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.closeBT.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.closeBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.closeBT.FlatAppearance.BorderSize = 0;
+            this.closeBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.closeBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeBT.Font = new System.Drawing.Font("Earth 2073", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.closeBT.ForeColor = System.Drawing.Color.White;
+            this.closeBT.Location = new System.Drawing.Point(324, 3);
+            this.closeBT.Name = "closeBT";
+            this.closeBT.Size = new System.Drawing.Size(20, 19);
+            this.closeBT.TabIndex = 101;
+            this.closeBT.TabStop = false;
+            this.closeBT.UseVisualStyleBackColor = false;
+            this.closeBT.Click += new System.EventHandler(this.closeBT_Click);
+            // 
+            // formNamePN
+            // 
+            this.formNamePN.BackColor = System.Drawing.Color.Gray;
+            this.formNamePN.Controls.Add(this.winNameLB);
+            this.formNamePN.Controls.Add(this.closeBT);
+            this.formNamePN.Dock = System.Windows.Forms.DockStyle.Top;
+            this.formNamePN.Location = new System.Drawing.Point(0, 0);
+            this.formNamePN.Name = "formNamePN";
+            this.formNamePN.Size = new System.Drawing.Size(348, 26);
+            this.formNamePN.TabIndex = 114;
+            // 
             // PomBotIcon
             // 
             this.PomBotIcon.BackgroundImage = global::Pombot_UI.Properties.Resources.bird_icon;
             this.PomBotIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PomBotIcon.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.PomBotIcon.Location = new System.Drawing.Point(81, 52);
+            this.PomBotIcon.Location = new System.Drawing.Point(90, 46);
             this.PomBotIcon.Name = "PomBotIcon";
-            this.PomBotIcon.Size = new System.Drawing.Size(171, 96);
-            this.PomBotIcon.TabIndex = 1;
+            this.PomBotIcon.Size = new System.Drawing.Size(166, 114);
+            this.PomBotIcon.TabIndex = 103;
             this.PomBotIcon.TabStop = false;
             this.PomBotIcon.Tag = "1";
+            // 
+            // passwordShowBT
+            // 
+            this.passwordShowBT.BackColor = System.Drawing.Color.Transparent;
+            this.passwordShowBT.BackgroundImage = global::Pombot_UI.Properties.Resources.passwordShow;
+            this.passwordShowBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.passwordShowBT.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.passwordShowBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.passwordShowBT.FlatAppearance.BorderSize = 0;
+            this.passwordShowBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.passwordShowBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.passwordShowBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.passwordShowBT.Font = new System.Drawing.Font("Earth 2073", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passwordShowBT.ForeColor = System.Drawing.Color.White;
+            this.passwordShowBT.Location = new System.Drawing.Point(291, 355);
+            this.passwordShowBT.Name = "passwordShowBT";
+            this.passwordShowBT.Size = new System.Drawing.Size(20, 19);
+            this.passwordShowBT.TabIndex = 103;
+            this.passwordShowBT.TabStop = false;
+            this.passwordShowBT.UseVisualStyleBackColor = false;
+            this.passwordShowBT.Click += new System.EventHandler(this.passwordShowBT_Click);
             // 
             // Register
             // 
@@ -239,6 +310,9 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(348, 562);
+            this.Controls.Add(this.passwordShowBT);
+            this.Controls.Add(this.PomBotIcon);
+            this.Controls.Add(this.formNamePN);
             this.Controls.Add(this.nameLn);
             this.Controls.Add(this.nameTB);
             this.Controls.Add(this.namePic);
@@ -253,9 +327,7 @@
             this.Controls.Add(this.mailPic);
             this.Controls.Add(this.name);
             this.Controls.Add(this.RegisterUserBT);
-            this.Controls.Add(this.PomBotIcon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.Name = "Register";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Register";
@@ -263,6 +335,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.userPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.passPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mailPic)).EndInit();
+            this.formNamePN.ResumeLayout(false);
+            this.formNamePN.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PomBotIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -270,8 +344,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox PomBotIcon;
         private System.Windows.Forms.Button RegisterUserBT;
         private System.Windows.Forms.TextBox name;
         private System.Windows.Forms.Panel passwordLn;
@@ -286,5 +358,10 @@
         private System.Windows.Forms.Panel nameLn;
         private System.Windows.Forms.TextBox nameTB;
         private System.Windows.Forms.PictureBox namePic;
+        private System.Windows.Forms.Label winNameLB;
+        private System.Windows.Forms.Button closeBT;
+        private System.Windows.Forms.Panel formNamePN;
+        private System.Windows.Forms.PictureBox PomBotIcon;
+        private System.Windows.Forms.Button passwordShowBT;
     }
 }

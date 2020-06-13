@@ -117,47 +117,112 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="winNameLB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="winNameLB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 9.75pt</value>
+  </data>
+  <data name="winNameLB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 6</value>
+  </data>
+  <data name="winNameLB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 14</value>
+  </data>
+  <data name="winNameLB.TabIndex" type="System.Int32, mscorlib">
+    <value>102</value>
+  </data>
+  <data name="winNameLB.Text" xml:space="preserve">
+    <value>POMBOT V1.0</value>
+  </data>
+  <data name="&gt;&gt;winNameLB.Name" xml:space="preserve">
+    <value>winNameLB</value>
+  </data>
+  <data name="&gt;&gt;winNameLB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;winNameLB.Parent" xml:space="preserve">
+    <value>formNamePN</value>
+  </data>
+  <data name="&gt;&gt;winNameLB.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="bird-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bird-icon-png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="closeBT.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
   </data>
-  <data name="userLogin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\userLogin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="closeBT.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
   </data>
-  <data name="userPassword" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\userPassword.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="closeBT.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 8.25pt, style=Bold</value>
   </data>
-  <data name="userLogin2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\userLogin2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="closeBT.Location" type="System.Drawing.Point, System.Drawing">
+    <value>768, 4</value>
   </data>
-  <data name="userPassword2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\userPassword2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="closeBT.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 19</value>
   </data>
-  <data name="bird_icon2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bird-icon4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="closeBT.TabIndex" type="System.Int32, mscorlib">
+    <value>101</value>
   </data>
-  <data name="userEmail" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\userEmail.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="&gt;&gt;closeBT.Name" xml:space="preserve">
+    <value>closeBT</value>
   </data>
-  <data name="userEmail2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\userEmail2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="&gt;&gt;closeBT.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="userName" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\userName.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="&gt;&gt;closeBT.Parent" xml:space="preserve">
+    <value>formNamePN</value>
   </data>
-  <data name="userName2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\userName2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="&gt;&gt;closeBT.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="close" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="formNamePN.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="close2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\close2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="formNamePN.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="passwordShow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\passwordShow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="formNamePN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 26</value>
   </data>
-  <data name="passwordShow2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\passwordShow2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="formNamePN.TabIndex" type="System.Int32, mscorlib">
+    <value>105</value>
+  </data>
+  <data name="&gt;&gt;formNamePN.Name" xml:space="preserve">
+    <value>formNamePN</value>
+  </data>
+  <data name="&gt;&gt;formNamePN.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;formNamePN.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;formNamePN.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>800, 450</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>PomBotApp</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>PomBotApp</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

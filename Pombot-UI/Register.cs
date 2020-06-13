@@ -12,21 +12,25 @@ namespace Pombot_UI
 {
     public partial class Register : Form
     {
+        private bool hiddenPass = true;
+
         public Register()
         {
             InitializeComponent();
         }
 
-
         private void RegisterUserBT_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Application.Exit(); //BE REMOVED
+            PomBot login = new PomBot();
+            login.Show();
+            this.Hide();
         }
 
         private void nameTB_Click(object sender, EventArgs e)
         {
-            nameTB.Clear();
+            if (nameTB.Text == "full name") nameTB.Clear();
+            nameTB.SelectAll();
+            nameTB.Focus();
             namePic.BackgroundImage = Properties.Resources.userName2;
             nameLn.BackColor = Color.White;
             nameTB.ForeColor = Color.White;
@@ -44,7 +48,9 @@ namespace Pombot_UI
 
         private void userTB_Click(object sender, EventArgs e)
         {
-            userTB.Clear();
+            if (userTB.Text == "username") userTB.Clear();
+            userTB.SelectAll();
+            userTB.Focus();
             userPic.BackgroundImage = Properties.Resources.userLogin2;
             userLn.BackColor = Color.White;
             userTB.ForeColor = Color.White;
@@ -62,7 +68,9 @@ namespace Pombot_UI
 
         private void mailTB_Click(object sender, EventArgs e)
         {
-            mailTB.Clear();
+            if (mailTB.Text == "e-mail") mailTB.Clear();
+            mailTB.SelectAll();
+            mailTB.Focus();
             mailPic.BackgroundImage = Properties.Resources.userEmail2;
             mailLn.BackColor = Color.White;
             mailTB.ForeColor = Color.White;
@@ -80,8 +88,10 @@ namespace Pombot_UI
 
         private void passwordTB_Click(object sender, EventArgs e)
         {
-            passwordTB.Clear();
-            passwordTB.PasswordChar = '*';
+            if (passwordTB.Text == "password") passwordTB.Clear();
+            if (hiddenPass) passwordTB.UseSystemPasswordChar = true;
+            passwordTB.SelectAll();
+            passwordTB.Focus();
             passPic.BackgroundImage = Properties.Resources.userPassword2;
             passwordLn.BackColor = Color.White;
             passwordTB.ForeColor = Color.White;
@@ -99,7 +109,9 @@ namespace Pombot_UI
 
         private void nameTB_Enter(object sender, EventArgs e)
         {
-            nameTB.Clear();
+            if (nameTB.Text == "full name") nameTB.Clear();
+            nameTB.SelectAll();
+            nameTB.Focus();
             namePic.BackgroundImage = Properties.Resources.userName2;
             nameLn.BackColor = Color.White;
             nameTB.ForeColor = Color.White;
@@ -117,7 +129,9 @@ namespace Pombot_UI
 
         private void userTB_Enter(object sender, EventArgs e)
         {
-            userTB.Clear();
+            if (userTB.Text == "username") userTB.Clear();
+            userTB.SelectAll();
+            userTB.Focus();
             userPic.BackgroundImage = Properties.Resources.userLogin2;
             userLn.BackColor = Color.White;
             userTB.ForeColor = Color.White;
@@ -135,7 +149,9 @@ namespace Pombot_UI
 
         private void mailTB_Enter(object sender, EventArgs e)
         {
-            mailTB.Clear();
+            if (mailTB.Text == "e-mail") mailTB.Clear();
+            mailTB.SelectAll();
+            mailTB.Focus();
             mailPic.BackgroundImage = Properties.Resources.userEmail2;
             mailLn.BackColor = Color.White;
             mailTB.ForeColor = Color.White;
@@ -153,8 +169,10 @@ namespace Pombot_UI
 
         private void passwordTB_Enter(object sender, EventArgs e)
         {
-            passwordTB.Clear();
-            passwordTB.PasswordChar = '*';
+            if (passwordTB.Text == "password") passwordTB.Clear();
+            if (hiddenPass) passwordTB.UseSystemPasswordChar = true;
+            passwordTB.SelectAll();
+            passwordTB.Focus();
             passPic.BackgroundImage = Properties.Resources.userPassword2;
             passwordLn.BackColor = Color.White;
             passwordTB.ForeColor = Color.White;
@@ -168,6 +186,55 @@ namespace Pombot_UI
             namePic.BackgroundImage = Properties.Resources.userName;
             nameLn.BackColor = Color.Black;
             nameTB.ForeColor = Color.Black;
+        }
+
+        private void closeBT_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void passwordShowBT_Click(object sender, EventArgs e)
+        {
+            if (hiddenPass)
+            {
+                passwordTB.UseSystemPasswordChar = false;
+                passwordShowBT.BackgroundImage = Properties.Resources.passwordShow2;
+                hiddenPass = false;
+            }
+            else
+            {
+                passwordTB.UseSystemPasswordChar = true;
+                passwordShowBT.BackgroundImage = Properties.Resources.passwordShow;
+                hiddenPass = true;
+            }
+        }
+
+        private void passwordTB_Leave(object sender, EventArgs e)
+        {
+            if (passwordTB.Text == "")
+            {
+                passwordTB.Text = "password";
+                passwordTB.UseSystemPasswordChar = false;
+            }
+            passwordTB.DeselectAll();
+        }
+
+        private void nameTB_Leave(object sender, EventArgs e)
+        {
+            if (nameTB.Text == "") nameTB.Text = "full name";
+            nameTB.DeselectAll();
+        }
+
+        private void userTB_Leave(object sender, EventArgs e)
+        {
+            if (userTB.Text == "") userTB.Text = "username";
+            userTB.DeselectAll();
+        }
+
+        private void mailTB_Leave(object sender, EventArgs e)
+        {
+            if (mailTB.Text == "") mailTB.Text = "e-mail";
+            mailTB.DeselectAll();
         }
     }
 }
