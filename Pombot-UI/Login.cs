@@ -17,6 +17,7 @@ namespace Pombot_UI
         public PomBot()
         {
             InitializeComponent();
+            nameApp.Text = Program.appName;
         }
 
 
@@ -30,10 +31,11 @@ namespace Pombot_UI
 
         private void SignInBT_Click(object sender, EventArgs e)
         {
-            if (UserNameTB.Text == "philipeng" && PasswordTB.Text == "12345")
+            if (UserNameTB.Text == "philipe" && PasswordTB.Text == "1")
             {
-                PomBotApp mainAppForm = new PomBotApp();
+                PomBotAppForm mainAppForm = new PomBotAppForm();
                 mainAppForm.Show();
+                Program.userName = "philipe";
                 this.Hide();
             }
             else

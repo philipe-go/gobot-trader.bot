@@ -36,7 +36,7 @@ namespace Pombot_UI
             this.PasswordTB = new System.Windows.Forms.TextBox();
             this.SignInBT = new System.Windows.Forms.Button();
             this.RegisterBT = new System.Windows.Forms.Button();
-            this.name = new System.Windows.Forms.TextBox();
+            this.nameApp = new System.Windows.Forms.TextBox();
             this.formNamePN = new System.Windows.Forms.Panel();
             this.winNameLB = new System.Windows.Forms.Label();
             this.closeBT = new System.Windows.Forms.Button();
@@ -110,7 +110,7 @@ namespace Pombot_UI
             this.SignInBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SignInBT.Font = new System.Drawing.Font("Earth 2073", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignInBT.ForeColor = System.Drawing.Color.White;
-            this.SignInBT.Location = new System.Drawing.Point(90, 303);
+            this.SignInBT.Location = new System.Drawing.Point(88, 303);
             this.SignInBT.Name = "SignInBT";
             this.SignInBT.Size = new System.Drawing.Size(166, 37);
             this.SignInBT.TabIndex = 3;
@@ -128,7 +128,7 @@ namespace Pombot_UI
             this.RegisterBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RegisterBT.Font = new System.Drawing.Font("Earth 2073", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RegisterBT.ForeColor = System.Drawing.Color.White;
-            this.RegisterBT.Location = new System.Drawing.Point(90, 358);
+            this.RegisterBT.Location = new System.Drawing.Point(88, 358);
             this.RegisterBT.Name = "RegisterBT";
             this.RegisterBT.Size = new System.Drawing.Size(166, 28);
             this.RegisterBT.TabIndex = 4;
@@ -136,18 +136,18 @@ namespace Pombot_UI
             this.RegisterBT.UseVisualStyleBackColor = false;
             this.RegisterBT.Click += new System.EventHandler(this.RegisterBT_Click);
             // 
-            // name
+            // nameApp
             // 
-            this.name.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.name.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.name.Font = new System.Drawing.Font("Earth 2073", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.name.Location = new System.Drawing.Point(263, 412);
-            this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(81, 13);
-            this.name.TabIndex = 100;
-            this.name.TabStop = false;
-            this.name.Tag = "1";
-            this.name.Text = "PomBot v1.0";
+            this.nameApp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.nameApp.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.nameApp.Font = new System.Drawing.Font("Earth 2073", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameApp.Location = new System.Drawing.Point(263, 412);
+            this.nameApp.Name = "nameApp";
+            this.nameApp.Size = new System.Drawing.Size(81, 13);
+            this.nameApp.TabIndex = 100;
+            this.nameApp.TabStop = false;
+            this.nameApp.Tag = "1";
+            this.nameApp.Text = "PomBot v1.0";
             // 
             // formNamePN
             // 
@@ -164,7 +164,7 @@ namespace Pombot_UI
             // 
             this.winNameLB.AutoSize = true;
             this.winNameLB.Font = new System.Drawing.Font("Earth 2073", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.winNameLB.Location = new System.Drawing.Point(13, 6);
+            this.winNameLB.Location = new System.Drawing.Point(13, 5);
             this.winNameLB.Name = "winNameLB";
             this.winNameLB.Size = new System.Drawing.Size(50, 14);
             this.winNameLB.TabIndex = 102;
@@ -208,7 +208,7 @@ namespace Pombot_UI
             this.passwordShowBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.passwordShowBT.Font = new System.Drawing.Font("Earth 2073", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordShowBT.ForeColor = System.Drawing.Color.White;
-            this.passwordShowBT.Location = new System.Drawing.Point(291, 243);
+            this.passwordShowBT.Location = new System.Drawing.Point(291, 238);
             this.passwordShowBT.Name = "passwordShowBT";
             this.passwordShowBT.Size = new System.Drawing.Size(20, 19);
             this.passwordShowBT.TabIndex = 102;
@@ -220,7 +220,7 @@ namespace Pombot_UI
             // 
             this.passPic.BackgroundImage = global::Pombot_UI.Properties.Resources.userPassword;
             this.passPic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.passPic.Location = new System.Drawing.Point(38, 231);
+            this.passPic.Location = new System.Drawing.Point(38, 230);
             this.passPic.Name = "passPic";
             this.passPic.Size = new System.Drawing.Size(34, 34);
             this.passPic.TabIndex = 5;
@@ -251,8 +251,8 @@ namespace Pombot_UI
             // 
             this.wrongTB.AutoSize = true;
             this.wrongTB.Font = new System.Drawing.Font("Earth 2073", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wrongTB.ForeColor = System.Drawing.Color.Red;
-            this.wrongTB.Location = new System.Drawing.Point(70, 286);
+            this.wrongTB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.wrongTB.Location = new System.Drawing.Point(71, 280);
             this.wrongTB.Name = "wrongTB";
             this.wrongTB.Size = new System.Drawing.Size(200, 14);
             this.wrongTB.TabIndex = 103;
@@ -268,7 +268,7 @@ namespace Pombot_UI
             this.Controls.Add(this.wrongTB);
             this.Controls.Add(this.formNamePN);
             this.Controls.Add(this.passwordShowBT);
-            this.Controls.Add(this.name);
+            this.Controls.Add(this.nameApp);
             this.Controls.Add(this.RegisterBT);
             this.Controls.Add(this.SignInBT);
             this.Controls.Add(this.PasswordLn);
@@ -305,7 +305,7 @@ namespace Pombot_UI
         private System.Windows.Forms.PictureBox passPic;
         private System.Windows.Forms.Button SignInBT;
         private System.Windows.Forms.Button RegisterBT;
-        private System.Windows.Forms.TextBox name;
+        private System.Windows.Forms.TextBox nameApp;
         private System.Windows.Forms.Button closeBT;
         private System.Windows.Forms.Button passwordShowBT;
         private System.Windows.Forms.Panel formNamePN;

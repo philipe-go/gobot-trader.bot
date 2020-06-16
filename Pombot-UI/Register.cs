@@ -17,6 +17,7 @@ namespace Pombot_UI
         public Register()
         {
             InitializeComponent();
+            nameApp.Text = Program.appName;
         }
 
         private void RegisterUserBT_Click(object sender, EventArgs e)

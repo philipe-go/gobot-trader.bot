@@ -48,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NDde">
+      <HintPath>..\bin\Debug\NDde.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -81,6 +84,8 @@
     <Compile Include="Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
+    <Compile Include="RobotLibrary\Dashboard.cs" />
+    <Compile Include="RobotLibrary\Strategy.cs" />
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,6 +137,7 @@
     <None Include="Resources\userEmail.png" />
     <None Include="Resources\passwordShow.png" />
     <None Include="Resources\passwordShow2.png" />
+    <None Include="Resources\clock.png" />
     <Content Include="Resources\userLogin2.png" />
     <Content Include="Resources\userPassword2.png" />
   </ItemGroup>

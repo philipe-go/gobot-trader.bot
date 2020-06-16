@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.RegisterUserBT = new System.Windows.Forms.Button();
-            this.name = new System.Windows.Forms.TextBox();
+            this.nameApp = new System.Windows.Forms.TextBox();
             this.passwordLn = new System.Windows.Forms.Panel();
             this.passwordTB = new System.Windows.Forms.TextBox();
             this.mailLn = new System.Windows.Forms.Panel();
@@ -73,18 +73,18 @@
             this.RegisterUserBT.UseVisualStyleBackColor = false;
             this.RegisterUserBT.Click += new System.EventHandler(this.RegisterUserBT_Click);
             // 
-            // name
+            // nameApp
             // 
-            this.name.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.name.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.name.Font = new System.Drawing.Font("Earth 2073", 8.25F);
-            this.name.Location = new System.Drawing.Point(255, 537);
-            this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(81, 13);
-            this.name.TabIndex = 101;
-            this.name.TabStop = false;
-            this.name.Tag = "1";
-            this.name.Text = "PomBot v1.0";
+            this.nameApp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.nameApp.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.nameApp.Font = new System.Drawing.Font("Earth 2073", 8.25F);
+            this.nameApp.Location = new System.Drawing.Point(255, 537);
+            this.nameApp.Name = "nameApp";
+            this.nameApp.Size = new System.Drawing.Size(81, 13);
+            this.nameApp.TabIndex = 101;
+            this.nameApp.TabStop = false;
+            this.nameApp.Tag = "1";
+            this.nameApp.Text = "PomBot v1.0";
             // 
             // passwordLn
             // 
@@ -325,7 +325,7 @@
             this.Controls.Add(this.passPic);
             this.Controls.Add(this.mailTB);
             this.Controls.Add(this.mailPic);
-            this.Controls.Add(this.name);
+            this.Controls.Add(this.nameApp);
             this.Controls.Add(this.RegisterUserBT);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Register";
@@ -345,7 +345,7 @@
 
         #endregion
         private System.Windows.Forms.Button RegisterUserBT;
-        private System.Windows.Forms.TextBox name;
+        private System.Windows.Forms.TextBox nameApp;
         private System.Windows.Forms.Panel passwordLn;
         private System.Windows.Forms.TextBox passwordTB;
         private System.Windows.Forms.Panel mailLn;
