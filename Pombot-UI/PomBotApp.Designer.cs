@@ -49,6 +49,18 @@
             this.panelHL = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dashboardPN = new System.Windows.Forms.Panel();
+            this.StrategyParameters = new System.Windows.Forms.Panel();
+            this.renkoTB = new System.Windows.Forms.Label();
+            this.renkoInput = new System.Windows.Forms.HScrollBar();
+            this.rsiHistoryTB = new System.Windows.Forms.Label();
+            this.plot3TB = new System.Windows.Forms.Label();
+            this.rsiHistoryInput = new System.Windows.Forms.HScrollBar();
+            this.plot3Input = new System.Windows.Forms.HScrollBar();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.openProfit = new System.Windows.Forms.Label();
             this.ddeConnectLB = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
@@ -67,18 +79,22 @@
             this.configLB = new System.Windows.Forms.Label();
             this.bot2PN = new System.Windows.Forms.Panel();
             this.bot2LB = new System.Windows.Forms.Label();
-            this.openProfit = new System.Windows.Forms.Label();
+            this.RobotStatus = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.robotLB = new System.Windows.Forms.Label();
             this.formNamePN.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.userPic)).BeginInit();
             this.menuPN.SuspendLayout();
             this.panel1.SuspendLayout();
             this.dashboardPN.SuspendLayout();
+            this.StrategyParameters.SuspendLayout();
             this.bot3PN.SuspendLayout();
             this.bot4PN.SuspendLayout();
             this.bot1PN.SuspendLayout();
             this.howToPN.SuspendLayout();
             this.configPN.SuspendLayout();
             this.bot2PN.SuspendLayout();
+            this.RobotStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // winNameLB
@@ -269,6 +285,8 @@
             // dashboardPN
             // 
             this.dashboardPN.BackColor = System.Drawing.Color.Gray;
+            this.dashboardPN.Controls.Add(this.RobotStatus);
+            this.dashboardPN.Controls.Add(this.StrategyParameters);
             this.dashboardPN.Controls.Add(this.openProfit);
             this.dashboardPN.Controls.Add(this.ddeConnectLB);
             this.dashboardPN.Controls.Add(this.label1);
@@ -278,6 +296,99 @@
             this.dashboardPN.Controls.Add(this.bashboardLB);
             resources.ApplyResources(this.dashboardPN, "dashboardPN");
             this.dashboardPN.Name = "dashboardPN";
+            // 
+            // StrategyParameters
+            // 
+            this.StrategyParameters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.StrategyParameters.Controls.Add(this.renkoTB);
+            this.StrategyParameters.Controls.Add(this.renkoInput);
+            this.StrategyParameters.Controls.Add(this.rsiHistoryTB);
+            this.StrategyParameters.Controls.Add(this.plot3TB);
+            this.StrategyParameters.Controls.Add(this.rsiHistoryInput);
+            this.StrategyParameters.Controls.Add(this.plot3Input);
+            this.StrategyParameters.Controls.Add(this.label5);
+            this.StrategyParameters.Controls.Add(this.label4);
+            this.StrategyParameters.Controls.Add(this.label3);
+            this.StrategyParameters.Controls.Add(this.label2);
+            resources.ApplyResources(this.StrategyParameters, "StrategyParameters");
+            this.StrategyParameters.Name = "StrategyParameters";
+            // 
+            // renkoTB
+            // 
+            resources.ApplyResources(this.renkoTB, "renkoTB");
+            this.renkoTB.ForeColor = System.Drawing.Color.Black;
+            this.renkoTB.Name = "renkoTB";
+            // 
+            // renkoInput
+            // 
+            resources.ApplyResources(this.renkoInput, "renkoInput");
+            this.renkoInput.LargeChange = 1;
+            this.renkoInput.Maximum = 10;
+            this.renkoInput.Minimum = 1;
+            this.renkoInput.Name = "renkoInput";
+            this.renkoInput.Value = 1;
+            this.renkoInput.Scroll += new System.Windows.Forms.ScrollEventHandler(this.renkoInput_Scroll);
+            // 
+            // rsiHistoryTB
+            // 
+            resources.ApplyResources(this.rsiHistoryTB, "rsiHistoryTB");
+            this.rsiHistoryTB.ForeColor = System.Drawing.Color.Black;
+            this.rsiHistoryTB.Name = "rsiHistoryTB";
+            // 
+            // plot3TB
+            // 
+            resources.ApplyResources(this.plot3TB, "plot3TB");
+            this.plot3TB.ForeColor = System.Drawing.Color.Black;
+            this.plot3TB.Name = "plot3TB";
+            // 
+            // rsiHistoryInput
+            // 
+            resources.ApplyResources(this.rsiHistoryInput, "rsiHistoryInput");
+            this.rsiHistoryInput.LargeChange = 5;
+            this.rsiHistoryInput.Minimum = 7;
+            this.rsiHistoryInput.Name = "rsiHistoryInput";
+            this.rsiHistoryInput.Value = 7;
+            this.rsiHistoryInput.Scroll += new System.Windows.Forms.ScrollEventHandler(this.rsiHistoryInput_Scroll);
+            // 
+            // plot3Input
+            // 
+            this.plot3Input.LargeChange = 5;
+            resources.ApplyResources(this.plot3Input, "plot3Input");
+            this.plot3Input.Maximum = 20;
+            this.plot3Input.Minimum = 1;
+            this.plot3Input.Name = "plot3Input";
+            this.plot3Input.Value = 1;
+            this.plot3Input.Scroll += new System.Windows.Forms.ScrollEventHandler(this.plot3Input_Scroll);
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Name = "label5";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Name = "label4";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Name = "label3";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Name = "label2";
+            // 
+            // openProfit
+            // 
+            resources.ApplyResources(this.openProfit, "openProfit");
+            this.openProfit.ForeColor = System.Drawing.Color.Red;
+            this.openProfit.Name = "openProfit";
             // 
             // ddeConnectLB
             // 
@@ -402,11 +513,25 @@
             resources.ApplyResources(this.bot2LB, "bot2LB");
             this.bot2LB.Name = "bot2LB";
             // 
-            // openProfit
+            // RobotStatus
             // 
-            resources.ApplyResources(this.openProfit, "openProfit");
-            this.openProfit.ForeColor = System.Drawing.Color.Red;
-            this.openProfit.Name = "openProfit";
+            this.RobotStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RobotStatus.Controls.Add(this.robotLB);
+            this.RobotStatus.Controls.Add(this.label6);
+            resources.ApplyResources(this.RobotStatus, "RobotStatus");
+            this.RobotStatus.Name = "RobotStatus";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Name = "label6";
+            // 
+            // robotLB
+            // 
+            resources.ApplyResources(this.robotLB, "robotLB");
+            this.robotLB.ForeColor = System.Drawing.Color.Black;
+            this.robotLB.Name = "robotLB";
             // 
             // PomBotAppForm
             // 
@@ -427,6 +552,8 @@
             this.panel1.ResumeLayout(false);
             this.dashboardPN.ResumeLayout(false);
             this.dashboardPN.PerformLayout();
+            this.StrategyParameters.ResumeLayout(false);
+            this.StrategyParameters.PerformLayout();
             this.bot3PN.ResumeLayout(false);
             this.bot3PN.PerformLayout();
             this.bot4PN.ResumeLayout(false);
@@ -439,6 +566,8 @@
             this.configPN.PerformLayout();
             this.bot2PN.ResumeLayout(false);
             this.bot2PN.PerformLayout();
+            this.RobotStatus.ResumeLayout(false);
+            this.RobotStatus.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -484,5 +613,19 @@
         private System.Windows.Forms.Label ddeConnectLB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label openProfit;
+        private System.Windows.Forms.Panel StrategyParameters;
+        private System.Windows.Forms.Label renkoTB;
+        private System.Windows.Forms.HScrollBar renkoInput;
+        private System.Windows.Forms.Label rsiHistoryTB;
+        private System.Windows.Forms.Label plot3TB;
+        private System.Windows.Forms.HScrollBar rsiHistoryInput;
+        private System.Windows.Forms.HScrollBar plot3Input;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel RobotStatus;
+        private System.Windows.Forms.Label robotLB;
+        private System.Windows.Forms.Label label6;
     }
 }

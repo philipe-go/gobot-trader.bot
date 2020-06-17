@@ -153,66 +153,6 @@
   <data name="&gt;&gt;winNameLB.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;userPic.Name" xml:space="preserve">
-    <value>userPic</value>
-  </data>
-  <data name="&gt;&gt;userPic.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;userPic.Parent" xml:space="preserve">
-    <value>formNamePN</value>
-  </data>
-  <data name="&gt;&gt;userPic.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dateLB.Name" xml:space="preserve">
-    <value>dateLB</value>
-  </data>
-  <data name="&gt;&gt;dateLB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dateLB.Parent" xml:space="preserve">
-    <value>formNamePN</value>
-  </data>
-  <data name="&gt;&gt;dateLB.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;usernameLB.Name" xml:space="preserve">
-    <value>usernameLB</value>
-  </data>
-  <data name="&gt;&gt;usernameLB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;usernameLB.Parent" xml:space="preserve">
-    <value>formNamePN</value>
-  </data>
-  <data name="&gt;&gt;usernameLB.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="formNamePN.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="formNamePN.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="formNamePN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>800, 43</value>
-  </data>
-  <data name="formNamePN.TabIndex" type="System.Int32, mscorlib">
-    <value>105</value>
-  </data>
-  <data name="&gt;&gt;formNamePN.Name" xml:space="preserve">
-    <value>formNamePN</value>
-  </data>
-  <data name="&gt;&gt;formNamePN.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;formNamePN.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;formNamePN.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="userPic.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
   </data>
@@ -312,137 +252,29 @@
   <data name="&gt;&gt;usernameLB.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;exitBT.Name" xml:space="preserve">
-    <value>exitBT</value>
+  <data name="formNamePN.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="&gt;&gt;exitBT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="formNamePN.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="&gt;&gt;exitBT.Parent" xml:space="preserve">
-    <value>menuPN</value>
+  <data name="formNamePN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 43</value>
   </data>
-  <data name="&gt;&gt;exitBT.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="formNamePN.TabIndex" type="System.Int32, mscorlib">
+    <value>105</value>
   </data>
-  <data name="&gt;&gt;configBT.Name" xml:space="preserve">
-    <value>configBT</value>
+  <data name="&gt;&gt;formNamePN.Name" xml:space="preserve">
+    <value>formNamePN</value>
   </data>
-  <data name="&gt;&gt;configBT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;configBT.Parent" xml:space="preserve">
-    <value>menuPN</value>
-  </data>
-  <data name="&gt;&gt;configBT.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;howToBT.Name" xml:space="preserve">
-    <value>howToBT</value>
-  </data>
-  <data name="&gt;&gt;howToBT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;howToBT.Parent" xml:space="preserve">
-    <value>menuPN</value>
-  </data>
-  <data name="&gt;&gt;howToBT.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;bot4BT.Name" xml:space="preserve">
-    <value>bot4BT</value>
-  </data>
-  <data name="&gt;&gt;bot4BT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bot4BT.Parent" xml:space="preserve">
-    <value>menuPN</value>
-  </data>
-  <data name="&gt;&gt;bot4BT.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;bot3BT.Name" xml:space="preserve">
-    <value>bot3BT</value>
-  </data>
-  <data name="&gt;&gt;bot3BT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bot3BT.Parent" xml:space="preserve">
-    <value>menuPN</value>
-  </data>
-  <data name="&gt;&gt;bot3BT.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;bot2BT.Name" xml:space="preserve">
-    <value>bot2BT</value>
-  </data>
-  <data name="&gt;&gt;bot2BT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bot2BT.Parent" xml:space="preserve">
-    <value>menuPN</value>
-  </data>
-  <data name="&gt;&gt;bot2BT.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;bot1BT.Name" xml:space="preserve">
-    <value>bot1BT</value>
-  </data>
-  <data name="&gt;&gt;bot1BT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bot1BT.Parent" xml:space="preserve">
-    <value>menuPN</value>
-  </data>
-  <data name="&gt;&gt;bot1BT.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;dashboardBT.Name" xml:space="preserve">
-    <value>dashboardBT</value>
-  </data>
-  <data name="&gt;&gt;dashboardBT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dashboardBT.Parent" xml:space="preserve">
-    <value>menuPN</value>
-  </data>
-  <data name="&gt;&gt;dashboardBT.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;buttonHL.Name" xml:space="preserve">
-    <value>buttonHL</value>
-  </data>
-  <data name="&gt;&gt;buttonHL.Type" xml:space="preserve">
+  <data name="&gt;&gt;formNamePN.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonHL.Parent" xml:space="preserve">
-    <value>menuPN</value>
-  </data>
-  <data name="&gt;&gt;buttonHL.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="menuPN.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="menuPN.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 43</value>
-  </data>
-  <data name="menuPN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 407</value>
-  </data>
-  <data name="menuPN.TabIndex" type="System.Int32, mscorlib">
-    <value>106</value>
-  </data>
-  <data name="&gt;&gt;menuPN.Name" xml:space="preserve">
-    <value>menuPN</value>
-  </data>
-  <data name="&gt;&gt;menuPN.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuPN.Parent" xml:space="preserve">
+  <data name="&gt;&gt;formNamePN.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;menuPN.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;formNamePN.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="exitBT.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Center</value>
@@ -777,6 +609,30 @@
   <data name="&gt;&gt;buttonHL.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <data name="menuPN.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="menuPN.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 43</value>
+  </data>
+  <data name="menuPN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 407</value>
+  </data>
+  <data name="menuPN.TabIndex" type="System.Int32, mscorlib">
+    <value>106</value>
+  </data>
+  <data name="&gt;&gt;menuPN.Name" xml:space="preserve">
+    <value>menuPN</value>
+  </data>
+  <data name="&gt;&gt;menuPN.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuPN.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menuPN.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -799,6 +655,441 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panelHL.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="robotLB.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="robotLB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="robotLB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 9.75pt</value>
+  </data>
+  <data name="robotLB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="robotLB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 32</value>
+  </data>
+  <data name="robotLB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 14</value>
+  </data>
+  <data name="robotLB.TabIndex" type="System.Int32, mscorlib">
+    <value>122</value>
+  </data>
+  <data name="robotLB.Text" xml:space="preserve">
+    <value>Renko fractal:</value>
+  </data>
+  <data name="&gt;&gt;robotLB.Name" xml:space="preserve">
+    <value>robotLB</value>
+  </data>
+  <data name="&gt;&gt;robotLB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;robotLB.Parent" xml:space="preserve">
+    <value>RobotStatus</value>
+  </data>
+  <data name="&gt;&gt;robotLB.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 11.25pt</value>
+  </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>54, 2</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>127, 16</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>109</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Robot Status</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>RobotStatus</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="RobotStatus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>360, 76</value>
+  </data>
+  <data name="RobotStatus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 194</value>
+  </data>
+  <data name="RobotStatus.TabIndex" type="System.Int32, mscorlib">
+    <value>116</value>
+  </data>
+  <data name="&gt;&gt;RobotStatus.Name" xml:space="preserve">
+    <value>RobotStatus</value>
+  </data>
+  <data name="&gt;&gt;RobotStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RobotStatus.Parent" xml:space="preserve">
+    <value>dashboardPN</value>
+  </data>
+  <data name="&gt;&gt;RobotStatus.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="renkoTB.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="renkoTB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="renkoTB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 9.75pt</value>
+  </data>
+  <data name="renkoTB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="renkoTB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>271, 31</value>
+  </data>
+  <data name="renkoTB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 14</value>
+  </data>
+  <data name="renkoTB.TabIndex" type="System.Int32, mscorlib">
+    <value>121</value>
+  </data>
+  <data name="renkoTB.Text" xml:space="preserve">
+    <value>1R</value>
+  </data>
+  <data name="&gt;&gt;renkoTB.Name" xml:space="preserve">
+    <value>renkoTB</value>
+  </data>
+  <data name="&gt;&gt;renkoTB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;renkoTB.Parent" xml:space="preserve">
+    <value>StrategyParameters</value>
+  </data>
+  <data name="&gt;&gt;renkoTB.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="renkoInput.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="renkoInput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>181, 30</value>
+  </data>
+  <data name="renkoInput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="renkoInput.TabIndex" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <data name="&gt;&gt;renkoInput.Name" xml:space="preserve">
+    <value>renkoInput</value>
+  </data>
+  <data name="&gt;&gt;renkoInput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.HScrollBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;renkoInput.Parent" xml:space="preserve">
+    <value>StrategyParameters</value>
+  </data>
+  <data name="&gt;&gt;renkoInput.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="rsiHistoryTB.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="rsiHistoryTB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rsiHistoryTB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 9.75pt</value>
+  </data>
+  <data name="rsiHistoryTB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rsiHistoryTB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>271, 59</value>
+  </data>
+  <data name="rsiHistoryTB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 14</value>
+  </data>
+  <data name="rsiHistoryTB.TabIndex" type="System.Int32, mscorlib">
+    <value>119</value>
+  </data>
+  <data name="rsiHistoryTB.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;rsiHistoryTB.Name" xml:space="preserve">
+    <value>rsiHistoryTB</value>
+  </data>
+  <data name="&gt;&gt;rsiHistoryTB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rsiHistoryTB.Parent" xml:space="preserve">
+    <value>StrategyParameters</value>
+  </data>
+  <data name="&gt;&gt;rsiHistoryTB.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="plot3TB.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="plot3TB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="plot3TB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 9.75pt</value>
+  </data>
+  <data name="plot3TB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="plot3TB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>271, 90</value>
+  </data>
+  <data name="plot3TB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 14</value>
+  </data>
+  <data name="plot3TB.TabIndex" type="System.Int32, mscorlib">
+    <value>118</value>
+  </data>
+  <data name="plot3TB.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;plot3TB.Name" xml:space="preserve">
+    <value>plot3TB</value>
+  </data>
+  <data name="&gt;&gt;plot3TB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;plot3TB.Parent" xml:space="preserve">
+    <value>StrategyParameters</value>
+  </data>
+  <data name="&gt;&gt;plot3TB.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="rsiHistoryInput.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rsiHistoryInput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>181, 58</value>
+  </data>
+  <data name="rsiHistoryInput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="rsiHistoryInput.TabIndex" type="System.Int32, mscorlib">
+    <value>117</value>
+  </data>
+  <data name="&gt;&gt;rsiHistoryInput.Name" xml:space="preserve">
+    <value>rsiHistoryInput</value>
+  </data>
+  <data name="&gt;&gt;rsiHistoryInput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.HScrollBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rsiHistoryInput.Parent" xml:space="preserve">
+    <value>StrategyParameters</value>
+  </data>
+  <data name="&gt;&gt;rsiHistoryInput.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="plot3Input.Location" type="System.Drawing.Point, System.Drawing">
+    <value>181, 89</value>
+  </data>
+  <data name="plot3Input.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="plot3Input.TabIndex" type="System.Int32, mscorlib">
+    <value>116</value>
+  </data>
+  <data name="&gt;&gt;plot3Input.Name" xml:space="preserve">
+    <value>plot3Input</value>
+  </data>
+  <data name="&gt;&gt;plot3Input.Type" xml:space="preserve">
+    <value>System.Windows.Forms.HScrollBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;plot3Input.Parent" xml:space="preserve">
+    <value>StrategyParameters</value>
+  </data>
+  <data name="&gt;&gt;plot3Input.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 9.75pt</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 59</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 14</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>111</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>RSI History size:</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>StrategyParameters</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 9.75pt</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 90</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 14</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>110</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Moving Medium size:</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>StrategyParameters</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 9.75pt</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>55, 31</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 14</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>109</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Renko fractal:</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>StrategyParameters</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 11.25pt</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>70, 0</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 16</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>108</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Strategy Parameters</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>StrategyParameters</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="StrategyParameters.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 75</value>
+  </data>
+  <data name="StrategyParameters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>335, 118</value>
+  </data>
+  <data name="StrategyParameters.TabIndex" type="System.Int32, mscorlib">
+    <value>115</value>
+  </data>
+  <data name="&gt;&gt;StrategyParameters.Name" xml:space="preserve">
+    <value>StrategyParameters</value>
+  </data>
+  <data name="&gt;&gt;StrategyParameters.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StrategyParameters.Parent" xml:space="preserve">
+    <value>dashboardPN</value>
+  </data>
+  <data name="&gt;&gt;StrategyParameters.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="openProfit.AutoSize" type="System.Boolean, mscorlib">
@@ -835,7 +1126,7 @@
     <value>dashboardPN</value>
   </data>
   <data name="&gt;&gt;openProfit.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="ddeConnectLB.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -847,7 +1138,7 @@
     <value>NoControl</value>
   </data>
   <data name="ddeConnectLB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>351, 60</value>
+    <value>377, 45</value>
   </data>
   <data name="ddeConnectLB.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 14</value>
@@ -868,7 +1159,7 @@
     <value>dashboardPN</value>
   </data>
   <data name="&gt;&gt;ddeConnectLB.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -880,16 +1171,16 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 60</value>
+    <value>16, 45</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 14</value>
+    <value>355, 14</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>107</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Connection status with trading app : </value>
+    <value>DDE Connection status with trading app : </value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -901,7 +1192,7 @@
     <value>dashboardPN</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="button3.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Center</value>
@@ -940,7 +1231,7 @@
     <value>dashboardPN</value>
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="button2.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Center</value>
@@ -979,7 +1270,7 @@
     <value>dashboardPN</value>
   </data>
   <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="reconnectDDE.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Center</value>
@@ -1018,7 +1309,7 @@
     <value>dashboardPN</value>
   </data>
   <data name="&gt;&gt;reconnectDDE.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="bashboardLB.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1051,7 +1342,7 @@
     <value>dashboardPN</value>
   </data>
   <data name="&gt;&gt;bashboardLB.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="dashboardPN.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -1076,6 +1367,27 @@
   </data>
   <data name="&gt;&gt;dashboardPN.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="bot3LB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bot3LB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 14.25pt</value>
+  </data>
+  <data name="bot3LB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="bot3LB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>270, 10</value>
+  </data>
+  <data name="bot3LB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 20</value>
+  </data>
+  <data name="bot3LB.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="bot3LB.Text" xml:space="preserve">
+    <value>BOT 03</value>
   </data>
   <data name="&gt;&gt;bot3LB.Name" xml:space="preserve">
     <value>bot3LB</value>
@@ -1116,6 +1428,27 @@
   <data name="&gt;&gt;bot3PN.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="bot4LB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bot4LB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 14.25pt</value>
+  </data>
+  <data name="bot4LB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="bot4LB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>270, 10</value>
+  </data>
+  <data name="bot4LB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 20</value>
+  </data>
+  <data name="bot4LB.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="bot4LB.Text" xml:space="preserve">
+    <value>BOT 04</value>
+  </data>
   <data name="&gt;&gt;bot4LB.Name" xml:space="preserve">
     <value>bot4LB</value>
   </data>
@@ -1154,6 +1487,27 @@
   </data>
   <data name="&gt;&gt;bot4PN.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="bot1LB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bot1LB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 14.25pt</value>
+  </data>
+  <data name="bot1LB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="bot1LB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>270, 10</value>
+  </data>
+  <data name="bot1LB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 20</value>
+  </data>
+  <data name="bot1LB.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="bot1LB.Text" xml:space="preserve">
+    <value>BOT 01</value>
   </data>
   <data name="&gt;&gt;bot1LB.Name" xml:space="preserve">
     <value>bot1LB</value>
@@ -1194,6 +1548,27 @@
   <data name="&gt;&gt;bot1PN.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="howToLB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="howToLB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 14.25pt</value>
+  </data>
+  <data name="howToLB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="howToLB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>270, 10</value>
+  </data>
+  <data name="howToLB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 20</value>
+  </data>
+  <data name="howToLB.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="howToLB.Text" xml:space="preserve">
+    <value>HOW TO</value>
+  </data>
   <data name="&gt;&gt;howToLB.Name" xml:space="preserve">
     <value>howToLB</value>
   </data>
@@ -1233,6 +1608,27 @@
   <data name="&gt;&gt;howToPN.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="configLB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="configLB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 14.25pt</value>
+  </data>
+  <data name="configLB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="configLB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 10</value>
+  </data>
+  <data name="configLB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 20</value>
+  </data>
+  <data name="configLB.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="configLB.Text" xml:space="preserve">
+    <value>CONFIGURATION</value>
+  </data>
   <data name="&gt;&gt;configLB.Name" xml:space="preserve">
     <value>configLB</value>
   </data>
@@ -1271,6 +1667,27 @@
   </data>
   <data name="&gt;&gt;configPN.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="bot2LB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bot2LB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Earth 2073, 14.25pt</value>
+  </data>
+  <data name="bot2LB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="bot2LB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>270, 10</value>
+  </data>
+  <data name="bot2LB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 20</value>
+  </data>
+  <data name="bot2LB.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="bot2LB.Text" xml:space="preserve">
+    <value>BOT 02</value>
   </data>
   <data name="&gt;&gt;bot2LB.Name" xml:space="preserve">
     <value>bot2LB</value>
@@ -1333,204 +1750,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="bot3LB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bot3LB.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Earth 2073, 14.25pt</value>
-  </data>
-  <data name="bot3LB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bot3LB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>270, 10</value>
-  </data>
-  <data name="bot3LB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 20</value>
-  </data>
-  <data name="bot3LB.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="bot3LB.Text" xml:space="preserve">
-    <value>BOT 03</value>
-  </data>
-  <data name="&gt;&gt;bot3LB.Name" xml:space="preserve">
-    <value>bot3LB</value>
-  </data>
-  <data name="&gt;&gt;bot3LB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bot3LB.Parent" xml:space="preserve">
-    <value>bot3PN</value>
-  </data>
-  <data name="&gt;&gt;bot3LB.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="bot4LB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bot4LB.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Earth 2073, 14.25pt</value>
-  </data>
-  <data name="bot4LB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bot4LB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>270, 10</value>
-  </data>
-  <data name="bot4LB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 20</value>
-  </data>
-  <data name="bot4LB.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="bot4LB.Text" xml:space="preserve">
-    <value>BOT 04</value>
-  </data>
-  <data name="&gt;&gt;bot4LB.Name" xml:space="preserve">
-    <value>bot4LB</value>
-  </data>
-  <data name="&gt;&gt;bot4LB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bot4LB.Parent" xml:space="preserve">
-    <value>bot4PN</value>
-  </data>
-  <data name="&gt;&gt;bot4LB.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="bot1LB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bot1LB.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Earth 2073, 14.25pt</value>
-  </data>
-  <data name="bot1LB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bot1LB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>270, 10</value>
-  </data>
-  <data name="bot1LB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 20</value>
-  </data>
-  <data name="bot1LB.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="bot1LB.Text" xml:space="preserve">
-    <value>BOT 01</value>
-  </data>
-  <data name="&gt;&gt;bot1LB.Name" xml:space="preserve">
-    <value>bot1LB</value>
-  </data>
-  <data name="&gt;&gt;bot1LB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bot1LB.Parent" xml:space="preserve">
-    <value>bot1PN</value>
-  </data>
-  <data name="&gt;&gt;bot1LB.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="howToLB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="howToLB.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Earth 2073, 14.25pt</value>
-  </data>
-  <data name="howToLB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="howToLB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>270, 10</value>
-  </data>
-  <data name="howToLB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 20</value>
-  </data>
-  <data name="howToLB.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="howToLB.Text" xml:space="preserve">
-    <value>HOW TO</value>
-  </data>
-  <data name="&gt;&gt;howToLB.Name" xml:space="preserve">
-    <value>howToLB</value>
-  </data>
-  <data name="&gt;&gt;howToLB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;howToLB.Parent" xml:space="preserve">
-    <value>howToPN</value>
-  </data>
-  <data name="&gt;&gt;howToLB.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="configLB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="configLB.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Earth 2073, 14.25pt</value>
-  </data>
-  <data name="configLB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="configLB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>225, 10</value>
-  </data>
-  <data name="configLB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
-  </data>
-  <data name="configLB.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="configLB.Text" xml:space="preserve">
-    <value>CONFIGURATION</value>
-  </data>
-  <data name="&gt;&gt;configLB.Name" xml:space="preserve">
-    <value>configLB</value>
-  </data>
-  <data name="&gt;&gt;configLB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;configLB.Parent" xml:space="preserve">
-    <value>configPN</value>
-  </data>
-  <data name="&gt;&gt;configLB.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="bot2LB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bot2LB.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Earth 2073, 14.25pt</value>
-  </data>
-  <data name="bot2LB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bot2LB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>270, 10</value>
-  </data>
-  <data name="bot2LB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 20</value>
-  </data>
-  <data name="bot2LB.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="bot2LB.Text" xml:space="preserve">
-    <value>BOT 02</value>
-  </data>
-  <data name="&gt;&gt;bot2LB.Name" xml:space="preserve">
-    <value>bot2LB</value>
-  </data>
-  <data name="&gt;&gt;bot2LB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bot2LB.Parent" xml:space="preserve">
-    <value>bot2PN</value>
-  </data>
-  <data name="&gt;&gt;bot2LB.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

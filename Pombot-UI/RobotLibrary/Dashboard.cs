@@ -22,6 +22,7 @@ namespace Pombot_UI.RobotLibrary
         internal static int historySize = 20;
         internal static int plot3Size = 3;
         internal static float renkoPeriod = 3; //for 5R graphs
+
         internal static float temp;
         internal static bool refreshtemp = false;
         #endregion
@@ -40,7 +41,6 @@ namespace Pombot_UI.RobotLibrary
         internal bool ConnectDDE()
         {
             DdeClient client = new DdeClient(this.app, this.service);
-            //client.Disconnected += OnDisconnected;
             try
             {
                 client.Connect();
@@ -52,11 +52,6 @@ namespace Pombot_UI.RobotLibrary
             return true;
         }
 
-        private static void OnDisconnected(object sender, DdeDisconnectedEventArgs args)
-        {
-            PomBotAppForm dashform = new PomBotAppForm();
-            //dashform.DDEupdateStatus();
-        }
         #endregion
     }
 }

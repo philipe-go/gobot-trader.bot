@@ -203,6 +203,7 @@ namespace Pombot_UI
         #endregion
 
         #region DashBoard Items
+        //DDE
         private void reconnectDDE_Click(object sender, EventArgs e)
         {
             DDEupdateStatus();
@@ -223,6 +224,20 @@ namespace Pombot_UI
             }
         }
 
+        //STRATEGY
+        private void renkoInput_Scroll(object sender, ScrollEventArgs e)
+        {
+            renkoTB.Text = renkoInput.Value.ToString() + "R";
+        }
+        private void rsiHistoryInput_Scroll(object sender, ScrollEventArgs e)
+        {
+            rsiHistoryTB.Text = rsiHistoryInput.Value.ToString();
+
+        }
+        private void plot3Input_Scroll(object sender, ScrollEventArgs e)
+        {
+            plot3TB.Text = plot3Input.Value.ToString();
+        }
         #endregion
     }
 }
