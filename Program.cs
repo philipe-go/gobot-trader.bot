@@ -124,6 +124,7 @@ namespace PombotTest
         internal static void RSICurve()
         {
             Program.ClearLine();
+
             if (Program.temp - Brick.final > Program.renkoPeriod) //complete period for ascending curve
             {
                 if (RSI.maxCurve) //ascending curve

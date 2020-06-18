@@ -14,17 +14,20 @@ namespace Pombot_UI.RobotLibrary
         #region Attributes
         /**** DDE interface ****/
         private string app = "profitchart";
-        //private string col = "ULT";
-        //private string item = $"{ticker}.{col}";
         private string service = "cot";
+        internal DdeClient client;
+        //private string item = $"{ticker}.{col}";
 
         /**** Strategy ****/
-        internal static int historySize = 20;
-        internal static int plot3Size = 3;
-        internal static float renkoPeriod = 3; //for 5R graphs
+        internal int historySize = 20;
+        internal int plot3Size = 3;
+        internal int renkoPeriod = 5; //for 5R graphs
+        internal bool inversionStrategy = false;
 
-        internal static float temp;
-        internal static bool refreshtemp = false;
+        /**** Keyboard Bindings ****/
+        internal string buyKeyboard = "";
+        internal string sellKeyboard = "";
+        internal string zeroKeyboard = "";
         #endregion
 
         #region Singleton
@@ -40,7 +43,7 @@ namespace Pombot_UI.RobotLibrary
         #region DDE interface
         internal bool ConnectDDE()
         {
-            DdeClient client = new DdeClient(this.app, this.service);
+            this.client = new DdeClient(this.app, this.service);
             try
             {
                 client.Connect();
@@ -51,7 +54,6 @@ namespace Pombot_UI.RobotLibrary
             }
             return true;
         }
-
         #endregion
     }
 }

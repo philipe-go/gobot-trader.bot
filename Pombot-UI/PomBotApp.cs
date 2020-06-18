@@ -19,9 +19,16 @@ namespace Pombot_UI
         public string user;
         private int mov, movY, movX;
         private List<Panel> menuItems = new List<Panel>();
+        private List<Bot> botsList = new List<Bot>();
 
         private Dashboard dashB = Dashboard.GetInstance(); //access to the class Dashboard
         private bool connectedDDE;
+
+        private int countdown = 0;
+
+        #region Bot parameters
+
+        #endregion
 
 
         public PomBotAppForm()
@@ -30,8 +37,17 @@ namespace Pombot_UI
             dateLB.Text = DateTime.Now.ToString("dd/MMM/yyyy - HH:mm ");
             dashboardBT.Focus();
             dashboardPN.Visible = true;
-            timer1.Start();
-            winNameLB.Text = Program.appName;
+            timer1.Start(); //Timer to control clock and DDE connection status update
+            winNameLB.Text = Program.appName; //Retrieve app name from Program.cs and set into UI
+
+            Bot bot1 = new Bot();
+            Bot bot2 = new Bot();
+            Bot bot3 = new Bot();
+            Bot bot4 = new Bot();
+            botsList.Add(bot1);
+            botsList.Add(bot2);
+            botsList.Add(bot3);
+            botsList.Add(bot4);
 
             menuItems.Add(dashboardPN);
             menuItems.Add(bot1PN);
@@ -50,20 +66,29 @@ namespace Pombot_UI
 
             dashboardPN.Visible = true;
 
-                connectedDDE = dashB.ConnectDDE();
-            if (connectedDDE) { ddeConnectLB.ForeColor = Color.Lime; ddeConnectLB.Text = "CONNECTED"; }
-            else
-            {
-                ddeConnectLB.ForeColor = Color.Red; ddeConnectLB.Text = "DISCONNECTED";
+            UpdateDDEStrategy();
+            DDEupdateStatus();
 
-            }
+            //BOT forms
+            BOTsInit();
         }
-
+        //timer used for connection checker and date update
         private void timer1_Tick(object sender, EventArgs e)
         {
             dateLB.Text = DateTime.Now.ToString("dd/MMM/yyyy - HH:mm");
             usernameLB.Text = Program.userName;
             DDEupdateStatus();
+        }
+        //timer used for countdowns to saved label
+        private void timer2_Tick_1(object sender, EventArgs e)
+        {
+            countdown--;
+            if (countdown <= 0)
+            {
+                saveBT.ForeColor = Color.Black;
+                saveBT.Text = "Save Parameters";
+                timer2.Stop();
+            }
         }
 
         #region MoveWindow
@@ -207,7 +232,7 @@ namespace Pombot_UI
         private void reconnectDDE_Click(object sender, EventArgs e)
         {
             DDEupdateStatus();
-            openProfit.Visible = (connectedDDE == true) ?  false : true;
+            openProfit.Visible = (connectedDDE == true) ? false : true;
         }
         private void DDEupdateStatus()
         {
@@ -216,27 +241,253 @@ namespace Pombot_UI
             {
                 ddeConnectLB.ForeColor = Color.Lime;
                 ddeConnectLB.Text = "CONNECTED";
+                connectionPic.BackgroundImage = Resources.connectionIcon2;
                 openProfit.Visible = false;
             }
             else
             {
                 ddeConnectLB.ForeColor = Color.Red; ddeConnectLB.Text = "DISCONNECTED";
+                connectionPic.BackgroundImage = Resources.connectionIcon;
             }
         }
 
         //STRATEGY
+        private void UpdateDDEStrategy() //RETRIEVE SAVED INFORMATIONS - should change later to retrieve from xml file and set to dashB
+        {
+            renkoInput.Value = dashB.renkoPeriod;
+            renkoTB.Text = renkoInput.Value.ToString() + "R";
+            rsiHistoryInput.Value = dashB.historySize;
+            rsiHistoryTB.Text = rsiHistoryInput.Value.ToString();
+            plot3Input.Value = dashB.plot3Size;
+            plot3TB.Text = plot3Input.Value.ToString();
+        }
+        private void buyKeyboardTB_TextChanged(object sender, EventArgs e) //KEYBOARD BINDING TO BUY
+        {
+            dashB.buyKeyboard = buyKeyboardTB.Text;
+        }
+        private void sellKeyboardTB_TextChanged(object sender, EventArgs e) //KEYBOARD BINDING TO SELL
+        {
+            dashB.sellKeyboard = sellKeyboardTB.Text;
+        }
+        private void zeroKeyboardTB_TextChanged(object sender, EventArgs e) //KEYBOARD BINDING TO ZERO
+        {
+            dashB.zeroKeyboard = zeroKeyboardTB.Text;
+        }
         private void renkoInput_Scroll(object sender, ScrollEventArgs e)
         {
             renkoTB.Text = renkoInput.Value.ToString() + "R";
+            dashB.renkoPeriod = renkoInput.Value;
+        }
+        private void inversionStrategyCB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (inversionStrategyCB.Checked) dashB.inversionStrategy = true;
+            else dashB.inversionStrategy = false;
         }
         private void rsiHistoryInput_Scroll(object sender, ScrollEventArgs e)
         {
             rsiHistoryTB.Text = rsiHistoryInput.Value.ToString();
+            dashB.historySize = rsiHistoryInput.Value;
 
+            //bots manual txt
+            manualCalibBot1Txt.Text = $"Enter the closing price of the last {dashB.historySize.ToString()} periods from the newest to the oldest:";
         }
         private void plot3Input_Scroll(object sender, ScrollEventArgs e)
         {
             plot3TB.Text = plot3Input.Value.ToString();
+            dashB.plot3Size = plot3Input.Value;
+        }
+
+        private void saveBT_Click(object sender, EventArgs e)
+        {
+            countdown = 15;
+            saveBT.ForeColor = Color.Lime;
+            saveBT.Text = "Saved";
+            timer2.Start();
+        }
+        private void stopBotsBT_Click(object sender, EventArgs e)
+        {
+            stopBot1BT.PerformClick();
+        }
+        #endregion
+
+        private void BOTsInit()
+        {
+            startBot1BT.Enabled = false;
+            autoCalibBot1Check.Select();
+            manCalibBot1TB.Enabled = false;
+            botsList[0].strategy.feedbackTable = bot1Operations;
+            botsList[0].currentMeasure = ddeCurrentMeasureBot1;
+            botsList[0].strategy.calibBar = calibrationBot1Bar;
+        }
+
+        #region BOT1
+        private void tickerTB_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tickerTB_Leave(sender, e);
+            }
+        }
+        private void tickerTB_Leave(object sender, EventArgs e)
+        {
+            if (tickerTB.Text != "")
+            {
+                botsList[0].ticker = tickerTB.Text;
+                tickerInput.Text = botsList[0].ticker;
+                tickerTB.Clear();
+            }
+        }
+        private void autoCalibBot1Check_MouseClick(object sender, MouseEventArgs e)
+        {
+            manualCalibBot1Check.Checked = false;
+            autoCalibBot1Check.Select();
+            botsList[0].manualCalib = false;
+            lastperOpenTB.Enabled = true;
+            lastPerCloseTB.Enabled = true;
+            manCalibBot1TB.Enabled = false;
+        }
+        private void manualCalibBot1Check_MouseClick(object sender, MouseEventArgs e)
+        {
+            manualCalibBot1Check.Select();
+            autoCalibBot1Check.Checked = false;
+            botsList[0].manualCalib = true;
+            manCalibBot1TB.Enabled = true;
+            lastperOpenTB.Enabled = false;
+            lastPerCloseTB.Enabled = false;
+        }
+        private void lastperOpenTB_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                lastperOpenTB_Leave(sender, e);
+            }
+        }
+        private void lastperOpenTB_Leave(object sender, EventArgs e)
+        {
+            if (lastperOpenTB.Text != "")
+            {
+                calibrationBot1Bar.Value++;
+                botsList[0].InitialBrick(System.Convert.ToDouble(lastperOpenTB.Text));
+                enteredBot1OpenTB.Text = botsList[0].GetInitialBrick().ToString();
+                lastperOpenTB.Clear();
+            }
+        }
+        private void lastPerCloseTB_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                lastPerCloseTB_Leave(sender, e);
+            }
+        }
+        private void lastPerCloseTB_Leave(object sender, EventArgs e)
+        {
+            if (lastPerCloseTB.Text != "")
+            {
+                calibrationBot1Bar.Value++;
+                botsList[0].FinalBrick(System.Convert.ToDouble(lastPerCloseTB.Text));
+                enteredBot1CloseTB.Text = botsList[0].GetFinalBrick().ToString();
+                lastPerCloseTB.Clear();
+            }
+        }
+        private void manCalibBot1TB_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && manCalibBot1TB.Text != "")
+            {
+                botsList[0].ManualCalibration(System.Convert.ToDouble(manCalibBot1TB.Text));
+                if (dashB.historySize - (botsList[0].GetHistorySize()) >= -1)
+                {
+                    manualEnterNrTB.Text = (botsList[0].GetHistorySize()).ToString();
+                }
+                else
+                {
+                    calibrateBot1BT.PerformClick();
+                }
+                manCalibBot1TB.Text = "";
+                calibrationBot1Bar.Value++;
+            }
+        }
+        //BOT BUTTONS
+        private void resetCalibBT_Click(object sender, EventArgs e)
+        {
+            botsList[0].ResetCalibration();
+            calibrationBot1Bar.Value = 0;
+            enteredBot1OpenTB.Text = botsList[0].GetInitialBrick().ToString();
+            enteredBot1CloseTB.Text = botsList[0].GetFinalBrick().ToString();
+            lastperOpenTB.Clear();
+            lastPerCloseTB.Clear();
+        }
+        private void saveParamsBot1BT_Click(object sender, EventArgs e)
+        {
+            countdown = 15;
+            saveParamsBot1BT.ForeColor = Color.Lime;
+            saveParamsBot1BT.Text = "Saved";
+            timerBot1.Start();
+        }
+        private void timerBot1_Tick(object sender, EventArgs e)
+        {
+            countdown--;
+            if (countdown <= 0)
+            {
+                saveParamsBot1BT.ForeColor = Color.Black;
+                saveParamsBot1BT.Text = "Save Parameters";
+                timerBot1.Stop();
+            }
+        }
+        private void calibrateBot1BT_Click(object sender, EventArgs e)
+        {
+            if (botsList[0].ticker == "")
+            {
+                tickerTB.Focus();
+            }
+            else if (botsList[0].GetFinalBrick() == 0)
+            {
+                lastPerCloseTB.Focus();
+            }
+            else if (botsList[0].GetInitialBrick() == 0)
+            {
+                lastperOpenTB.Focus();
+            }
+            else
+            {
+                calibBot1.Start();
+                calibrateBot1BT.Enabled = false;
+                manCalibBot1TB.Enabled = false;
+                lastperOpenTB.Enabled = false;
+                lastPerCloseTB.Enabled = false;
+                tickerTB.Enabled = false;
+            }
+        }
+        private void calibBot1_Tick(object sender, EventArgs e) //CALIBRATION LOAD BAR TIMER
+        {
+            //calibrationBot1Bar.Value++;
+            if (botsList[0].strategy.botActive == true)
+            {
+                startBot1BT.Enabled = true;
+                if (autoStartCheck.Checked) startBot1BT.PerformClick();
+                calibBot1.Stop();
+            }
+        }
+        private void startBot1BT_Click(object sender, EventArgs e)
+        {
+            robot1PB.BackgroundImage = Resources.robotIcon2;
+            bot1Status.ForeColor = Color.Lime;
+            bot1Status.Text = "CONNECTED";
+            botsList[0].Connect(true); //connect bot actions (buy, sell, zero)
+
+            //deactivate items
+            calibrateBot1BT.Enabled = false;
+            rsiHistoryInput.Enabled = false;
+            plot3Input.Enabled = false;
+            renkoInput.Enabled = false;
+        }
+        private void stopBot1BT_Click(object sender, EventArgs e)
+        {
+            botsList[0].Connect(false); //disconnect bot actions (buy, sell, zero) but maintain the RSI history building
+
+            robot1PB.BackgroundImage = Resources.robotIcon;
+            bot1Status.ForeColor = Color.Red;
+            bot1Status.Text = "DISCONNECTED";
+            calibrationBot1Bar.Value = 0;
         }
         #endregion
     }

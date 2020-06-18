@@ -84,6 +84,7 @@
     <Compile Include="Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
+    <Compile Include="RobotLibrary\Bot.cs" />
     <Compile Include="RobotLibrary\Dashboard.cs" />
     <Compile Include="RobotLibrary\Strategy.cs" />
     <EmbeddedResource Include="Login.resx">
@@ -128,6 +129,10 @@
     <None Include="Resources\userPassword.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\2.png" />
+    <None Include="Resources\3.png" />
+    <None Include="Resources\4.png" />
+    <None Include="Resources\1.png" />
     <Content Include="Resources\bird-icon4.png" />
     <None Include="Resources\close2.png" />
     <None Include="Resources\close.png" />
@@ -138,6 +143,10 @@
     <None Include="Resources\passwordShow.png" />
     <None Include="Resources\passwordShow2.png" />
     <None Include="Resources\clock.png" />
+    <None Include="Resources\connectionIcon.png" />
+    <None Include="Resources\connectionIcon2.png" />
+    <None Include="Resources\robotIcon.png" />
+    <None Include="Resources\robotIcon2.png" />
     <Content Include="Resources\userLogin2.png" />
     <Content Include="Resources\userPassword2.png" />
   </ItemGroup>
