@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -19,8 +20,9 @@ namespace Pombot_UI.RobotLibrary
         private Dashboard dashb;
         internal Strategy strategy;
         internal bool manualCalib;
-        private bool activated;
+        internal bool activated;
         internal Label currentMeasure;
+        internal PomBotAppForm mainForm;
         #endregion
 
         #region Encapsulation
@@ -48,6 +50,7 @@ namespace Pombot_UI.RobotLibrary
             strategy = new Strategy();
             manualCalib = false;
             activated = false;
+            strategy.myBot = this;
         }
         #endregion
 
@@ -55,11 +58,6 @@ namespace Pombot_UI.RobotLibrary
         internal void Connect(bool val)
         {
             this.activated = val;
-        }
-        internal void OnAdvise(object sender, DdeAdviseEventArgs args)
-        {
-            strategy.Advise(float.Parse(args.Text) / 100);
-            DDEMeasure();
         }
         #endregion
 
@@ -69,8 +67,8 @@ namespace Pombot_UI.RobotLibrary
             if (ticker != "")
             {
                 strategy.temp = strategy.GetFinalBrick();
-                dashb.client.StartAdvise($"{ticker}.{col}", 1, true, 500);
-                dashb.client.Advise += OnAdvise;
+                mainForm.Advise(ticker, col);
+
                 if (!manualCalib)
                 {
                     bool maxcurveVal = strategy.GetInitialBrick() < strategy.GetFinalBrick() ? true : false;
@@ -99,14 +97,6 @@ namespace Pombot_UI.RobotLibrary
         internal void ResetCalibration()
         {
             strategy.Reset();
-        }
-        #endregion
-
-        #region Methods
-        private void DDEMeasure()
-        {
-            if (currentMeasure != null) currentMeasure.Text = strategy.temp.ToString(); 
-            //Console.WriteLine($"...Current Measure: {temp.ToString("0.00")}");
         }
         #endregion
     }

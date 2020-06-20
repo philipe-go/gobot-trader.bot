@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -13,10 +14,8 @@ namespace Pombot_UI.RobotLibrary
     {
         #region Attributes
         /**** DDE interface ****/
-        private string app = "profitchart";
-        private string service = "cot";
-        internal DdeClient client;
-        //private string item = $"{ticker}.{col}";
+        internal string app = "profitchart";
+        internal string service = "cot";
 
         /**** Strategy ****/
         internal int historySize = 20;
@@ -37,22 +36,6 @@ namespace Pombot_UI.RobotLibrary
         {
             if (instance == null) instance = new Dashboard();
             return instance;
-        }
-        #endregion
-
-        #region DDE interface
-        internal bool ConnectDDE()
-        {
-            this.client = new DdeClient(this.app, this.service);
-            try
-            {
-                client.Connect();
-            }
-            catch (NDde.DdeException)
-            {
-                return false;
-            }
-            return true;
         }
         #endregion
     }

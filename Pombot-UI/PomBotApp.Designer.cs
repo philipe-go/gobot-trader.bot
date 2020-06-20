@@ -59,46 +59,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelHL = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.bot1PN = new System.Windows.Forms.Panel();
-            this.resetCalibBT = new System.Windows.Forms.Button();
-            this.Operations = new System.Windows.Forms.GroupBox();
-            this.bot1Operations = new System.Windows.Forms.ListView();
-            this.bot1OpsHour = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.bot1OpsAction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.bot1OpsPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.stopBot1BT = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.enteredBot1CloseTB = new System.Windows.Forms.Label();
-            this.enteredBot1OpenTB = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.lastPerCloseTB = new System.Windows.Forms.TextBox();
-            this.lastperOpenTB = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.calibrationBot1Bar = new System.Windows.Forms.ProgressBar();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label23 = new System.Windows.Forms.Label();
-            this.manualEnterNrTB = new System.Windows.Forms.Label();
-            this.manCalibBot1TB = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.manualCalibBot1Txt = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.tickerInput = new System.Windows.Forms.Label();
-            this.autoStartCheck = new System.Windows.Forms.CheckBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.autoCalibBot1Check = new System.Windows.Forms.RadioButton();
-            this.manualCalibBot1Check = new System.Windows.Forms.RadioButton();
-            this.label16 = new System.Windows.Forms.Label();
-            this.tickerTB = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.startBot1BT = new System.Windows.Forms.Button();
-            this.calibrateBot1BT = new System.Windows.Forms.Button();
-            this.saveParamsBot1BT = new System.Windows.Forms.Button();
-            this.bot1LB = new System.Windows.Forms.Label();
             this.dashboardPN = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.zeroKeyboardTB = new System.Windows.Forms.TextBox();
@@ -138,6 +98,50 @@
             this.saveBT = new System.Windows.Forms.Button();
             this.reconnectDDE = new System.Windows.Forms.Button();
             this.bashboardLB = new System.Windows.Forms.Label();
+            this.bot1PN = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.manualEnterNrTB = new System.Windows.Forms.Label();
+            this.manualCalibBot1Txt = new System.Windows.Forms.Label();
+            this.manCalibBot1TB = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.enteredBot1CloseTB = new System.Windows.Forms.Label();
+            this.lastPerCloseTB = new System.Windows.Forms.TextBox();
+            this.enteredBot1OpenTB = new System.Windows.Forms.Label();
+            this.lastperOpenTB = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.autoStartCheck = new System.Windows.Forms.CheckBox();
+            this.tickerInput = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.autoCalibBot1Check = new System.Windows.Forms.RadioButton();
+            this.tickerTB = new System.Windows.Forms.TextBox();
+            this.manualCalibBot1Check = new System.Windows.Forms.RadioButton();
+            this.label16 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ddePlotMeasureBot1 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.ddeRSIMeasureBot1 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.ddeCurrentMeasureBot1 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.resetCalibBT = new System.Windows.Forms.Button();
+            this.Operations = new System.Windows.Forms.GroupBox();
+            this.bot1Operations = new System.Windows.Forms.ListView();
+            this.bot1OpsHour = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.bot1OpsAction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.bot1OpsPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.stopBot1BT = new System.Windows.Forms.Button();
+            this.calibrationBot1Bar = new System.Windows.Forms.ProgressBar();
+            this.startBot1BT = new System.Windows.Forms.Button();
+            this.calibrateBot1BT = new System.Windows.Forms.Button();
+            this.saveParamsBot1BT = new System.Windows.Forms.Button();
+            this.bot1LB = new System.Windows.Forms.Label();
             this.bot3PN = new System.Windows.Forms.Panel();
             this.bot3LB = new System.Windows.Forms.Label();
             this.bot4PN = new System.Windows.Forms.Panel();
@@ -157,9 +161,6 @@
             this.calibBot3 = new System.Windows.Forms.Timer(this.components);
             this.timerBot4 = new System.Windows.Forms.Timer(this.components);
             this.calibBot4 = new System.Windows.Forms.Timer(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.ddeCurrentMeasureBot1 = new System.Windows.Forms.Label();
             this.formNamePN.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.robot4PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.robot3PB)).BeginInit();
@@ -170,21 +171,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.userPic)).BeginInit();
             this.menuPN.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.bot1PN.SuspendLayout();
-            this.Operations.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.dashboardPN.SuspendLayout();
             this.panel5.SuspendLayout();
             this.RobotStatus.SuspendLayout();
             this.StrategyParameters.SuspendLayout();
+            this.bot1PN.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.Operations.SuspendLayout();
             this.bot3PN.SuspendLayout();
             this.bot4PN.SuspendLayout();
             this.howToPN.SuspendLayout();
             this.configPN.SuspendLayout();
             this.bot2PN.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // winNameLB
@@ -440,8 +441,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.bot1PN);
             this.panel1.Controls.Add(this.dashboardPN);
+            this.panel1.Controls.Add(this.bot1PN);
             this.panel1.Controls.Add(this.bot3PN);
             this.panel1.Controls.Add(this.bot4PN);
             this.panel1.Controls.Add(this.howToPN);
@@ -449,317 +450,6 @@
             this.panel1.Controls.Add(this.bot2PN);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            // 
-            // bot1PN
-            // 
-            this.bot1PN.BackColor = System.Drawing.Color.Gray;
-            this.bot1PN.Controls.Add(this.groupBox1);
-            this.bot1PN.Controls.Add(this.resetCalibBT);
-            this.bot1PN.Controls.Add(this.Operations);
-            this.bot1PN.Controls.Add(this.stopBot1BT);
-            this.bot1PN.Controls.Add(this.panel4);
-            this.bot1PN.Controls.Add(this.calibrationBot1Bar);
-            this.bot1PN.Controls.Add(this.panel2);
-            this.bot1PN.Controls.Add(this.panel3);
-            this.bot1PN.Controls.Add(this.startBot1BT);
-            this.bot1PN.Controls.Add(this.calibrateBot1BT);
-            this.bot1PN.Controls.Add(this.saveParamsBot1BT);
-            this.bot1PN.Controls.Add(this.bot1LB);
-            resources.ApplyResources(this.bot1PN, "bot1PN");
-            this.bot1PN.Name = "bot1PN";
-            // 
-            // resetCalibBT
-            // 
-            this.resetCalibBT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            resources.ApplyResources(this.resetCalibBT, "resetCalibBT");
-            this.resetCalibBT.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.resetCalibBT.FlatAppearance.BorderSize = 0;
-            this.resetCalibBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.resetCalibBT.ForeColor = System.Drawing.Color.Black;
-            this.resetCalibBT.Name = "resetCalibBT";
-            this.resetCalibBT.UseVisualStyleBackColor = false;
-            this.resetCalibBT.Click += new System.EventHandler(this.resetCalibBT_Click);
-            // 
-            // Operations
-            // 
-            this.Operations.Controls.Add(this.bot1Operations);
-            resources.ApplyResources(this.Operations, "Operations");
-            this.Operations.Name = "Operations";
-            this.Operations.TabStop = false;
-            // 
-            // bot1Operations
-            // 
-            this.bot1Operations.BackColor = System.Drawing.Color.White;
-            this.bot1Operations.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.bot1Operations.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.bot1OpsHour,
-            this.bot1OpsAction,
-            this.bot1OpsPrice});
-            resources.ApplyResources(this.bot1Operations, "bot1Operations");
-            this.bot1Operations.GridLines = true;
-            this.bot1Operations.HideSelection = false;
-            this.bot1Operations.Name = "bot1Operations";
-            this.bot1Operations.UseCompatibleStateImageBehavior = false;
-            this.bot1Operations.View = System.Windows.Forms.View.Details;
-            // 
-            // bot1OpsHour
-            // 
-            this.bot1OpsHour.Tag = "1";
-            resources.ApplyResources(this.bot1OpsHour, "bot1OpsHour");
-            // 
-            // bot1OpsAction
-            // 
-            resources.ApplyResources(this.bot1OpsAction, "bot1OpsAction");
-            // 
-            // bot1OpsPrice
-            // 
-            resources.ApplyResources(this.bot1OpsPrice, "bot1OpsPrice");
-            // 
-            // stopBot1BT
-            // 
-            this.stopBot1BT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            resources.ApplyResources(this.stopBot1BT, "stopBot1BT");
-            this.stopBot1BT.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.stopBot1BT.FlatAppearance.BorderSize = 0;
-            this.stopBot1BT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.stopBot1BT.ForeColor = System.Drawing.Color.Red;
-            this.stopBot1BT.Name = "stopBot1BT";
-            this.stopBot1BT.UseVisualStyleBackColor = false;
-            this.stopBot1BT.Click += new System.EventHandler(this.stopBot1BT_Click);
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.enteredBot1CloseTB);
-            this.panel4.Controls.Add(this.enteredBot1OpenTB);
-            this.panel4.Controls.Add(this.label31);
-            this.panel4.Controls.Add(this.label29);
-            this.panel4.Controls.Add(this.label21);
-            this.panel4.Controls.Add(this.label18);
-            this.panel4.Controls.Add(this.lastPerCloseTB);
-            this.panel4.Controls.Add(this.lastperOpenTB);
-            this.panel4.Controls.Add(this.label19);
-            resources.ApplyResources(this.panel4, "panel4");
-            this.panel4.Name = "panel4";
-            // 
-            // enteredBot1CloseTB
-            // 
-            resources.ApplyResources(this.enteredBot1CloseTB, "enteredBot1CloseTB");
-            this.enteredBot1CloseTB.ForeColor = System.Drawing.Color.Aqua;
-            this.enteredBot1CloseTB.Name = "enteredBot1CloseTB";
-            // 
-            // enteredBot1OpenTB
-            // 
-            resources.ApplyResources(this.enteredBot1OpenTB, "enteredBot1OpenTB");
-            this.enteredBot1OpenTB.ForeColor = System.Drawing.Color.Aqua;
-            this.enteredBot1OpenTB.Name = "enteredBot1OpenTB";
-            // 
-            // label31
-            // 
-            resources.ApplyResources(this.label31, "label31");
-            this.label31.Name = "label31";
-            // 
-            // label29
-            // 
-            resources.ApplyResources(this.label29, "label29");
-            this.label29.Name = "label29";
-            // 
-            // label21
-            // 
-            resources.ApplyResources(this.label21, "label21");
-            this.label21.Name = "label21";
-            // 
-            // label18
-            // 
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
-            // 
-            // lastPerCloseTB
-            // 
-            resources.ApplyResources(this.lastPerCloseTB, "lastPerCloseTB");
-            this.lastPerCloseTB.Name = "lastPerCloseTB";
-            this.lastPerCloseTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lastPerCloseTB_KeyUp);
-            this.lastPerCloseTB.Leave += new System.EventHandler(this.lastPerCloseTB_Leave);
-            // 
-            // lastperOpenTB
-            // 
-            resources.ApplyResources(this.lastperOpenTB, "lastperOpenTB");
-            this.lastperOpenTB.Name = "lastperOpenTB";
-            this.lastperOpenTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lastperOpenTB_KeyUp);
-            this.lastperOpenTB.Leave += new System.EventHandler(this.lastperOpenTB_Leave);
-            // 
-            // label19
-            // 
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.ForeColor = System.Drawing.Color.Black;
-            this.label19.Name = "label19";
-            // 
-            // calibrationBot1Bar
-            // 
-            resources.ApplyResources(this.calibrationBot1Bar, "calibrationBot1Bar");
-            this.calibrationBot1Bar.Name = "calibrationBot1Bar";
-            // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.label23);
-            this.panel2.Controls.Add(this.manualEnterNrTB);
-            this.panel2.Controls.Add(this.manCalibBot1TB);
-            this.panel2.Controls.Add(this.label17);
-            this.panel2.Controls.Add(this.manualCalibBot1Txt);
-            this.panel2.Controls.Add(this.label20);
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Name = "panel2";
-            // 
-            // label23
-            // 
-            resources.ApplyResources(this.label23, "label23");
-            this.label23.Name = "label23";
-            // 
-            // manualEnterNrTB
-            // 
-            resources.ApplyResources(this.manualEnterNrTB, "manualEnterNrTB");
-            this.manualEnterNrTB.ForeColor = System.Drawing.Color.Aqua;
-            this.manualEnterNrTB.Name = "manualEnterNrTB";
-            // 
-            // manCalibBot1TB
-            // 
-            resources.ApplyResources(this.manCalibBot1TB, "manCalibBot1TB");
-            this.manCalibBot1TB.Name = "manCalibBot1TB";
-            this.manCalibBot1TB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.manCalibBot1TB_KeyUp);
-            // 
-            // label17
-            // 
-            resources.ApplyResources(this.label17, "label17");
-            this.label17.Name = "label17";
-            // 
-            // manualCalibBot1Txt
-            // 
-            resources.ApplyResources(this.manualCalibBot1Txt, "manualCalibBot1Txt");
-            this.manualCalibBot1Txt.Name = "manualCalibBot1Txt";
-            // 
-            // label20
-            // 
-            resources.ApplyResources(this.label20, "label20");
-            this.label20.ForeColor = System.Drawing.Color.Black;
-            this.label20.Name = "label20";
-            // 
-            // panel3
-            // 
-            resources.ApplyResources(this.panel3, "panel3");
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.tickerInput);
-            this.panel3.Controls.Add(this.autoStartCheck);
-            this.panel3.Controls.Add(this.label22);
-            this.panel3.Controls.Add(this.autoCalibBot1Check);
-            this.panel3.Controls.Add(this.manualCalibBot1Check);
-            this.panel3.Controls.Add(this.label16);
-            this.panel3.Controls.Add(this.tickerTB);
-            this.panel3.Controls.Add(this.label27);
-            this.panel3.Controls.Add(this.label28);
-            this.panel3.Name = "panel3";
-            // 
-            // tickerInput
-            // 
-            resources.ApplyResources(this.tickerInput, "tickerInput");
-            this.tickerInput.ForeColor = System.Drawing.Color.Aqua;
-            this.tickerInput.Name = "tickerInput";
-            // 
-            // autoStartCheck
-            // 
-            resources.ApplyResources(this.autoStartCheck, "autoStartCheck");
-            this.autoStartCheck.Name = "autoStartCheck";
-            this.autoStartCheck.UseVisualStyleBackColor = true;
-            // 
-            // label22
-            // 
-            resources.ApplyResources(this.label22, "label22");
-            this.label22.ForeColor = System.Drawing.Color.Black;
-            this.label22.Name = "label22";
-            // 
-            // autoCalibBot1Check
-            // 
-            this.autoCalibBot1Check.AllowDrop = true;
-            resources.ApplyResources(this.autoCalibBot1Check, "autoCalibBot1Check");
-            this.autoCalibBot1Check.Name = "autoCalibBot1Check";
-            this.autoCalibBot1Check.TabStop = true;
-            this.autoCalibBot1Check.UseVisualStyleBackColor = true;
-            this.autoCalibBot1Check.MouseClick += new System.Windows.Forms.MouseEventHandler(this.autoCalibBot1Check_MouseClick);
-            // 
-            // manualCalibBot1Check
-            // 
-            this.manualCalibBot1Check.AllowDrop = true;
-            resources.ApplyResources(this.manualCalibBot1Check, "manualCalibBot1Check");
-            this.manualCalibBot1Check.Name = "manualCalibBot1Check";
-            this.manualCalibBot1Check.TabStop = true;
-            this.manualCalibBot1Check.UseVisualStyleBackColor = true;
-            this.manualCalibBot1Check.MouseClick += new System.Windows.Forms.MouseEventHandler(this.manualCalibBot1Check_MouseClick);
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.ForeColor = System.Drawing.Color.Black;
-            this.label16.Name = "label16";
-            // 
-            // tickerTB
-            // 
-            resources.ApplyResources(this.tickerTB, "tickerTB");
-            this.tickerTB.Name = "tickerTB";
-            this.tickerTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tickerTB_KeyUp);
-            this.tickerTB.Leave += new System.EventHandler(this.tickerTB_Leave);
-            // 
-            // label27
-            // 
-            resources.ApplyResources(this.label27, "label27");
-            this.label27.ForeColor = System.Drawing.Color.Black;
-            this.label27.Name = "label27";
-            // 
-            // label28
-            // 
-            resources.ApplyResources(this.label28, "label28");
-            this.label28.ForeColor = System.Drawing.Color.Black;
-            this.label28.Name = "label28";
-            // 
-            // startBot1BT
-            // 
-            this.startBot1BT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            resources.ApplyResources(this.startBot1BT, "startBot1BT");
-            this.startBot1BT.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.startBot1BT.FlatAppearance.BorderSize = 0;
-            this.startBot1BT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.startBot1BT.ForeColor = System.Drawing.Color.Lime;
-            this.startBot1BT.Name = "startBot1BT";
-            this.startBot1BT.UseVisualStyleBackColor = false;
-            this.startBot1BT.Click += new System.EventHandler(this.startBot1BT_Click);
-            // 
-            // calibrateBot1BT
-            // 
-            this.calibrateBot1BT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            resources.ApplyResources(this.calibrateBot1BT, "calibrateBot1BT");
-            this.calibrateBot1BT.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.calibrateBot1BT.FlatAppearance.BorderSize = 0;
-            this.calibrateBot1BT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.calibrateBot1BT.ForeColor = System.Drawing.Color.Black;
-            this.calibrateBot1BT.Name = "calibrateBot1BT";
-            this.calibrateBot1BT.UseVisualStyleBackColor = false;
-            this.calibrateBot1BT.Click += new System.EventHandler(this.calibrateBot1BT_Click);
-            // 
-            // saveParamsBot1BT
-            // 
-            this.saveParamsBot1BT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            resources.ApplyResources(this.saveParamsBot1BT, "saveParamsBot1BT");
-            this.saveParamsBot1BT.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.saveParamsBot1BT.FlatAppearance.BorderSize = 0;
-            this.saveParamsBot1BT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.saveParamsBot1BT.ForeColor = System.Drawing.Color.Black;
-            this.saveParamsBot1BT.Name = "saveParamsBot1BT";
-            this.saveParamsBot1BT.UseVisualStyleBackColor = false;
-            this.saveParamsBot1BT.Click += new System.EventHandler(this.saveParamsBot1BT_Click);
-            // 
-            // bot1LB
-            // 
-            resources.ApplyResources(this.bot1LB, "bot1LB");
-            this.bot1LB.Name = "bot1LB";
             // 
             // dashboardPN
             // 
@@ -794,7 +484,8 @@
             // 
             resources.ApplyResources(this.zeroKeyboardTB, "zeroKeyboardTB");
             this.zeroKeyboardTB.Name = "zeroKeyboardTB";
-            this.zeroKeyboardTB.TextChanged += new System.EventHandler(this.zeroKeyboardTB_TextChanged);
+            this.zeroKeyboardTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.zeroKeyboardTB_KeyUp);
+            this.zeroKeyboardTB.Leave += new System.EventHandler(this.zeroKeyboardTB_Leave);
             // 
             // label26
             // 
@@ -806,7 +497,8 @@
             // 
             resources.ApplyResources(this.sellKeyboardTB, "sellKeyboardTB");
             this.sellKeyboardTB.Name = "sellKeyboardTB";
-            this.sellKeyboardTB.TextChanged += new System.EventHandler(this.sellKeyboardTB_TextChanged);
+            this.sellKeyboardTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.sellKeyboardTB_KeyUp);
+            this.sellKeyboardTB.Leave += new System.EventHandler(this.sellKeyboardTB_Leave);
             // 
             // label25
             // 
@@ -818,7 +510,8 @@
             // 
             resources.ApplyResources(this.buyKeyboardTB, "buyKeyboardTB");
             this.buyKeyboardTB.Name = "buyKeyboardTB";
-            this.buyKeyboardTB.TextChanged += new System.EventHandler(this.buyKeyboardTB_TextChanged);
+            this.buyKeyboardTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.buyKeyboardTB_KeyUp);
+            this.buyKeyboardTB.Leave += new System.EventHandler(this.buyKeyboardTB_Leave);
             // 
             // label24
             // 
@@ -1062,6 +755,346 @@
             resources.ApplyResources(this.bashboardLB, "bashboardLB");
             this.bashboardLB.Name = "bashboardLB";
             // 
+            // bot1PN
+            // 
+            this.bot1PN.BackColor = System.Drawing.Color.Gray;
+            this.bot1PN.Controls.Add(this.groupBox4);
+            this.bot1PN.Controls.Add(this.groupBox3);
+            this.bot1PN.Controls.Add(this.groupBox2);
+            this.bot1PN.Controls.Add(this.groupBox1);
+            this.bot1PN.Controls.Add(this.resetCalibBT);
+            this.bot1PN.Controls.Add(this.Operations);
+            this.bot1PN.Controls.Add(this.stopBot1BT);
+            this.bot1PN.Controls.Add(this.calibrationBot1Bar);
+            this.bot1PN.Controls.Add(this.startBot1BT);
+            this.bot1PN.Controls.Add(this.calibrateBot1BT);
+            this.bot1PN.Controls.Add(this.saveParamsBot1BT);
+            this.bot1PN.Controls.Add(this.bot1LB);
+            resources.ApplyResources(this.bot1PN, "bot1PN");
+            this.bot1PN.Name = "bot1PN";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label23);
+            this.groupBox4.Controls.Add(this.label17);
+            this.groupBox4.Controls.Add(this.manualEnterNrTB);
+            this.groupBox4.Controls.Add(this.manualCalibBot1Txt);
+            this.groupBox4.Controls.Add(this.manCalibBot1TB);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.TabStop = false;
+            // 
+            // label23
+            // 
+            resources.ApplyResources(this.label23, "label23");
+            this.label23.Name = "label23";
+            // 
+            // label17
+            // 
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
+            // 
+            // manualEnterNrTB
+            // 
+            resources.ApplyResources(this.manualEnterNrTB, "manualEnterNrTB");
+            this.manualEnterNrTB.ForeColor = System.Drawing.Color.Aqua;
+            this.manualEnterNrTB.Name = "manualEnterNrTB";
+            // 
+            // manualCalibBot1Txt
+            // 
+            resources.ApplyResources(this.manualCalibBot1Txt, "manualCalibBot1Txt");
+            this.manualCalibBot1Txt.Name = "manualCalibBot1Txt";
+            // 
+            // manCalibBot1TB
+            // 
+            resources.ApplyResources(this.manCalibBot1TB, "manCalibBot1TB");
+            this.manCalibBot1TB.Name = "manCalibBot1TB";
+            this.manCalibBot1TB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.manCalibBot1TB_KeyUp);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.enteredBot1CloseTB);
+            this.groupBox3.Controls.Add(this.lastPerCloseTB);
+            this.groupBox3.Controls.Add(this.enteredBot1OpenTB);
+            this.groupBox3.Controls.Add(this.lastperOpenTB);
+            this.groupBox3.Controls.Add(this.label31);
+            this.groupBox3.Controls.Add(this.label18);
+            this.groupBox3.Controls.Add(this.label29);
+            this.groupBox3.Controls.Add(this.label21);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.TabStop = false;
+            // 
+            // enteredBot1CloseTB
+            // 
+            resources.ApplyResources(this.enteredBot1CloseTB, "enteredBot1CloseTB");
+            this.enteredBot1CloseTB.ForeColor = System.Drawing.Color.Aqua;
+            this.enteredBot1CloseTB.Name = "enteredBot1CloseTB";
+            // 
+            // lastPerCloseTB
+            // 
+            resources.ApplyResources(this.lastPerCloseTB, "lastPerCloseTB");
+            this.lastPerCloseTB.Name = "lastPerCloseTB";
+            this.lastPerCloseTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lastPerCloseTB_KeyUp);
+            this.lastPerCloseTB.Leave += new System.EventHandler(this.lastPerCloseTB_Leave);
+            // 
+            // enteredBot1OpenTB
+            // 
+            resources.ApplyResources(this.enteredBot1OpenTB, "enteredBot1OpenTB");
+            this.enteredBot1OpenTB.ForeColor = System.Drawing.Color.Aqua;
+            this.enteredBot1OpenTB.Name = "enteredBot1OpenTB";
+            // 
+            // lastperOpenTB
+            // 
+            resources.ApplyResources(this.lastperOpenTB, "lastperOpenTB");
+            this.lastperOpenTB.Name = "lastperOpenTB";
+            this.lastperOpenTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lastperOpenTB_KeyUp);
+            this.lastperOpenTB.Leave += new System.EventHandler(this.lastperOpenTB_Leave);
+            // 
+            // label31
+            // 
+            resources.ApplyResources(this.label31, "label31");
+            this.label31.Name = "label31";
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // label29
+            // 
+            resources.ApplyResources(this.label29, "label29");
+            this.label29.Name = "label29";
+            // 
+            // label21
+            // 
+            resources.ApplyResources(this.label21, "label21");
+            this.label21.Name = "label21";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.autoStartCheck);
+            this.groupBox2.Controls.Add(this.tickerInput);
+            this.groupBox2.Controls.Add(this.label22);
+            this.groupBox2.Controls.Add(this.label27);
+            this.groupBox2.Controls.Add(this.autoCalibBot1Check);
+            this.groupBox2.Controls.Add(this.tickerTB);
+            this.groupBox2.Controls.Add(this.manualCalibBot1Check);
+            this.groupBox2.Controls.Add(this.label16);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // autoStartCheck
+            // 
+            resources.ApplyResources(this.autoStartCheck, "autoStartCheck");
+            this.autoStartCheck.Name = "autoStartCheck";
+            this.autoStartCheck.UseVisualStyleBackColor = true;
+            // 
+            // tickerInput
+            // 
+            resources.ApplyResources(this.tickerInput, "tickerInput");
+            this.tickerInput.ForeColor = System.Drawing.Color.Aqua;
+            this.tickerInput.Name = "tickerInput";
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.ForeColor = System.Drawing.Color.Black;
+            this.label22.Name = "label22";
+            // 
+            // label27
+            // 
+            resources.ApplyResources(this.label27, "label27");
+            this.label27.ForeColor = System.Drawing.Color.Black;
+            this.label27.Name = "label27";
+            // 
+            // autoCalibBot1Check
+            // 
+            this.autoCalibBot1Check.AllowDrop = true;
+            resources.ApplyResources(this.autoCalibBot1Check, "autoCalibBot1Check");
+            this.autoCalibBot1Check.Name = "autoCalibBot1Check";
+            this.autoCalibBot1Check.TabStop = true;
+            this.autoCalibBot1Check.UseVisualStyleBackColor = true;
+            this.autoCalibBot1Check.MouseClick += new System.Windows.Forms.MouseEventHandler(this.autoCalibBot1Check_MouseClick);
+            // 
+            // tickerTB
+            // 
+            resources.ApplyResources(this.tickerTB, "tickerTB");
+            this.tickerTB.Name = "tickerTB";
+            this.tickerTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tickerTB_KeyUp);
+            this.tickerTB.Leave += new System.EventHandler(this.tickerTB_Leave);
+            // 
+            // manualCalibBot1Check
+            // 
+            this.manualCalibBot1Check.AllowDrop = true;
+            resources.ApplyResources(this.manualCalibBot1Check, "manualCalibBot1Check");
+            this.manualCalibBot1Check.Name = "manualCalibBot1Check";
+            this.manualCalibBot1Check.TabStop = true;
+            this.manualCalibBot1Check.UseVisualStyleBackColor = true;
+            this.manualCalibBot1Check.MouseClick += new System.Windows.Forms.MouseEventHandler(this.manualCalibBot1Check_MouseClick);
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.ForeColor = System.Drawing.Color.Black;
+            this.label16.Name = "label16";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.ddePlotMeasureBot1);
+            this.groupBox1.Controls.Add(this.label28);
+            this.groupBox1.Controls.Add(this.ddeRSIMeasureBot1);
+            this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.ddeCurrentMeasureBot1);
+            this.groupBox1.Controls.Add(this.label32);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // ddePlotMeasureBot1
+            // 
+            resources.ApplyResources(this.ddePlotMeasureBot1, "ddePlotMeasureBot1");
+            this.ddePlotMeasureBot1.ForeColor = System.Drawing.Color.Black;
+            this.ddePlotMeasureBot1.Name = "ddePlotMeasureBot1";
+            // 
+            // label28
+            // 
+            resources.ApplyResources(this.label28, "label28");
+            this.label28.ForeColor = System.Drawing.Color.Black;
+            this.label28.Name = "label28";
+            // 
+            // ddeRSIMeasureBot1
+            // 
+            resources.ApplyResources(this.ddeRSIMeasureBot1, "ddeRSIMeasureBot1");
+            this.ddeRSIMeasureBot1.ForeColor = System.Drawing.Color.Black;
+            this.ddeRSIMeasureBot1.Name = "ddeRSIMeasureBot1";
+            // 
+            // label19
+            // 
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.ForeColor = System.Drawing.Color.Black;
+            this.label19.Name = "label19";
+            // 
+            // ddeCurrentMeasureBot1
+            // 
+            resources.ApplyResources(this.ddeCurrentMeasureBot1, "ddeCurrentMeasureBot1");
+            this.ddeCurrentMeasureBot1.ForeColor = System.Drawing.Color.Black;
+            this.ddeCurrentMeasureBot1.Name = "ddeCurrentMeasureBot1";
+            // 
+            // label32
+            // 
+            resources.ApplyResources(this.label32, "label32");
+            this.label32.ForeColor = System.Drawing.Color.Black;
+            this.label32.Name = "label32";
+            // 
+            // resetCalibBT
+            // 
+            this.resetCalibBT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            resources.ApplyResources(this.resetCalibBT, "resetCalibBT");
+            this.resetCalibBT.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.resetCalibBT.FlatAppearance.BorderSize = 0;
+            this.resetCalibBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.resetCalibBT.ForeColor = System.Drawing.Color.Black;
+            this.resetCalibBT.Name = "resetCalibBT";
+            this.resetCalibBT.UseVisualStyleBackColor = false;
+            this.resetCalibBT.Click += new System.EventHandler(this.resetCalibBT_Click);
+            // 
+            // Operations
+            // 
+            this.Operations.Controls.Add(this.bot1Operations);
+            resources.ApplyResources(this.Operations, "Operations");
+            this.Operations.Name = "Operations";
+            this.Operations.TabStop = false;
+            // 
+            // bot1Operations
+            // 
+            this.bot1Operations.BackColor = System.Drawing.Color.White;
+            this.bot1Operations.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.bot1Operations.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.bot1OpsHour,
+            this.bot1OpsAction,
+            this.bot1OpsPrice});
+            resources.ApplyResources(this.bot1Operations, "bot1Operations");
+            this.bot1Operations.GridLines = true;
+            this.bot1Operations.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.bot1Operations.HideSelection = false;
+            this.bot1Operations.Name = "bot1Operations";
+            this.bot1Operations.UseCompatibleStateImageBehavior = false;
+            this.bot1Operations.View = System.Windows.Forms.View.Details;
+            // 
+            // bot1OpsHour
+            // 
+            this.bot1OpsHour.Tag = "1";
+            resources.ApplyResources(this.bot1OpsHour, "bot1OpsHour");
+            // 
+            // bot1OpsAction
+            // 
+            resources.ApplyResources(this.bot1OpsAction, "bot1OpsAction");
+            // 
+            // bot1OpsPrice
+            // 
+            resources.ApplyResources(this.bot1OpsPrice, "bot1OpsPrice");
+            // 
+            // stopBot1BT
+            // 
+            this.stopBot1BT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            resources.ApplyResources(this.stopBot1BT, "stopBot1BT");
+            this.stopBot1BT.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.stopBot1BT.FlatAppearance.BorderSize = 0;
+            this.stopBot1BT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.stopBot1BT.ForeColor = System.Drawing.Color.Red;
+            this.stopBot1BT.Name = "stopBot1BT";
+            this.stopBot1BT.UseVisualStyleBackColor = false;
+            this.stopBot1BT.Click += new System.EventHandler(this.stopBot1BT_Click);
+            // 
+            // calibrationBot1Bar
+            // 
+            resources.ApplyResources(this.calibrationBot1Bar, "calibrationBot1Bar");
+            this.calibrationBot1Bar.Maximum = 23;
+            this.calibrationBot1Bar.Name = "calibrationBot1Bar";
+            // 
+            // startBot1BT
+            // 
+            this.startBot1BT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            resources.ApplyResources(this.startBot1BT, "startBot1BT");
+            this.startBot1BT.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.startBot1BT.FlatAppearance.BorderSize = 0;
+            this.startBot1BT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.startBot1BT.ForeColor = System.Drawing.Color.Lime;
+            this.startBot1BT.Name = "startBot1BT";
+            this.startBot1BT.UseVisualStyleBackColor = false;
+            this.startBot1BT.Click += new System.EventHandler(this.startBot1BT_Click);
+            // 
+            // calibrateBot1BT
+            // 
+            this.calibrateBot1BT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            resources.ApplyResources(this.calibrateBot1BT, "calibrateBot1BT");
+            this.calibrateBot1BT.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.calibrateBot1BT.FlatAppearance.BorderSize = 0;
+            this.calibrateBot1BT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.calibrateBot1BT.ForeColor = System.Drawing.Color.Black;
+            this.calibrateBot1BT.Name = "calibrateBot1BT";
+            this.calibrateBot1BT.UseVisualStyleBackColor = false;
+            this.calibrateBot1BT.Click += new System.EventHandler(this.calibrateBot1BT_Click);
+            // 
+            // saveParamsBot1BT
+            // 
+            this.saveParamsBot1BT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            resources.ApplyResources(this.saveParamsBot1BT, "saveParamsBot1BT");
+            this.saveParamsBot1BT.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.saveParamsBot1BT.FlatAppearance.BorderSize = 0;
+            this.saveParamsBot1BT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.saveParamsBot1BT.ForeColor = System.Drawing.Color.Black;
+            this.saveParamsBot1BT.Name = "saveParamsBot1BT";
+            this.saveParamsBot1BT.UseVisualStyleBackColor = false;
+            this.saveParamsBot1BT.Click += new System.EventHandler(this.saveParamsBot1BT_Click);
+            // 
+            // bot1LB
+            // 
+            resources.ApplyResources(this.bot1LB, "bot1LB");
+            this.bot1LB.Name = "bot1LB";
+            // 
             // bot3PN
             // 
             this.bot3PN.BackColor = System.Drawing.Color.Gray;
@@ -1134,26 +1167,6 @@
             // 
             this.calibBot1.Tick += new System.EventHandler(this.calibBot1_Tick);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.ddeCurrentMeasureBot1);
-            this.groupBox1.Controls.Add(this.label32);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // label32
-            // 
-            resources.ApplyResources(this.label32, "label32");
-            this.label32.ForeColor = System.Drawing.Color.Black;
-            this.label32.Name = "label32";
-            // 
-            // ddeCurrentMeasureBot1
-            // 
-            resources.ApplyResources(this.ddeCurrentMeasureBot1, "ddeCurrentMeasureBot1");
-            this.ddeCurrentMeasureBot1.ForeColor = System.Drawing.Color.Black;
-            this.ddeCurrentMeasureBot1.Name = "ddeCurrentMeasureBot1";
-            // 
             // PomBotAppForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1177,15 +1190,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.userPic)).EndInit();
             this.menuPN.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.bot1PN.ResumeLayout(false);
-            this.bot1PN.PerformLayout();
-            this.Operations.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.dashboardPN.ResumeLayout(false);
             this.dashboardPN.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -1194,6 +1198,17 @@
             this.RobotStatus.PerformLayout();
             this.StrategyParameters.ResumeLayout(false);
             this.StrategyParameters.PerformLayout();
+            this.bot1PN.ResumeLayout(false);
+            this.bot1PN.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.Operations.ResumeLayout(false);
             this.bot3PN.ResumeLayout(false);
             this.bot3PN.PerformLayout();
             this.bot4PN.ResumeLayout(false);
@@ -1204,8 +1219,6 @@
             this.configPN.PerformLayout();
             this.bot2PN.ResumeLayout(false);
             this.bot2PN.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1282,25 +1295,15 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox tickerTB;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Button startBot1BT;
         private System.Windows.Forms.Button calibrateBot1BT;
         private System.Windows.Forms.Button saveParamsBot1BT;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label manualCalibBot1Txt;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox lastPerCloseTB;
-        private System.Windows.Forms.TextBox lastperOpenTB;
         private System.Windows.Forms.Button stopBot1BT;
         private System.Windows.Forms.ProgressBar calibrationBot1Bar;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.GroupBox Operations;
         private System.Windows.Forms.Timer timerBot1;
         private System.Windows.Forms.Timer calibBot1;
@@ -1334,14 +1337,25 @@
         private System.Windows.Forms.Timer timerBot4;
         private System.Windows.Forms.Timer calibBot4;
         private System.Windows.Forms.Button resetCalibBT;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label enteredBot1CloseTB;
-        private System.Windows.Forms.Label enteredBot1OpenTB;
         private System.Windows.Forms.Label tickerInput;
         internal System.Windows.Forms.ListView bot1Operations;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label32;
         internal System.Windows.Forms.Label ddeCurrentMeasureBot1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label enteredBot1CloseTB;
+        private System.Windows.Forms.TextBox lastPerCloseTB;
+        private System.Windows.Forms.Label enteredBot1OpenTB;
+        private System.Windows.Forms.TextBox lastperOpenTB;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.GroupBox groupBox2;
+        internal System.Windows.Forms.Label ddePlotMeasureBot1;
+        private System.Windows.Forms.Label label28;
+        internal System.Windows.Forms.Label ddeRSIMeasureBot1;
+        private System.Windows.Forms.Label label19;
     }
 }

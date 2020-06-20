@@ -4,39 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Pombot_UI.RobotLibrary
 {
     class Strategy
     {
-        /* Get from DashBoard
-        internal int historySize = 20;
-        internal int plot3Size = 3;
-        internal float renkoPeriod = 3; //for 5R graphs
-        */
         private Dashboard dashB;
+
+        internal Bot myBot;
 
         #region Curve Variables
         private bool maxCurve;
         private bool historyComplete;
         internal bool botActive;
         internal bool manualCalibration;
+        internal Queue<double> periods = new Queue<double>();
+        
         private double brickInitial;
         private double brickFinal;
-        internal Queue<double> periods = new Queue<double>(); //periods to be a 5R = 2 pts
         internal Queue<double> maxPeriods = new Queue<double>();
         internal Queue<double> minPeriods = new Queue<double>();
-        private Stack<double> manCalib = new Stack<double>(); //stack instance to handle backwards period insertion
+        
         private double manCalibTemp;
+        private Stack<double> manCalib = new Stack<double>(); //stack instance to handle backwards period insertion
         #endregion
 
         #region Strategy Variables
         private double lowMean = 0;
         private double highMean = 0;
-        private double rsiMean = 0;
-        private double plot3Mean = 0;
+        internal double rsiMean = 0;
+        internal double plot3Mean = 0;
         private bool firstPass = true;
-        private Queue<double> threePerMean = new Queue<double>();
+        internal Queue<double> threePerMean = new Queue<double>();
         #endregion
 
         #region Strategy Options
@@ -49,11 +49,8 @@ namespace Pombot_UI.RobotLibrary
         internal double temp;
         private double renkoPeriod;
 
-        #region Feedback Control
-        internal ListView feedbackTable;
-        private ListViewItem listItem;
-        internal ProgressBar calibBar;
-        #endregion
+        internal string action;
+        internal double price;
 
         #region Encapsulation
         internal void MaxCurve(bool val)
@@ -83,7 +80,6 @@ namespace Pombot_UI.RobotLibrary
             botActive = false;
         }
         #endregion
-
 
         internal void ManualEntry(double brick)
         {
@@ -130,8 +126,6 @@ namespace Pombot_UI.RobotLibrary
                         if (maxPeriods.Count() > dashB.historySize) maxPeriods.Dequeue();
 
                         if (historyComplete) StrategyProcess();
-
-                        calibBar.Value++;
                     }
                     else if (!maxCurve) //reversion of descending curve point
                     {
@@ -149,8 +143,6 @@ namespace Pombot_UI.RobotLibrary
 
                             //Console.WriteLine("===> Reverse Point from LOW to HIGH);
                             if (historyComplete) StrategyProcess();
-
-                            calibBar.Value++;
                         }
                     }
                 }
@@ -172,8 +164,6 @@ namespace Pombot_UI.RobotLibrary
 
                             //Console.WriteLine("<=== Reverse Point from HIGH  to LOW);
                             if (historyComplete) StrategyProcess();
-
-                            calibBar.Value++;
                         }
                     }
                     else if (!maxCurve) //descending curve
@@ -189,8 +179,6 @@ namespace Pombot_UI.RobotLibrary
                         if (maxPeriods.Count() > dashB.historySize) maxPeriods.Dequeue();
 
                         if (historyComplete) StrategyProcess();
-
-                        calibBar.Value++;
                     }
                 }
             }//Automatic Calibration
@@ -217,7 +205,6 @@ namespace Pombot_UI.RobotLibrary
                     {
                         periods.Enqueue(manCalib.Peek());
                     }
-                    calibBar.Value++;
                 }
                 if (historyComplete) StrategyProcess();
                 manualCalibration = false;
@@ -237,6 +224,7 @@ namespace Pombot_UI.RobotLibrary
             }
             else
             {
+                myBot.mainForm.UpdateRSI(true);
                 highMean = (highMean * (dashB.historySize - 1) / dashB.historySize) + (periods.Last() - periods.First() > 0 ? periods.Last() - periods.First() : 0) / dashB.historySize; //mean of MaxPeriods
                 lowMean = (lowMean * (dashB.historySize - 1) / dashB.historySize) + (periods.Last() - periods.First() < 0 ? Math.Abs(periods.Last() - periods.First()) : 0) / dashB.historySize; //mean of MinPeriods 
             }
@@ -255,7 +243,11 @@ namespace Pombot_UI.RobotLibrary
                 plot3Mean = threePerMean.Average();
                 CallStrategyAction();
                 botActive = true;
-                UpdateListView("Plot 3", plot3Mean);
+
+                //ListViewItem newItem = new ListViewItem($"{DateTime.Now.ToString("dd.MMM.yy")}");
+                //newItem.SubItems.Add("Plot 3");
+                //newItem.SubItems.Add(plot3Mean.ToString("0.00"));
+                //listView.Items.Add(newItem);
                 //Console.WriteLine($"{DateTime.Now} - RSI20: {rsiMean.ToString("0.00")} --- Plot3: {plot3Mean.ToString("0.00")}");
             }
 
@@ -270,7 +262,9 @@ namespace Pombot_UI.RobotLibrary
                 {
                     if (!isBought)
                     {
-                        UpdateListView("BUY", brickFinal);
+                        action = "Buy";
+                        price = brickFinal;
+                        myBot.mainForm.AddTableItem(true);
                         //Console.WriteLine($"{DateTime.Now} ===> BUY <====\n");
                     }
                     isBought = true;
@@ -280,7 +274,9 @@ namespace Pombot_UI.RobotLibrary
                 {
                     if (isBought || isSold)
                     {
-                        UpdateListView("ZERO", brickFinal);
+                        action = "Zero";
+                        price = brickFinal;
+                        myBot.mainForm.AddTableItem(true);
                         //Console.WriteLine($" {DateTime.Now} ===> Zero <====\n");
                     }
                     isBought = false;
@@ -294,7 +290,9 @@ namespace Pombot_UI.RobotLibrary
                 {
                     if (!isSold)
                     {
-                        UpdateListView("SELL", brickFinal);
+                        action = "Sell";
+                        price = brickFinal;
+                        myBot.mainForm.AddTableItem(true);
                         //Console.WriteLine($"{DateTime.Now} ===> SELL <====\n");
                     }
                     isBought = false;
@@ -304,7 +302,9 @@ namespace Pombot_UI.RobotLibrary
                 {
                     if (isBought || isSold)
                     {
-                        UpdateListView("ZERO", brickFinal);
+                        action = "Zero";
+                        price = brickFinal;
+                        myBot.mainForm.AddTableItem(true);
                         //Console.WriteLine($" {DateTime.Now} ===> Zero <====\n");
                     }
                     isBought = false;
@@ -312,14 +312,6 @@ namespace Pombot_UI.RobotLibrary
                 }
             }
         }//StrategyAction Method
-
-        private void UpdateListView(string action, double price)
-        {
-            listItem.SubItems.Add($"{DateTime.Now}");
-            listItem.SubItems.Add(action);
-            listItem.SubItems.Add(price.ToString("0.00"));
-            feedbackTable.Items.Add(listItem);
-        }
     }//Class Strategy
 
 }//Namespace
