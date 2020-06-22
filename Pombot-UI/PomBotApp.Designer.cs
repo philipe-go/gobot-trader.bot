@@ -60,15 +60,7 @@
             this.panelHL = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dashboardPN = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.zeroKeyboardTB = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.sellKeyboardTB = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.buyKeyboardTB = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.RobotStatus = new System.Windows.Forms.Panel();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.bot4Status = new System.Windows.Forms.Label();
             this.bot3Status = new System.Windows.Forms.Label();
             this.bot2Status = new System.Windows.Forms.Label();
@@ -77,8 +69,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.robotLB = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.StrategyParameters = new System.Windows.Forms.Panel();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.inversionStrategyCB = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.renkoTB = new System.Windows.Forms.Label();
@@ -90,7 +81,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.zeroLB = new System.Windows.Forms.Label();
+            this.sellLB = new System.Windows.Forms.Label();
+            this.buyLB = new System.Windows.Forms.Label();
+            this.zeroKeyPress = new System.Windows.Forms.Button();
+            this.buyKeyPress = new System.Windows.Forms.Button();
+            this.sellKeyPress = new System.Windows.Forms.Button();
             this.openProfit = new System.Windows.Forms.Label();
             this.ddeConnectLB = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -172,9 +169,9 @@
             this.menuPN.SuspendLayout();
             this.panel1.SuspendLayout();
             this.dashboardPN.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.RobotStatus.SuspendLayout();
-            this.StrategyParameters.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.bot1PN.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -441,8 +438,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.dashboardPN);
             this.panel1.Controls.Add(this.bot1PN);
+            this.panel1.Controls.Add(this.dashboardPN);
             this.panel1.Controls.Add(this.bot3PN);
             this.panel1.Controls.Add(this.bot4PN);
             this.panel1.Controls.Add(this.howToPN);
@@ -454,9 +451,9 @@
             // dashboardPN
             // 
             this.dashboardPN.BackColor = System.Drawing.Color.Gray;
-            this.dashboardPN.Controls.Add(this.panel5);
-            this.dashboardPN.Controls.Add(this.RobotStatus);
-            this.dashboardPN.Controls.Add(this.StrategyParameters);
+            this.dashboardPN.Controls.Add(this.groupBox7);
+            this.dashboardPN.Controls.Add(this.groupBox6);
+            this.dashboardPN.Controls.Add(this.groupBox5);
             this.dashboardPN.Controls.Add(this.openProfit);
             this.dashboardPN.Controls.Add(this.ddeConnectLB);
             this.dashboardPN.Controls.Add(this.label1);
@@ -467,78 +464,19 @@
             resources.ApplyResources(this.dashboardPN, "dashboardPN");
             this.dashboardPN.Name = "dashboardPN";
             // 
-            // panel5
+            // groupBox7
             // 
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.zeroKeyboardTB);
-            this.panel5.Controls.Add(this.label26);
-            this.panel5.Controls.Add(this.sellKeyboardTB);
-            this.panel5.Controls.Add(this.label25);
-            this.panel5.Controls.Add(this.buyKeyboardTB);
-            this.panel5.Controls.Add(this.label24);
-            this.panel5.Controls.Add(this.label30);
-            resources.ApplyResources(this.panel5, "panel5");
-            this.panel5.Name = "panel5";
-            // 
-            // zeroKeyboardTB
-            // 
-            resources.ApplyResources(this.zeroKeyboardTB, "zeroKeyboardTB");
-            this.zeroKeyboardTB.Name = "zeroKeyboardTB";
-            this.zeroKeyboardTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.zeroKeyboardTB_KeyUp);
-            this.zeroKeyboardTB.Leave += new System.EventHandler(this.zeroKeyboardTB_Leave);
-            // 
-            // label26
-            // 
-            resources.ApplyResources(this.label26, "label26");
-            this.label26.ForeColor = System.Drawing.Color.Black;
-            this.label26.Name = "label26";
-            // 
-            // sellKeyboardTB
-            // 
-            resources.ApplyResources(this.sellKeyboardTB, "sellKeyboardTB");
-            this.sellKeyboardTB.Name = "sellKeyboardTB";
-            this.sellKeyboardTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.sellKeyboardTB_KeyUp);
-            this.sellKeyboardTB.Leave += new System.EventHandler(this.sellKeyboardTB_Leave);
-            // 
-            // label25
-            // 
-            resources.ApplyResources(this.label25, "label25");
-            this.label25.ForeColor = System.Drawing.Color.Black;
-            this.label25.Name = "label25";
-            // 
-            // buyKeyboardTB
-            // 
-            resources.ApplyResources(this.buyKeyboardTB, "buyKeyboardTB");
-            this.buyKeyboardTB.Name = "buyKeyboardTB";
-            this.buyKeyboardTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.buyKeyboardTB_KeyUp);
-            this.buyKeyboardTB.Leave += new System.EventHandler(this.buyKeyboardTB_Leave);
-            // 
-            // label24
-            // 
-            resources.ApplyResources(this.label24, "label24");
-            this.label24.ForeColor = System.Drawing.Color.Black;
-            this.label24.Name = "label24";
-            // 
-            // label30
-            // 
-            resources.ApplyResources(this.label30, "label30");
-            this.label30.ForeColor = System.Drawing.Color.Black;
-            this.label30.Name = "label30";
-            // 
-            // RobotStatus
-            // 
-            this.RobotStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.RobotStatus.Controls.Add(this.bot4Status);
-            this.RobotStatus.Controls.Add(this.bot3Status);
-            this.RobotStatus.Controls.Add(this.bot2Status);
-            this.RobotStatus.Controls.Add(this.bot1Status);
-            this.RobotStatus.Controls.Add(this.label9);
-            this.RobotStatus.Controls.Add(this.label8);
-            this.RobotStatus.Controls.Add(this.label7);
-            this.RobotStatus.Controls.Add(this.robotLB);
-            this.RobotStatus.Controls.Add(this.label6);
-            resources.ApplyResources(this.RobotStatus, "RobotStatus");
-            this.RobotStatus.Name = "RobotStatus";
+            this.groupBox7.Controls.Add(this.bot4Status);
+            this.groupBox7.Controls.Add(this.bot3Status);
+            this.groupBox7.Controls.Add(this.bot2Status);
+            this.groupBox7.Controls.Add(this.bot1Status);
+            this.groupBox7.Controls.Add(this.label9);
+            this.groupBox7.Controls.Add(this.label8);
+            this.groupBox7.Controls.Add(this.label7);
+            this.groupBox7.Controls.Add(this.robotLB);
+            resources.ApplyResources(this.groupBox7, "groupBox7");
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.TabStop = false;
             // 
             // bot4Status
             // 
@@ -588,29 +526,22 @@
             this.robotLB.ForeColor = System.Drawing.Color.Black;
             this.robotLB.Name = "robotLB";
             // 
-            // label6
+            // groupBox6
             // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Name = "label6";
-            // 
-            // StrategyParameters
-            // 
-            this.StrategyParameters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.StrategyParameters.Controls.Add(this.inversionStrategyCB);
-            this.StrategyParameters.Controls.Add(this.label10);
-            this.StrategyParameters.Controls.Add(this.renkoTB);
-            this.StrategyParameters.Controls.Add(this.renkoInput);
-            this.StrategyParameters.Controls.Add(this.rsiHistoryTB);
-            this.StrategyParameters.Controls.Add(this.plot3TB);
-            this.StrategyParameters.Controls.Add(this.rsiHistoryInput);
-            this.StrategyParameters.Controls.Add(this.plot3Input);
-            this.StrategyParameters.Controls.Add(this.label5);
-            this.StrategyParameters.Controls.Add(this.label4);
-            this.StrategyParameters.Controls.Add(this.label3);
-            this.StrategyParameters.Controls.Add(this.label2);
-            resources.ApplyResources(this.StrategyParameters, "StrategyParameters");
-            this.StrategyParameters.Name = "StrategyParameters";
+            this.groupBox6.Controls.Add(this.inversionStrategyCB);
+            this.groupBox6.Controls.Add(this.label10);
+            this.groupBox6.Controls.Add(this.renkoTB);
+            this.groupBox6.Controls.Add(this.renkoInput);
+            this.groupBox6.Controls.Add(this.rsiHistoryTB);
+            this.groupBox6.Controls.Add(this.plot3TB);
+            this.groupBox6.Controls.Add(this.rsiHistoryInput);
+            this.groupBox6.Controls.Add(this.plot3Input);
+            this.groupBox6.Controls.Add(this.label5);
+            this.groupBox6.Controls.Add(this.label4);
+            this.groupBox6.Controls.Add(this.label3);
+            resources.ApplyResources(this.groupBox6, "groupBox6");
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.TabStop = false;
             // 
             // inversionStrategyCB
             // 
@@ -628,7 +559,7 @@
             // renkoTB
             // 
             resources.ApplyResources(this.renkoTB, "renkoTB");
-            this.renkoTB.ForeColor = System.Drawing.Color.Black;
+            this.renkoTB.ForeColor = System.Drawing.Color.Aqua;
             this.renkoTB.Name = "renkoTB";
             // 
             // renkoInput
@@ -644,13 +575,13 @@
             // rsiHistoryTB
             // 
             resources.ApplyResources(this.rsiHistoryTB, "rsiHistoryTB");
-            this.rsiHistoryTB.ForeColor = System.Drawing.Color.Black;
+            this.rsiHistoryTB.ForeColor = System.Drawing.Color.Aqua;
             this.rsiHistoryTB.Name = "rsiHistoryTB";
             // 
             // plot3TB
             // 
             resources.ApplyResources(this.plot3TB, "plot3TB");
-            this.plot3TB.ForeColor = System.Drawing.Color.Black;
+            this.plot3TB.ForeColor = System.Drawing.Color.Aqua;
             this.plot3TB.Name = "plot3TB";
             // 
             // rsiHistoryInput
@@ -690,11 +621,81 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Name = "label3";
             // 
-            // label2
+            // groupBox5
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Name = "label2";
+            this.groupBox5.Controls.Add(this.zeroLB);
+            this.groupBox5.Controls.Add(this.sellLB);
+            this.groupBox5.Controls.Add(this.buyLB);
+            this.groupBox5.Controls.Add(this.zeroKeyPress);
+            this.groupBox5.Controls.Add(this.buyKeyPress);
+            this.groupBox5.Controls.Add(this.sellKeyPress);
+            resources.ApplyResources(this.groupBox5, "groupBox5");
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.TabStop = false;
+            // 
+            // zeroLB
+            // 
+            resources.ApplyResources(this.zeroLB, "zeroLB");
+            this.zeroLB.ForeColor = System.Drawing.Color.Aqua;
+            this.zeroLB.Name = "zeroLB";
+            // 
+            // sellLB
+            // 
+            resources.ApplyResources(this.sellLB, "sellLB");
+            this.sellLB.ForeColor = System.Drawing.Color.Aqua;
+            this.sellLB.Name = "sellLB";
+            // 
+            // buyLB
+            // 
+            resources.ApplyResources(this.buyLB, "buyLB");
+            this.buyLB.ForeColor = System.Drawing.Color.Aqua;
+            this.buyLB.Name = "buyLB";
+            // 
+            // zeroKeyPress
+            // 
+            this.zeroKeyPress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            resources.ApplyResources(this.zeroKeyPress, "zeroKeyPress");
+            this.zeroKeyPress.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.zeroKeyPress.FlatAppearance.BorderSize = 0;
+            this.zeroKeyPress.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.zeroKeyPress.ForeColor = System.Drawing.Color.Black;
+            this.zeroKeyPress.Name = "zeroKeyPress";
+            this.zeroKeyPress.UseVisualStyleBackColor = false;
+            this.zeroKeyPress.Click += new System.EventHandler(this.zeroKeyPress_Click);
+            this.zeroKeyPress.KeyUp += new System.Windows.Forms.KeyEventHandler(this.zeroKeyPress_KeyUp);
+            this.zeroKeyPress.Leave += new System.EventHandler(this.zeroKeyPress_Leave);
+            this.zeroKeyPress.MouseLeave += new System.EventHandler(this.zeroKeyPress_Leave);
+            // 
+            // buyKeyPress
+            // 
+            this.buyKeyPress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            resources.ApplyResources(this.buyKeyPress, "buyKeyPress");
+            this.buyKeyPress.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buyKeyPress.FlatAppearance.BorderSize = 0;
+            this.buyKeyPress.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.buyKeyPress.ForeColor = System.Drawing.Color.Black;
+            this.buyKeyPress.Name = "buyKeyPress";
+            this.buyKeyPress.UseVisualStyleBackColor = false;
+            this.buyKeyPress.BackgroundImageChanged += new System.EventHandler(this.buyKeyPress_BackgroundImageChanged);
+            this.buyKeyPress.Click += new System.EventHandler(this.buyKeyPress_Click);
+            this.buyKeyPress.KeyUp += new System.Windows.Forms.KeyEventHandler(this.buyKeyPress_KeyUp);
+            this.buyKeyPress.Leave += new System.EventHandler(this.buyKeyPress_Leave);
+            this.buyKeyPress.MouseLeave += new System.EventHandler(this.buyKeyPress_Leave);
+            // 
+            // sellKeyPress
+            // 
+            this.sellKeyPress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            resources.ApplyResources(this.sellKeyPress, "sellKeyPress");
+            this.sellKeyPress.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.sellKeyPress.FlatAppearance.BorderSize = 0;
+            this.sellKeyPress.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.sellKeyPress.ForeColor = System.Drawing.Color.Black;
+            this.sellKeyPress.Name = "sellKeyPress";
+            this.sellKeyPress.UseVisualStyleBackColor = false;
+            this.sellKeyPress.Click += new System.EventHandler(this.sellKeyPress_Click);
+            this.sellKeyPress.KeyUp += new System.Windows.Forms.KeyEventHandler(this.sellKeyPress_KeyUp);
+            this.sellKeyPress.Leave += new System.EventHandler(this.sellKeyPress_Leave);
+            this.sellKeyPress.MouseLeave += new System.EventHandler(this.sellKeyPress_Leave);
             // 
             // openProfit
             // 
@@ -1192,12 +1193,12 @@
             this.panel1.ResumeLayout(false);
             this.dashboardPN.ResumeLayout(false);
             this.dashboardPN.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.RobotStatus.ResumeLayout(false);
-            this.RobotStatus.PerformLayout();
-            this.StrategyParameters.ResumeLayout(false);
-            this.StrategyParameters.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.bot1PN.ResumeLayout(false);
             this.bot1PN.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -1263,28 +1264,9 @@
         private System.Windows.Forms.Label ddeConnectLB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label openProfit;
-        private System.Windows.Forms.Panel StrategyParameters;
-        private System.Windows.Forms.Label renkoTB;
-        private System.Windows.Forms.HScrollBar renkoInput;
-        private System.Windows.Forms.Label rsiHistoryTB;
-        private System.Windows.Forms.Label plot3TB;
-        private System.Windows.Forms.HScrollBar rsiHistoryInput;
-        private System.Windows.Forms.HScrollBar plot3Input;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel RobotStatus;
-        private System.Windows.Forms.Label robotLB;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.PictureBox connectionPic;
         private System.Windows.Forms.Label dateLB;
         private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.CheckBox inversionStrategyCB;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox robot1PB;
         private System.Windows.Forms.PictureBox robot4PB;
@@ -1318,18 +1300,6 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label manualEnterNrTB;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TextBox zeroKeyboardTB;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox sellKeyboardTB;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.TextBox buyKeyboardTB;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label bot4Status;
-        private System.Windows.Forms.Label bot3Status;
-        private System.Windows.Forms.Label bot2Status;
-        private System.Windows.Forms.Label bot1Status;
         private System.Windows.Forms.Timer timerBot2;
         private System.Windows.Forms.Timer calibBot2;
         private System.Windows.Forms.Timer timerBot3;
@@ -1357,5 +1327,33 @@
         private System.Windows.Forms.Label label28;
         internal System.Windows.Forms.Label ddeRSIMeasureBot1;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button buyKeyPress;
+        private System.Windows.Forms.Button zeroKeyPress;
+        private System.Windows.Forms.Button sellKeyPress;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label bot4Status;
+        private System.Windows.Forms.Label bot3Status;
+        private System.Windows.Forms.Label bot2Status;
+        private System.Windows.Forms.Label bot1Status;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label robotLB;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.CheckBox inversionStrategyCB;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label renkoTB;
+        private System.Windows.Forms.HScrollBar renkoInput;
+        private System.Windows.Forms.Label rsiHistoryTB;
+        private System.Windows.Forms.Label plot3TB;
+        private System.Windows.Forms.HScrollBar rsiHistoryInput;
+        private System.Windows.Forms.HScrollBar plot3Input;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label zeroLB;
+        private System.Windows.Forms.Label sellLB;
+        private System.Windows.Forms.Label buyLB;
     }
 }

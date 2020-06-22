@@ -24,9 +24,9 @@ namespace Pombot_UI.RobotLibrary
         internal bool inversionStrategy = false;
 
         /**** Keyboard Bindings ****/
-        internal string buyKeyboard = "";
-        internal string sellKeyboard = "";
-        internal string zeroKeyboard = "";
+        internal List<Keys> buyKeyboard = new List<Keys>();
+        internal List<Keys> sellKeyboard = new List<Keys>();
+        internal List<Keys> zeroKeyboard = new List<Keys>();
         #endregion
 
         #region Singleton

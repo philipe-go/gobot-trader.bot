@@ -33,7 +33,7 @@ namespace Pombot_UI
         private DdeClient client; //----> was internal before
         private bool connectedDDE;
         #endregion
-        
+
         #region Form Attributes 
         public string user; //user name to be shown on the top part of the form
         private int mov, movY, movX; //variables to handle the Drag and Move method of the form 
@@ -42,6 +42,10 @@ namespace Pombot_UI
         #endregion
 
         private int countdown = 0;
+
+        private bool buyKey = false;
+        private bool sellkey = false;
+        private bool zeroKey = false;
 
         #region Bot parameters Multi Thread
         internal delegate void UpdateTextBoxDelegate(string textBoxNewText);
@@ -61,16 +65,7 @@ namespace Pombot_UI
             //Action to be performed when initializing main application panel
             InitializeMainForm();
 
-            //BOT forms initialization
-            BOTsInit();
 
-            //DDE Connection
-            ConnectDDE();
-            DDEupdateStatus();
-            UpdateDDEStrategy();
-
-            //Delegates 
-            StartMultiThread();
         }
 
         //timer used for connection checker and date update
@@ -85,8 +80,6 @@ namespace Pombot_UI
         {
             this.client = new DdeClient(dashB.app, dashB.service);
             dateLB.Text = DateTime.Now.ToString("dd/MMM/yyyy-HH:mm ");
-            dashboardBT.Focus();
-            dashboardPN.Visible = true;
             timer1.Start(); //Timer to control clock and DDE connection status update
             winNameLB.Text = Program.appName; //Retrieve app name from Program.cs and set into UI
 
@@ -110,11 +103,28 @@ namespace Pombot_UI
             }
             #endregion
 
+            dashboardBT.Focus();
+            dashboardPN.Visible = true;
+
             //connect this form with all bots so bot have access to its directly
             foreach (Bot bot in botsList)
             {
                 bot.mainForm = this;
             }
+
+            //BOT forms initialization
+            BOTsInit();
+
+            //DDE Connection
+            ConnectDDE();
+            DDEupdateStatus();
+            UpdateDDEStrategy();
+
+            //Delegates 
+            StartMultiThread();
+
+            //Keys Bindings
+            InitializeKeys();
         }
 
         #region DDE interface
@@ -154,7 +164,7 @@ namespace Pombot_UI
             {
                 this.Invoke(updateTableDelegate, botsList[0].strategy.action, botsList[0].strategy.price); //Delegate to update operations table with last bot Operations
                 AddTableItem(false);
-            }    
+            }
         }
         #endregion
 
@@ -295,7 +305,8 @@ namespace Pombot_UI
         #endregion
 
         #region DashBoard Items
-        //DDE
+        //************************ DDE ************************//
+        //*****************************************************//
         //timer used for countdowns to saved label
         private void timer2_Tick_1(object sender, EventArgs e)
         {
@@ -328,7 +339,8 @@ namespace Pombot_UI
                 ConnectDDE();
             }
         }
-        //STRATEGY DASHBOARD INPUT
+        //*************STRATEGY DASHBOARD INPUT****************//
+        //*****************************************************//
         private void UpdateDDEStrategy() //RETRIEVE SAVED INFORMATIONS - should change later to retrieve from xml file and set to dashB
         {
             renkoInput.Value = dashB.renkoPeriod;
@@ -338,65 +350,8 @@ namespace Pombot_UI
             plot3Input.Value = dashB.plot3Size;
             plot3TB.Text = plot3Input.Value.ToString();
         }
-
-        //private void lastperOpenTB_KeyUp(object sender, KeyEventArgs e)
-        //{
-        //    if (e.KeyCode == Keys.Enter)
-        //    {
-        //        lastperOpenTB_Leave(sender, e);
-        //    }
-        //}
-        //private void lastperOpenTB_Leave(object sender, EventArgs e)
-        //{
-        //    if (lastperOpenTB.Text != "")
-        //    {
-        //        botsList[0].InitialBrick(System.Convert.ToDouble(lastperOpenTB.Text));
-        //        enteredBot1OpenTB.Text = botsList[0].GetInitialBrick().ToString();
-        //        lastperOpenTB.Clear();
-        //    }
-        //}
-        private void buyKeyboardTB_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                buyKeyboardTB_Leave(sender, e);
-            }
-        }
-        private void buyKeyboardTB_Leave(object sender, EventArgs e)
-        {
-            if (buyKeyboardTB.Text != "")
-            {
-                dashB.buyKeyboard = buyKeyboardTB.Text.ToUpper();
-            }
-        }
-        private void sellKeyboardTB_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                sellKeyboardTB_Leave(sender, e);
-            }
-        }
-        private void sellKeyboardTB_Leave(object sender, EventArgs e)
-        {
-            if (buyKeyboardTB.Text != "")
-            {
-                dashB.sellKeyboard = sellKeyboardTB.Text.ToUpper();
-            }
-        }
-        private void zeroKeyboardTB_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                zeroKeyboardTB_Leave(sender, e);
-            }
-        }
-        private void zeroKeyboardTB_Leave(object sender, EventArgs e)
-        {
-            if (buyKeyboardTB.Text != "")
-            {
-                dashB.zeroKeyboard = zeroKeyboardTB.Text.ToUpper();
-            }
-        }
+        //***********STRATEGY PARAMETERS CONTROL***************//
+        //*****************************************************//
         private void renkoInput_Scroll(object sender, ScrollEventArgs e)
         {
             renkoTB.Text = renkoInput.Value.ToString() + "R";
@@ -430,8 +385,146 @@ namespace Pombot_UI
         {
             stopBot1BT.PerformClick();
         }
-        
-
+        //*************KEYBOARD INPUT MANAGER******************//
+        //*****************************************************//
+        private void InitializeKeys()
+        {
+            //buy
+            dashB.buyKeyboard.Add(Keys.Shift);
+            dashB.buyKeyboard.Add(Keys.C);
+            buyLB.Text = "";
+            foreach (Keys key in dashB.buyKeyboard)
+            {
+                buyLB.Text += key.ToString() + "  ";
+            }
+            //sell
+            dashB.sellKeyboard.Add(Keys.Shift);
+            dashB.sellKeyboard.Add(Keys.S);
+            sellLB.Text = "";
+            foreach (Keys key in dashB.sellKeyboard)
+            {
+                sellLB.Text += key.ToString() + "  ";
+            }
+            //zero
+            dashB.zeroKeyboard.Add(Keys.Shift);
+            dashB.zeroKeyboard.Add(Keys.Z);
+            zeroLB.Text = "";
+            foreach (Keys key in dashB.zeroKeyboard)
+            {
+                zeroLB.Text += key.ToString() + "  ";
+            }
+        }
+        private void buyKeyPress_Click(object sender, EventArgs e)
+        {
+            buyKey = true;
+            dashB.buyKeyboard.Clear();
+            buyLB.Text = "waiting";
+        }
+        private void buyKeyPress_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (buyKey)
+            {
+                if (e.Modifiers != Keys.None)
+                {
+                    dashB.buyKeyboard.Add((Keys)e.Modifiers);
+                    dashB.buyKeyboard.Add(e.KeyCode);
+                }
+                else
+                    dashB.buyKeyboard.Add(e.KeyCode);
+                buyKey = false;
+            }
+            buyLB.Text = "done";
+        }
+        private void buyKeyPress_Leave(object sender, EventArgs e)
+        {
+            if (dashB.buyKeyboard.Count() == 0)
+            {
+                buyLB.Text = "Key";
+            }
+            else
+            {
+                buyLB.Text = "";
+                foreach (Keys key in dashB.buyKeyboard)
+                {
+                    buyLB.Text += key.ToString() + "  ";
+                }
+            }
+            buyKey = false;
+        }
+        private void sellKeyPress_Click(object sender, EventArgs e)
+        {
+            sellkey = true;
+            dashB.sellKeyboard.Clear();
+            sellLB.Text = "waiting";
+        }
+        private void sellKeyPress_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (sellkey)
+            {
+                if (e.Modifiers != Keys.None)
+                {
+                    dashB.sellKeyboard.Add((Keys)e.Modifiers);
+                    dashB.sellKeyboard.Add(e.KeyCode);
+                }
+                else
+                    dashB.sellKeyboard.Add(e.KeyCode);
+                sellkey = false;
+            }
+            sellLB.Text = "done";
+        }
+        private void sellKeyPress_Leave(object sender, EventArgs e)
+        {
+            if (dashB.sellKeyboard.Count() == 0)
+            {
+                sellLB.Text = "Key";
+            }
+            else
+            {
+                sellLB.Text = "";
+                foreach (Keys key in dashB.sellKeyboard)
+                {
+                    sellLB.Text += key.ToString() + "  ";
+                }
+            }
+            sellkey = false;
+        }
+        private void zeroKeyPress_Click(object sender, EventArgs e)
+        {
+            zeroKey = true;
+            dashB.zeroKeyboard.Clear();
+            zeroLB.Text = "waiting";
+        }
+        private void zeroKeyPress_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (zeroKey)
+            {
+                if (e.Modifiers != Keys.None)
+                {
+                    dashB.zeroKeyboard.Add((Keys)e.Modifiers);
+                    dashB.zeroKeyboard.Add(e.KeyCode);
+                }
+                else
+                    dashB.zeroKeyboard.Add(e.KeyCode);
+                zeroKey = false;
+            }
+            zeroLB.Text = "done";
+        }
+        private void zeroKeyPress_Leave(object sender, EventArgs e)
+        {
+            if (dashB.zeroKeyboard.Count() == 0)
+            {
+                zeroLB.Text = "Key";
+            }
+            else
+            {
+                zeroLB.Text = "";
+                foreach (Keys key in dashB.zeroKeyboard)
+                {
+                    zeroLB.Text += key.ToString() + "  ";
+                }
+            }
+            zeroKey = false;
+        }
         #endregion
 
         #region BOT panel initialization
@@ -464,7 +557,10 @@ namespace Pombot_UI
 
         private void UpdateTableItems(string item2, double item3)
         {
-            ListViewItem newItem = new ListViewItem($"{DateTime.Now.ToString("dd.MMM.yy")}");
+
+            //string time = client.Request($"{botsList[0].ticker}.HOR", 1);
+            //ListViewItem newItem = new ListViewItem($"{time}");
+            ListViewItem newItem = new ListViewItem($"{DateTime.Now.ToString("HH:mm:ss")}");
             newItem.SubItems.Add(item2);
             newItem.SubItems.Add(item3.ToString("0.00"));
             bot1Operations.Items.Add(newItem);
@@ -647,9 +743,16 @@ namespace Pombot_UI
             }
             else
             {
-                calibrationBot1Bar.Value = botsList[0].strategy.maxPeriods.Count() + botsList[0].strategy.threePerMean.Count();
+                calibrationBot1Bar.Value = botsList[0].strategy.maxPeriods.Count() + botsList[0].strategy.threePerMean.Count() > calibrationBot1Bar.Maximum ? 
+                    calibrationBot1Bar.Maximum : botsList[0].strategy.maxPeriods.Count() + botsList[0].strategy.threePerMean.Count();
             }
         }
+
+        private void buyKeyPress_BackgroundImageChanged(object sender, EventArgs e)
+        {
+
+        }
+
         //***************START BOT OPERATIONS******************//
         //*****************************************************//
         private void startBot1BT_Click(object sender, EventArgs e)
