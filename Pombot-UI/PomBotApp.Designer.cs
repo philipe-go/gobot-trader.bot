@@ -60,6 +60,12 @@
             this.panelHL = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dashboardPN = new System.Windows.Forms.Panel();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.topMostLB = new System.Windows.Forms.Label();
+            this.topMostSelector = new System.Windows.Forms.HScrollBar();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.opacityScrollBar = new System.Windows.Forms.HScrollBar();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.bot4Status = new System.Windows.Forms.Label();
             this.bot3Status = new System.Windows.Forms.Label();
@@ -70,7 +76,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.robotLB = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.inversionStrategyCB = new System.Windows.Forms.CheckBox();
+            this.inversionLB = new System.Windows.Forms.Label();
+            this.inversionSelector = new System.Windows.Forms.HScrollBar();
             this.label10 = new System.Windows.Forms.Label();
             this.renkoTB = new System.Windows.Forms.Label();
             this.renkoInput = new System.Windows.Forms.HScrollBar();
@@ -103,22 +110,19 @@
             this.manualCalibBot1Txt = new System.Windows.Forms.Label();
             this.manCalibBot1TB = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.enteredBot1CloseTB = new System.Windows.Forms.Label();
             this.lastPerCloseTB = new System.Windows.Forms.TextBox();
-            this.enteredBot1OpenTB = new System.Windows.Forms.Label();
             this.lastperOpenTB = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.calibrationLB = new System.Windows.Forms.Label();
+            this.calibSelectorScroll = new System.Windows.Forms.HScrollBar();
             this.autoStartCheck = new System.Windows.Forms.CheckBox();
-            this.tickerInput = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.autoCalibBot1Check = new System.Windows.Forms.RadioButton();
+            this.tickerLB = new System.Windows.Forms.Label();
             this.tickerTB = new System.Windows.Forms.TextBox();
-            this.manualCalibBot1Check = new System.Windows.Forms.RadioButton();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ddePlotMeasureBot1 = new System.Windows.Forms.Label();
@@ -139,14 +143,34 @@
             this.calibrateBot1BT = new System.Windows.Forms.Button();
             this.saveParamsBot1BT = new System.Windows.Forms.Button();
             this.bot1LB = new System.Windows.Forms.Label();
+            this.aboutPN = new System.Windows.Forms.Panel();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.configLB = new System.Windows.Forms.Label();
+            this.helpPN = new System.Windows.Forms.Panel();
+            this.helpLB = new System.Windows.Forms.Label();
             this.bot3PN = new System.Windows.Forms.Panel();
             this.bot3LB = new System.Windows.Forms.Label();
             this.bot4PN = new System.Windows.Forms.Panel();
             this.bot4LB = new System.Windows.Forms.Label();
-            this.howToPN = new System.Windows.Forms.Panel();
-            this.howToLB = new System.Windows.Forms.Label();
-            this.configPN = new System.Windows.Forms.Panel();
-            this.configLB = new System.Windows.Forms.Label();
             this.bot2PN = new System.Windows.Forms.Panel();
             this.bot2LB = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
@@ -169,6 +193,7 @@
             this.menuPN.SuspendLayout();
             this.panel1.SuspendLayout();
             this.dashboardPN.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -178,10 +203,13 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.Operations.SuspendLayout();
+            this.aboutPN.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.helpPN.SuspendLayout();
             this.bot3PN.SuspendLayout();
             this.bot4PN.SuspendLayout();
-            this.howToPN.SuspendLayout();
-            this.configPN.SuspendLayout();
             this.bot2PN.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -438,12 +466,12 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.bot1PN);
             this.panel1.Controls.Add(this.dashboardPN);
+            this.panel1.Controls.Add(this.bot1PN);
+            this.panel1.Controls.Add(this.aboutPN);
+            this.panel1.Controls.Add(this.helpPN);
             this.panel1.Controls.Add(this.bot3PN);
             this.panel1.Controls.Add(this.bot4PN);
-            this.panel1.Controls.Add(this.howToPN);
-            this.panel1.Controls.Add(this.configPN);
             this.panel1.Controls.Add(this.bot2PN);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
@@ -451,6 +479,7 @@
             // dashboardPN
             // 
             this.dashboardPN.BackColor = System.Drawing.Color.Gray;
+            this.dashboardPN.Controls.Add(this.groupBox8);
             this.dashboardPN.Controls.Add(this.groupBox7);
             this.dashboardPN.Controls.Add(this.groupBox6);
             this.dashboardPN.Controls.Add(this.groupBox5);
@@ -463,6 +492,54 @@
             this.dashboardPN.Controls.Add(this.bashboardLB);
             resources.ApplyResources(this.dashboardPN, "dashboardPN");
             this.dashboardPN.Name = "dashboardPN";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.topMostLB);
+            this.groupBox8.Controls.Add(this.topMostSelector);
+            this.groupBox8.Controls.Add(this.label30);
+            this.groupBox8.Controls.Add(this.label2);
+            this.groupBox8.Controls.Add(this.opacityScrollBar);
+            resources.ApplyResources(this.groupBox8, "groupBox8");
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.TabStop = false;
+            // 
+            // topMostLB
+            // 
+            resources.ApplyResources(this.topMostLB, "topMostLB");
+            this.topMostLB.ForeColor = System.Drawing.Color.Aqua;
+            this.topMostLB.Name = "topMostLB";
+            // 
+            // topMostSelector
+            // 
+            resources.ApplyResources(this.topMostSelector, "topMostSelector");
+            this.topMostSelector.LargeChange = 1;
+            this.topMostSelector.Maximum = 1;
+            this.topMostSelector.Name = "topMostSelector";
+            this.topMostSelector.Value = 1;
+            this.topMostSelector.Scroll += new System.Windows.Forms.ScrollEventHandler(this.topMostSelector_Scroll);
+            // 
+            // label30
+            // 
+            resources.ApplyResources(this.label30, "label30");
+            this.label30.ForeColor = System.Drawing.Color.Black;
+            this.label30.Name = "label30";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Name = "label2";
+            // 
+            // opacityScrollBar
+            // 
+            resources.ApplyResources(this.opacityScrollBar, "opacityScrollBar");
+            this.opacityScrollBar.LargeChange = 1;
+            this.opacityScrollBar.Maximum = 10;
+            this.opacityScrollBar.Minimum = 3;
+            this.opacityScrollBar.Name = "opacityScrollBar";
+            this.opacityScrollBar.Value = 10;
+            this.opacityScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.opacityScrollBar_Scroll);
             // 
             // groupBox7
             // 
@@ -528,7 +605,8 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.inversionStrategyCB);
+            this.groupBox6.Controls.Add(this.inversionLB);
+            this.groupBox6.Controls.Add(this.inversionSelector);
             this.groupBox6.Controls.Add(this.label10);
             this.groupBox6.Controls.Add(this.renkoTB);
             this.groupBox6.Controls.Add(this.renkoInput);
@@ -543,12 +621,19 @@
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.TabStop = false;
             // 
-            // inversionStrategyCB
+            // inversionLB
             // 
-            resources.ApplyResources(this.inversionStrategyCB, "inversionStrategyCB");
-            this.inversionStrategyCB.Name = "inversionStrategyCB";
-            this.inversionStrategyCB.UseVisualStyleBackColor = true;
-            this.inversionStrategyCB.CheckedChanged += new System.EventHandler(this.inversionStrategyCB_CheckedChanged);
+            resources.ApplyResources(this.inversionLB, "inversionLB");
+            this.inversionLB.ForeColor = System.Drawing.Color.Red;
+            this.inversionLB.Name = "inversionLB";
+            // 
+            // inversionSelector
+            // 
+            resources.ApplyResources(this.inversionSelector, "inversionSelector");
+            this.inversionSelector.LargeChange = 1;
+            this.inversionSelector.Maximum = 1;
+            this.inversionSelector.Name = "inversionSelector";
+            this.inversionSelector.Scroll += new System.Windows.Forms.ScrollEventHandler(this.inversionSelector_Scroll);
             // 
             // label10
             // 
@@ -676,7 +761,6 @@
             this.buyKeyPress.ForeColor = System.Drawing.Color.Black;
             this.buyKeyPress.Name = "buyKeyPress";
             this.buyKeyPress.UseVisualStyleBackColor = false;
-            this.buyKeyPress.BackgroundImageChanged += new System.EventHandler(this.buyKeyPress_BackgroundImageChanged);
             this.buyKeyPress.Click += new System.EventHandler(this.buyKeyPress_Click);
             this.buyKeyPress.KeyUp += new System.Windows.Forms.KeyEventHandler(this.buyKeyPress_KeyUp);
             this.buyKeyPress.Leave += new System.EventHandler(this.buyKeyPress_Leave);
@@ -810,13 +894,12 @@
             // 
             resources.ApplyResources(this.manCalibBot1TB, "manCalibBot1TB");
             this.manCalibBot1TB.Name = "manCalibBot1TB";
+            this.manCalibBot1TB.TextChanged += new System.EventHandler(this.manCalibBot1TB_TextChanged);
             this.manCalibBot1TB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.manCalibBot1TB_KeyUp);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.enteredBot1CloseTB);
             this.groupBox3.Controls.Add(this.lastPerCloseTB);
-            this.groupBox3.Controls.Add(this.enteredBot1OpenTB);
             this.groupBox3.Controls.Add(this.lastperOpenTB);
             this.groupBox3.Controls.Add(this.label31);
             this.groupBox3.Controls.Add(this.label18);
@@ -826,29 +909,19 @@
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
-            // enteredBot1CloseTB
-            // 
-            resources.ApplyResources(this.enteredBot1CloseTB, "enteredBot1CloseTB");
-            this.enteredBot1CloseTB.ForeColor = System.Drawing.Color.Aqua;
-            this.enteredBot1CloseTB.Name = "enteredBot1CloseTB";
-            // 
             // lastPerCloseTB
             // 
             resources.ApplyResources(this.lastPerCloseTB, "lastPerCloseTB");
             this.lastPerCloseTB.Name = "lastPerCloseTB";
+            this.lastPerCloseTB.TextChanged += new System.EventHandler(this.lastPerCloseTB_TextChanged);
             this.lastPerCloseTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lastPerCloseTB_KeyUp);
             this.lastPerCloseTB.Leave += new System.EventHandler(this.lastPerCloseTB_Leave);
-            // 
-            // enteredBot1OpenTB
-            // 
-            resources.ApplyResources(this.enteredBot1OpenTB, "enteredBot1OpenTB");
-            this.enteredBot1OpenTB.ForeColor = System.Drawing.Color.Aqua;
-            this.enteredBot1OpenTB.Name = "enteredBot1OpenTB";
             // 
             // lastperOpenTB
             // 
             resources.ApplyResources(this.lastperOpenTB, "lastperOpenTB");
             this.lastperOpenTB.Name = "lastperOpenTB";
+            this.lastperOpenTB.TextChanged += new System.EventHandler(this.lastperOpenTB_TextChanged);
             this.lastperOpenTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lastperOpenTB_KeyUp);
             this.lastperOpenTB.Leave += new System.EventHandler(this.lastperOpenTB_Leave);
             // 
@@ -874,17 +947,31 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.calibrationLB);
+            this.groupBox2.Controls.Add(this.calibSelectorScroll);
             this.groupBox2.Controls.Add(this.autoStartCheck);
-            this.groupBox2.Controls.Add(this.tickerInput);
             this.groupBox2.Controls.Add(this.label22);
-            this.groupBox2.Controls.Add(this.label27);
-            this.groupBox2.Controls.Add(this.autoCalibBot1Check);
+            this.groupBox2.Controls.Add(this.tickerLB);
             this.groupBox2.Controls.Add(this.tickerTB);
-            this.groupBox2.Controls.Add(this.manualCalibBot1Check);
             this.groupBox2.Controls.Add(this.label16);
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // calibrationLB
+            // 
+            resources.ApplyResources(this.calibrationLB, "calibrationLB");
+            this.calibrationLB.ForeColor = System.Drawing.Color.Aqua;
+            this.calibrationLB.Name = "calibrationLB";
+            // 
+            // calibSelectorScroll
+            // 
+            resources.ApplyResources(this.calibSelectorScroll, "calibSelectorScroll");
+            this.calibSelectorScroll.LargeChange = 1;
+            this.calibSelectorScroll.Maximum = 1;
+            this.calibSelectorScroll.Name = "calibSelectorScroll";
+            this.calibSelectorScroll.TabStop = true;
+            this.calibSelectorScroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.calibrationSelector_Scroll);
             // 
             // autoStartCheck
             // 
@@ -892,32 +979,17 @@
             this.autoStartCheck.Name = "autoStartCheck";
             this.autoStartCheck.UseVisualStyleBackColor = true;
             // 
-            // tickerInput
-            // 
-            resources.ApplyResources(this.tickerInput, "tickerInput");
-            this.tickerInput.ForeColor = System.Drawing.Color.Aqua;
-            this.tickerInput.Name = "tickerInput";
-            // 
             // label22
             // 
             resources.ApplyResources(this.label22, "label22");
             this.label22.ForeColor = System.Drawing.Color.Black;
             this.label22.Name = "label22";
             // 
-            // label27
+            // tickerLB
             // 
-            resources.ApplyResources(this.label27, "label27");
-            this.label27.ForeColor = System.Drawing.Color.Black;
-            this.label27.Name = "label27";
-            // 
-            // autoCalibBot1Check
-            // 
-            this.autoCalibBot1Check.AllowDrop = true;
-            resources.ApplyResources(this.autoCalibBot1Check, "autoCalibBot1Check");
-            this.autoCalibBot1Check.Name = "autoCalibBot1Check";
-            this.autoCalibBot1Check.TabStop = true;
-            this.autoCalibBot1Check.UseVisualStyleBackColor = true;
-            this.autoCalibBot1Check.MouseClick += new System.Windows.Forms.MouseEventHandler(this.autoCalibBot1Check_MouseClick);
+            resources.ApplyResources(this.tickerLB, "tickerLB");
+            this.tickerLB.ForeColor = System.Drawing.Color.Black;
+            this.tickerLB.Name = "tickerLB";
             // 
             // tickerTB
             // 
@@ -925,15 +997,6 @@
             this.tickerTB.Name = "tickerTB";
             this.tickerTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tickerTB_KeyUp);
             this.tickerTB.Leave += new System.EventHandler(this.tickerTB_Leave);
-            // 
-            // manualCalibBot1Check
-            // 
-            this.manualCalibBot1Check.AllowDrop = true;
-            resources.ApplyResources(this.manualCalibBot1Check, "manualCalibBot1Check");
-            this.manualCalibBot1Check.Name = "manualCalibBot1Check";
-            this.manualCalibBot1Check.TabStop = true;
-            this.manualCalibBot1Check.UseVisualStyleBackColor = true;
-            this.manualCalibBot1Check.MouseClick += new System.Windows.Forms.MouseEventHandler(this.manualCalibBot1Check_MouseClick);
             // 
             // label16
             // 
@@ -1096,6 +1159,154 @@
             resources.ApplyResources(this.bot1LB, "bot1LB");
             this.bot1LB.Name = "bot1LB";
             // 
+            // aboutPN
+            // 
+            this.aboutPN.BackColor = System.Drawing.Color.Gray;
+            this.aboutPN.Controls.Add(this.groupBox10);
+            this.aboutPN.Controls.Add(this.groupBox9);
+            this.aboutPN.Controls.Add(this.configLB);
+            resources.ApplyResources(this.aboutPN, "aboutPN");
+            this.aboutPN.Name = "aboutPN";
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.label43);
+            this.groupBox10.Controls.Add(this.label42);
+            this.groupBox10.Controls.Add(this.label40);
+            this.groupBox10.Controls.Add(this.label39);
+            this.groupBox10.Controls.Add(this.label38);
+            this.groupBox10.Controls.Add(this.label37);
+            this.groupBox10.Controls.Add(this.label36);
+            this.groupBox10.Controls.Add(this.label35);
+            this.groupBox10.Controls.Add(this.label34);
+            this.groupBox10.Controls.Add(this.label33);
+            this.groupBox10.Controls.Add(this.label27);
+            resources.ApplyResources(this.groupBox10, "groupBox10");
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.TabStop = false;
+            // 
+            // label43
+            // 
+            resources.ApplyResources(this.label43, "label43");
+            this.label43.Name = "label43";
+            // 
+            // label42
+            // 
+            resources.ApplyResources(this.label42, "label42");
+            this.label42.Name = "label42";
+            // 
+            // label40
+            // 
+            resources.ApplyResources(this.label40, "label40");
+            this.label40.Name = "label40";
+            // 
+            // label39
+            // 
+            resources.ApplyResources(this.label39, "label39");
+            this.label39.Name = "label39";
+            // 
+            // label38
+            // 
+            resources.ApplyResources(this.label38, "label38");
+            this.label38.Name = "label38";
+            // 
+            // label37
+            // 
+            resources.ApplyResources(this.label37, "label37");
+            this.label37.Name = "label37";
+            // 
+            // label36
+            // 
+            resources.ApplyResources(this.label36, "label36");
+            this.label36.Name = "label36";
+            // 
+            // label35
+            // 
+            resources.ApplyResources(this.label35, "label35");
+            this.label35.Name = "label35";
+            // 
+            // label34
+            // 
+            resources.ApplyResources(this.label34, "label34");
+            this.label34.Name = "label34";
+            // 
+            // label33
+            // 
+            resources.ApplyResources(this.label33, "label33");
+            this.label33.Name = "label33";
+            // 
+            // label27
+            // 
+            resources.ApplyResources(this.label27, "label27");
+            this.label27.Name = "label27";
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.label41);
+            this.groupBox9.Controls.Add(this.label26);
+            this.groupBox9.Controls.Add(this.label25);
+            this.groupBox9.Controls.Add(this.label24);
+            this.groupBox9.Controls.Add(this.label20);
+            this.groupBox9.Controls.Add(this.label6);
+            this.groupBox9.Controls.Add(this.pictureBox2);
+            resources.ApplyResources(this.groupBox9, "groupBox9");
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.TabStop = false;
+            // 
+            // label41
+            // 
+            resources.ApplyResources(this.label41, "label41");
+            this.label41.Name = "label41";
+            // 
+            // label26
+            // 
+            resources.ApplyResources(this.label26, "label26");
+            this.label26.Name = "label26";
+            // 
+            // label25
+            // 
+            resources.ApplyResources(this.label25, "label25");
+            this.label25.Name = "label25";
+            // 
+            // label24
+            // 
+            resources.ApplyResources(this.label24, "label24");
+            this.label24.Name = "label24";
+            // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.Name = "label20";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = global::Pombot_UI.Properties.Resources.bird_icon;
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.TabStop = false;
+            // 
+            // configLB
+            // 
+            resources.ApplyResources(this.configLB, "configLB");
+            this.configLB.Name = "configLB";
+            // 
+            // helpPN
+            // 
+            this.helpPN.BackColor = System.Drawing.Color.Gray;
+            this.helpPN.Controls.Add(this.helpLB);
+            resources.ApplyResources(this.helpPN, "helpPN");
+            this.helpPN.Name = "helpPN";
+            // 
+            // helpLB
+            // 
+            resources.ApplyResources(this.helpLB, "helpLB");
+            this.helpLB.Name = "helpLB";
+            // 
             // bot3PN
             // 
             this.bot3PN.BackColor = System.Drawing.Color.Gray;
@@ -1119,30 +1330,6 @@
             // 
             resources.ApplyResources(this.bot4LB, "bot4LB");
             this.bot4LB.Name = "bot4LB";
-            // 
-            // howToPN
-            // 
-            this.howToPN.BackColor = System.Drawing.Color.Gray;
-            this.howToPN.Controls.Add(this.howToLB);
-            resources.ApplyResources(this.howToPN, "howToPN");
-            this.howToPN.Name = "howToPN";
-            // 
-            // howToLB
-            // 
-            resources.ApplyResources(this.howToLB, "howToLB");
-            this.howToLB.Name = "howToLB";
-            // 
-            // configPN
-            // 
-            this.configPN.BackColor = System.Drawing.Color.Gray;
-            this.configPN.Controls.Add(this.configLB);
-            resources.ApplyResources(this.configPN, "configPN");
-            this.configPN.Name = "configPN";
-            // 
-            // configLB
-            // 
-            resources.ApplyResources(this.configLB, "configLB");
-            this.configLB.Name = "configLB";
             // 
             // bot2PN
             // 
@@ -1193,6 +1380,8 @@
             this.panel1.ResumeLayout(false);
             this.dashboardPN.ResumeLayout(false);
             this.dashboardPN.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -1210,14 +1399,19 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.Operations.ResumeLayout(false);
+            this.aboutPN.ResumeLayout(false);
+            this.aboutPN.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.helpPN.ResumeLayout(false);
+            this.helpPN.PerformLayout();
             this.bot3PN.ResumeLayout(false);
             this.bot3PN.PerformLayout();
             this.bot4PN.ResumeLayout(false);
             this.bot4PN.PerformLayout();
-            this.howToPN.ResumeLayout(false);
-            this.howToPN.PerformLayout();
-            this.configPN.ResumeLayout(false);
-            this.configPN.PerformLayout();
             this.bot2PN.ResumeLayout(false);
             this.bot2PN.PerformLayout();
             this.ResumeLayout(false);
@@ -1250,9 +1444,9 @@
         private System.Windows.Forms.Label bot4LB;
         private System.Windows.Forms.Panel bot1PN;
         private System.Windows.Forms.Label bot1LB;
-        private System.Windows.Forms.Panel howToPN;
-        private System.Windows.Forms.Label howToLB;
-        private System.Windows.Forms.Panel configPN;
+        private System.Windows.Forms.Panel helpPN;
+        private System.Windows.Forms.Label helpLB;
+        private System.Windows.Forms.Panel aboutPN;
         private System.Windows.Forms.Label configLB;
         private System.Windows.Forms.Panel dashboardPN;
         private System.Windows.Forms.Label bashboardLB;
@@ -1278,7 +1472,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox tickerTB;
-        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label tickerLB;
         private System.Windows.Forms.Button startBot1BT;
         private System.Windows.Forms.Button calibrateBot1BT;
         private System.Windows.Forms.Button saveParamsBot1BT;
@@ -1291,8 +1485,6 @@
         private System.Windows.Forms.Timer calibBot1;
         private System.Windows.Forms.CheckBox autoStartCheck;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.RadioButton autoCalibBot1Check;
-        private System.Windows.Forms.RadioButton manualCalibBot1Check;
         internal System.Windows.Forms.ColumnHeader bot1OpsHour;
         private System.Windows.Forms.ColumnHeader bot1OpsAction;
         private System.Windows.Forms.ColumnHeader bot1OpsPrice;
@@ -1307,16 +1499,13 @@
         private System.Windows.Forms.Timer timerBot4;
         private System.Windows.Forms.Timer calibBot4;
         private System.Windows.Forms.Button resetCalibBT;
-        private System.Windows.Forms.Label tickerInput;
         internal System.Windows.Forms.ListView bot1Operations;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label32;
         internal System.Windows.Forms.Label ddeCurrentMeasureBot1;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label enteredBot1CloseTB;
         private System.Windows.Forms.TextBox lastPerCloseTB;
-        private System.Windows.Forms.Label enteredBot1OpenTB;
         private System.Windows.Forms.TextBox lastperOpenTB;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label18;
@@ -1340,7 +1529,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label robotLB;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.CheckBox inversionStrategyCB;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label renkoTB;
         private System.Windows.Forms.HScrollBar renkoInput;
@@ -1355,5 +1543,35 @@
         private System.Windows.Forms.Label zeroLB;
         private System.Windows.Forms.Label sellLB;
         private System.Windows.Forms.Label buyLB;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.HScrollBar opacityScrollBar;
+        private System.Windows.Forms.HScrollBar topMostSelector;
+        private System.Windows.Forms.Label topMostLB;
+        private System.Windows.Forms.Label inversionLB;
+        private System.Windows.Forms.HScrollBar inversionSelector;
+        private System.Windows.Forms.Label calibrationLB;
+        private System.Windows.Forms.HScrollBar calibSelectorScroll;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label label43;
     }
 }

@@ -18,10 +18,10 @@ namespace Pombot_UI.RobotLibrary
         internal string service = "cot";
 
         /**** Strategy ****/
-        internal int historySize = 20;
-        internal int plot3Size = 3;
-        internal int renkoPeriod = 5; //for 5R graphs
-        internal bool inversionStrategy = false;
+        internal int historySize;
+        internal int plot3Size;
+        internal int renkoPeriod;
+        internal bool inversionStrategy;
 
         /**** Keyboard Bindings ****/
         internal List<Keys> buyKeyboard = new List<Keys>();

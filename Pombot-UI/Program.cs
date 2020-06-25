@@ -10,7 +10,7 @@ namespace Pombot_UI
 {
     static class Program
     {
-        internal static string appName = "NoName v1.0";
+        internal static string appName = "GObot v1.0";
         internal static string userName;
 
         [STAThread]

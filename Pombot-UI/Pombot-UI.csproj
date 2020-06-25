@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -46,6 +46,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>bird-icon-png.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NDde">
@@ -86,7 +89,9 @@
     </Compile>
     <Compile Include="RobotLibrary\Bot.cs" />
     <Compile Include="RobotLibrary\Dashboard.cs" />
+    <Compile Include="RobotLibrary\DataBase.cs" />
     <Compile Include="RobotLibrary\Strategy.cs" />
+    <Compile Include="RobotLibrary\Validator.cs" />
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,6 +138,7 @@
     <None Include="Resources\3.png" />
     <None Include="Resources\4.png" />
     <None Include="Resources\1.png" />
+    <Content Include="bird-icon-png.ico" />
     <Content Include="Resources\bird-icon4.png" />
     <None Include="Resources\close2.png" />
     <None Include="Resources\close.png" />
@@ -147,6 +153,7 @@
     <None Include="Resources\connectionIcon2.png" />
     <None Include="Resources\robotIcon.png" />
     <None Include="Resources\robotIcon2.png" />
+    <None Include="Resources\robotIcon3.png" />
     <Content Include="Resources\userLogin2.png" />
     <Content Include="Resources\userPassword2.png" />
   </ItemGroup>
@@ -161,6 +168,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

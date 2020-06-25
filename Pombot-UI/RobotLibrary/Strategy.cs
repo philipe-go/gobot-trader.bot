@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Odbc;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -8,49 +12,65 @@ using System.Xml;
 
 namespace Pombot_UI.RobotLibrary
 {
-    class Strategy
+    internal sealed class Strategy
     {
-        private Dashboard dashB;
+        //private Dashboard dashB;
+        private Bot myBot;
 
-        internal Bot myBot;
+        private double currentRSI;
 
-        #region Curve Variables
+        #region Curve Attributes
         private bool maxCurve;
         private bool historyComplete;
-        internal bool botActive;
+        private Queue<double> periods = new Queue<double>();
         internal bool manualCalibration;
-        internal Queue<double> periods = new Queue<double>();
-        
+        internal bool botActive;
+
         private double brickInitial;
         private double brickFinal;
-        internal Queue<double> maxPeriods = new Queue<double>();
-        internal Queue<double> minPeriods = new Queue<double>();
-        
+        private Queue<double> maxPeriods = new Queue<double>();
+        private Queue<double> minPeriods = new Queue<double>();
+
         private double manCalibTemp;
         private Stack<double> manCalib = new Stack<double>(); //stack instance to handle backwards period insertion
         #endregion
 
-        #region Strategy Variables
+        #region Strategy Attributes
         private double lowMean = 0;
         private double highMean = 0;
-        internal double rsiMean = 0;
-        internal double plot3Mean = 0;
+        private double rsiMean = 0;
+        private double plot3Mean = 0;
         private bool firstPass = true;
-        internal Queue<double> threePerMean = new Queue<double>();
+        private Queue<double> threePerMean = new Queue<double>();
         #endregion
 
         #region Strategy Options
         private bool isBought = false;
         private bool isSold = false;
-        internal bool useInversion = false;
         #endregion
 
+        #region Strategy Bool Checkers
         internal bool refreshtemp;
         internal double temp;
         private double renkoPeriod;
+        #endregion
 
+        #region MainForm Table Update Handler
         internal string action;
         internal double price;
+        #endregion
+
+        #region Win32 foreground application Manager
+        private IntPtr prof;
+        string outp = "";
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+        [DllImport("User32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr point);
+        #endregion
 
         #region Encapsulation
         internal void MaxCurve(bool val)
@@ -69,18 +89,51 @@ namespace Pombot_UI.RobotLibrary
         {
             return brickFinal;
         }
+        internal void SetBot(Bot obj)
+        {
+            this.myBot = obj;
+        }
+        internal void SetProcess()
+        {
+            prof = FindWindow("ProfitPro", null);
+            SetForegroundWindow(prof);
+            //this.profit = Process.GetProcessesByName("profitchart.exe").FirstOrDefault();
+        }
+        internal int CalibrationBallance()
+        {
+            return maxPeriods.Count() + threePerMean.Count();
+        }
+        internal double RsiMean {  get => this.rsiMean; }
+        internal double Plot3Mean { get => this.plot3Mean; }
         #endregion
 
         #region Constructor
         internal Strategy()
         {
-            dashB = Dashboard.GetInstance();
             historyComplete = false;
             refreshtemp = false;
             botActive = false;
         }
         #endregion
 
+        internal void Reset()
+        {
+            manCalib.Clear();
+            brickInitial = 0;
+            brickFinal = 0;
+        }
+
+        #region DDE
+        internal void Advise(float temp) //TO DO ---> this method is being accessed through the mainform via BOT object
+        {
+            if (refreshtemp) this.temp = temp;
+            renkoPeriod = (Convert.ToDouble(myBot.dashB.renkoPeriod) / 2) - 0.5;
+            RSICurve();
+            refreshtemp = true;
+        }
+        #endregion
+
+        #region Calibration
         internal void ManualEntry(double brick)
         {
             manCalib.Push(brick);
@@ -93,21 +146,7 @@ namespace Pombot_UI.RobotLibrary
         {
             brickFinal = brickClose;
         }
-        internal void Reset()
-        {
-            manCalib.Clear();
-            brickInitial = 0;
-            brickFinal = 0;
-        }
-        internal void Advise(float temp)
-        {
-            if (refreshtemp) this.temp = temp;
-            renkoPeriod = ((dashB.renkoPeriod / 2) - 0.5);
-            RSICurve();
-            refreshtemp = true;
-        }
-
-        internal void RSICurve()
+        internal void RSICurve() //RSI Curve Build
         {
             if (!manualCalibration)
             {
@@ -122,8 +161,8 @@ namespace Pombot_UI.RobotLibrary
                         minPeriods.Enqueue(0);
                         periods.Enqueue(brickFinal);
                         if (periods.Count() > 2) periods.Dequeue();
-                        if (minPeriods.Count() > dashB.historySize) minPeriods.Dequeue();
-                        if (maxPeriods.Count() > dashB.historySize) maxPeriods.Dequeue();
+                        if (minPeriods.Count() > myBot.dashB.historySize) minPeriods.Dequeue();
+                        if (maxPeriods.Count() > myBot.dashB.historySize) maxPeriods.Dequeue();
 
                         if (historyComplete) StrategyProcess();
                     }
@@ -138,10 +177,9 @@ namespace Pombot_UI.RobotLibrary
                             minPeriods.Enqueue(0);
                             periods.Enqueue(brickFinal);
                             if (periods.Count() > 2) periods.Dequeue();
-                            if (minPeriods.Count() > dashB.historySize) minPeriods.Dequeue();
-                            if (maxPeriods.Count() > dashB.historySize) maxPeriods.Dequeue();
+                            if (minPeriods.Count() > myBot.dashB.historySize) minPeriods.Dequeue();
+                            if (maxPeriods.Count() > myBot.dashB.historySize) maxPeriods.Dequeue();
 
-                            //Console.WriteLine("===> Reverse Point from LOW to HIGH);
                             if (historyComplete) StrategyProcess();
                         }
                     }
@@ -159,10 +197,9 @@ namespace Pombot_UI.RobotLibrary
                             maxPeriods.Enqueue(0);
                             periods.Enqueue(brickFinal);
                             if (periods.Count() > 2) periods.Dequeue();
-                            if (minPeriods.Count() > dashB.historySize) minPeriods.Dequeue();
-                            if (maxPeriods.Count() > dashB.historySize) maxPeriods.Dequeue();
+                            if (minPeriods.Count() > myBot.dashB.historySize) minPeriods.Dequeue();
+                            if (maxPeriods.Count() > myBot.dashB.historySize) maxPeriods.Dequeue();
 
-                            //Console.WriteLine("<=== Reverse Point from HIGH  to LOW);
                             if (historyComplete) StrategyProcess();
                         }
                     }
@@ -175,8 +212,8 @@ namespace Pombot_UI.RobotLibrary
                         maxPeriods.Enqueue(0);
                         periods.Enqueue(brickFinal);
                         if (periods.Count() > 2) periods.Dequeue();
-                        if (minPeriods.Count() > dashB.historySize) minPeriods.Dequeue();
-                        if (maxPeriods.Count() > dashB.historySize) maxPeriods.Dequeue();
+                        if (minPeriods.Count() > myBot.dashB.historySize) minPeriods.Dequeue();
+                        if (maxPeriods.Count() > myBot.dashB.historySize) maxPeriods.Dequeue();
 
                         if (historyComplete) StrategyProcess();
                     }
@@ -185,7 +222,7 @@ namespace Pombot_UI.RobotLibrary
 
             else
             {
-                while(manCalib.Count != 0)
+                while (manCalib.Count != 0)
                 {
                     manCalibTemp = manCalib.Peek();
                     manCalib.Pop();
@@ -211,22 +248,21 @@ namespace Pombot_UI.RobotLibrary
             }//Manual Calibration
 
             //StrategyProcess Call
-            historyComplete = (maxPeriods.Count() == dashB.historySize) ? true : false;
-        
+            historyComplete = (maxPeriods.Count() == myBot.dashB.historySize) ? true : false;
+
         } //RSI Curve Method
 
-        private void StrategyProcess()
+        private void StrategyProcess() //Plot 3 Curve Build and post-RSI
         {
             if (firstPass)
             {
-                highMean = maxPeriods.Sum() / dashB.historySize; //can use maxPeriods.Average() from LinQ
-                lowMean = minPeriods.Sum() / dashB.historySize; //can use maxPeriods.Average() from LinQ
+                highMean = maxPeriods.Sum() / myBot.dashB.historySize; //can use maxPeriods.Average() from LinQ
+                lowMean = minPeriods.Sum() / myBot.dashB.historySize; //can use maxPeriods.Average() from LinQ
             }
             else
             {
-                myBot.mainForm.UpdateRSI(true);
-                highMean = (highMean * (dashB.historySize - 1) / dashB.historySize) + (periods.Last() - periods.First() > 0 ? periods.Last() - periods.First() : 0) / dashB.historySize; //mean of MaxPeriods
-                lowMean = (lowMean * (dashB.historySize - 1) / dashB.historySize) + (periods.Last() - periods.First() < 0 ? Math.Abs(periods.Last() - periods.First()) : 0) / dashB.historySize; //mean of MinPeriods 
+                highMean = (highMean * (myBot.dashB.historySize - 1) / myBot.dashB.historySize) + (periods.Last() - periods.First() > 0 ? periods.Last() - periods.First() : 0) / myBot.dashB.historySize; //mean of MaxPeriods
+                lowMean = (lowMean * (myBot.dashB.historySize - 1) / myBot.dashB.historySize) + (periods.Last() - periods.First() < 0 ? Math.Abs(periods.Last() - periods.First()) : 0) / myBot.dashB.historySize; //mean of MinPeriods 
             }
 
             Math.Round(highMean, 2);
@@ -237,21 +273,95 @@ namespace Pombot_UI.RobotLibrary
             Math.Round(rsiMean, 2);
 
             threePerMean.Enqueue(rsiMean);
-            if (threePerMean.Count() > dashB.plot3Size)
+            if (threePerMean.Count() > myBot.dashB.plot3Size)
             {
                 threePerMean.Dequeue();
                 plot3Mean = threePerMean.Average();
-                CallStrategyAction();
+                if (myBot.activated) CallStrategyAction();
+                myBot.mainForm.UpdateRSI(true);
                 botActive = true;
-
-                //ListViewItem newItem = new ListViewItem($"{DateTime.Now.ToString("dd.MMM.yy")}");
-                //newItem.SubItems.Add("Plot 3");
-                //newItem.SubItems.Add(plot3Mean.ToString("0.00"));
-                //listView.Items.Add(newItem);
-                //Console.WriteLine($"{DateTime.Now} - RSI20: {rsiMean.ToString("0.00")} --- Plot3: {plot3Mean.ToString("0.00")}");
             }
 
             firstPass = false;
+        }
+        #endregion
+
+        #region Strategy
+        private void KeyBoardOutput(List<Keys> listK)
+        {
+            prof = FindWindow("ProfitPro", null);
+            SetForegroundWindow(prof);
+            outp = "";
+            SendKeys.Send("{ESC}");
+            switch (listK[0])
+            {
+                case (Keys.Shift):
+                    {
+                        if (listK.Count() > 1)
+                        {
+                            for (int i = 1; i < listK.Count(); i++)
+                            {
+                                outp += listK[i].ToString();
+                            }
+                            SendKeys.SendWait("+" + $"{outp}");
+                        }
+                        else
+                        {
+                            SendKeys.SendWait("+");
+                        }
+                    }
+                    break;
+                case (Keys.Control):
+                    {
+                        if (listK.Count() > 1)
+                        {
+                            for (int i = 1; i < listK.Count(); i++)
+                            {
+                                outp += listK[i].ToString();
+                            }
+                            SendKeys.SendWait("^" + $"{outp}");
+                        }
+                        else
+                        {
+                            SendKeys.SendWait("^");
+                        }
+                    }
+                    break;
+                case (Keys.Alt):
+                    {
+                        if (listK.Count() > 1)
+                        {
+                            for (int i = 1; i < listK.Count(); i++)
+                            {
+                                outp += listK[i].ToString();
+                            }
+                            SendKeys.SendWait("%" + $"{outp}");
+                        }
+                        else
+                        {
+                            SendKeys.SendWait("%");
+                        }
+                    }
+                    break;
+                default:
+                    {
+                        if (listK.Count() > 1)
+                        {
+                            for (int i = 0; i < listK.Count(); i++)
+                            {
+                                outp += listK[i].ToString();
+                            }
+                            SendKeys.SendWait($"{outp}");
+                        }
+                        else
+                        {
+                            SendKeys.SendWait($"{listK[0].ToString()}");
+                        }
+                    }
+                    break;
+            }
+            outp = "";
+            SendKeys.Send("{ESC}");
         }
 
         private void CallStrategyAction()
@@ -265,19 +375,21 @@ namespace Pombot_UI.RobotLibrary
                         action = "Buy";
                         price = brickFinal;
                         myBot.mainForm.AddTableItem(true);
-                        //Console.WriteLine($"{DateTime.Now} ===> BUY <====\n");
+
+                        KeyBoardOutput(myBot.dashB.buyKeyboard);
                     }
                     isBought = true;
                     isSold = false;
                 }
-                else if (useInversion) //zero position
+                else //zero position
                 {
-                    if (isBought || isSold)
+                    if (isBought)
                     {
                         action = "Zero";
                         price = brickFinal;
                         myBot.mainForm.AddTableItem(true);
-                        //Console.WriteLine($" {DateTime.Now} ===> Zero <====\n");
+
+                        KeyBoardOutput(myBot.dashB.zeroKeyboard);
                     }
                     isBought = false;
                     isSold = false;
@@ -293,25 +405,50 @@ namespace Pombot_UI.RobotLibrary
                         action = "Sell";
                         price = brickFinal;
                         myBot.mainForm.AddTableItem(true);
-                        //Console.WriteLine($"{DateTime.Now} ===> SELL <====\n");
+
+                        KeyBoardOutput(myBot.dashB.sellKeyboard);
                     }
                     isBought = false;
                     isSold = true;
                 }
-                else if (useInversion) //zero position
+                else //zero position
                 {
-                    if (isBought || isSold)
+                    if (isSold)
                     {
                         action = "Zero";
                         price = brickFinal;
                         myBot.mainForm.AddTableItem(true);
-                        //Console.WriteLine($" {DateTime.Now} ===> Zero <====\n");
+
+                        KeyBoardOutput(myBot.dashB.zeroKeyboard);
                     }
                     isBought = false;
                     isSold = false;
                 }
             }
+
+            // if (myBot.dashB.inversionStrategy)
+        
         }//StrategyAction Method
+        
+        internal double CurrentRSI()
+        {
+            double tempHigh, tempLow;
+            tempHigh = (highMean * (myBot.dashB.historySize - 1) / myBot.dashB.historySize) + (temp - periods.Last() > 0 ? temp - periods.Last() : 0) / myBot.dashB.historySize; //mean of MaxPeriods
+            tempLow = (lowMean * (myBot.dashB.historySize - 1) / myBot.dashB.historySize) + (temp - periods.Last() < 0 ? Math.Abs(temp - periods.Last()) : 0) / myBot.dashB.historySize; //mean of MinPeriods 
+            Math.Round(tempHigh, 2);
+            Math.Round(tempLow, 2);
+
+            currentRSI = (tempLow != 0) ? 100 - (100 / (1 + (tempHigh / tempLow))) : 50;
+
+            Math.Round(currentRSI, 2);
+            return currentRSI;
+        }
+        internal double CurrentPlot()
+        {
+            return ((threePerMean.Sum() - threePerMean.First()) + currentRSI) / 3;
+        }
+        #endregion
+
     }//Class Strategy
 
 }//Namespace

@@ -10,19 +10,18 @@ using NDde.Client;
 
 namespace Pombot_UI.RobotLibrary
 {
-    class Bot
+    internal sealed class Bot
     {
         #region Bot Attributes
         /**** DDE Attributes ****/
+        private string col;
         internal string ticker;
-        private string col = "ULT";
         /**** Strategy Attributes ****/
-        private Dashboard dashb;
-        internal Strategy strategy;
+        private Strategy strategy;
+        internal Dashboard dashB;
+        internal PomBotAppForm mainForm; //to be used via strategy
         internal bool manualCalib;
         internal bool activated;
-        internal Label currentMeasure;
-        internal PomBotAppForm mainForm;
         #endregion
 
         #region Encapsulation
@@ -44,18 +43,19 @@ namespace Pombot_UI.RobotLibrary
         #region Constructor
         internal Bot()
         {
-            dashb = Dashboard.GetInstance();
+            this.dashB = Dashboard.GetInstance();
             this.col = "ULT";
             this.ticker = "";
-            strategy = new Strategy();
-            manualCalib = false;
-            activated = false;
-            strategy.myBot = this;
+            this.manualCalib = false;
+            this.activated = false;
+
+            this.strategy = new Strategy();
+            strategy.SetBot(this);
         }
         #endregion
 
         #region DDE
-        internal void Connect(bool val)
+        internal void Connect(bool val) //TO SET THE Connection status as true on the mainFrom
         {
             this.activated = val;
         }
@@ -84,6 +84,7 @@ namespace Pombot_UI.RobotLibrary
             if (manualCalib) strategy.ManualEntry(brick);
         }
         #endregion
+
         #region Auto Calibration Methods
         internal void InitialBrick(double brick)
         {
@@ -94,10 +95,53 @@ namespace Pombot_UI.RobotLibrary
             if (!manualCalib) strategy.AutoEntryClose(brick);
         }
         #endregion
+
         internal void ResetCalibration()
         {
             strategy.Reset();
         }
+
+        #endregion
+
+        #region Strategy Hidden Properties
+        internal void SetProcess()
+        {
+            strategy.SetProcess();
+        }
+        internal void Advise(float temp)
+        {
+            strategy.Advise(temp);
+        }
+        internal string GetTemp()
+        {
+            return strategy.temp.ToString("0.00");
+        }
+        internal string GetRSIMean() 
+        {
+            //return strategy.RsiMean.ToString("0.00"); //--->COMMENTED TO SHOW THE CURRENT RSI AND PLOT instead of the one when the period closes
+            return strategy.CurrentRSI().ToString("0.00");
+        }
+        internal string GetPlotMean()
+        {
+            //return strategy.Plot3Mean.ToString("0.00"); //--->COMMENTED TO SHOW THE CURRENT RSI AND PLOT instead of the one when the period closes
+            return strategy.CurrentPlot().ToString("0.00");
+        }
+        internal string GetAction()
+        {
+            return strategy.action;
+        }
+        internal double GetPrice()
+        {
+            return strategy.price;
+        }
+        internal bool GetBotActive()
+        {
+            return strategy.botActive;
+        }
+        internal int GetCalibrationBalance()
+        {
+            return strategy.CalibrationBallance();
+        }
         #endregion
     }
-}
+    }

@@ -19,33 +19,22 @@ namespace Pombot_UI
     public partial class PomBotAppForm : Form
     {
         #region DashBoard and DDE Attributes
-        /**** Strategy ****/
-        //internal int historySize = 20;
-        //internal int plot3Size = 3;
-        //internal int renkoPeriod = 5; //for 5R graphs
-        //internal bool inversionStrategy = false;
-
-        /**** Keyboard Bindings ****/
-        //internal string buyKeyboard = "";
-        //internal string sellKeyboard = "";
-        //internal string zeroKeyboard = "";
-        private Dashboard dashB = Dashboard.GetInstance(); //access to the class Dashboard
-        private DdeClient client; //----> was internal before
+        private DdeClient client;
         private bool connectedDDE;
+        private Dashboard dashB = Dashboard.GetInstance(); //access to the class Dashboard
+        private bool buyKey = false;
+        private bool sellkey = false;
+        private bool zeroKey = false;
         #endregion
 
         #region Form Attributes 
+        private float winOpacity = 1;
         public string user; //user name to be shown on the top part of the form
         private int mov, movY, movX; //variables to handle the Drag and Move method of the form 
         private List<Panel> menuItems = new List<Panel>(); //menu items - to handle which one will be on focus and activated
         private List<Bot> botsList = new List<Bot>(); //BOT LIST -->> check is will be possible to implement more than 1 bot
-        #endregion
-
         private int countdown = 0;
-
-        private bool buyKey = false;
-        private bool sellkey = false;
-        private bool zeroKey = false;
+        #endregion
 
         #region Bot parameters Multi Thread
         internal delegate void UpdateTextBoxDelegate(string textBoxNewText);
@@ -62,10 +51,7 @@ namespace Pombot_UI
         {
             InitializeComponent();
 
-            //Action to be performed when initializing main application panel
             InitializeMainForm();
-
-
         }
 
         //timer used for connection checker and date update
@@ -76,6 +62,7 @@ namespace Pombot_UI
             DDEupdateStatus();
         }
 
+        #region Form Initialization
         private void InitializeMainForm()
         {
             this.client = new DdeClient(dashB.app, dashB.service);
@@ -83,37 +70,39 @@ namespace Pombot_UI
             timer1.Start(); //Timer to control clock and DDE connection status update
             winNameLB.Text = Program.appName; //Retrieve app name from Program.cs and set into UI
 
+            #region BOTs initialization
+            //TODO - If not possible to instantiate more than 1 bot, remove list and create just one object
             Bot bot1 = new Bot();
             botsList.Add(bot1);
+            //connect this form with all bots so bot have access to its directly
+            foreach (Bot bot in botsList)
+            {
+                bot.mainForm = this;
+            }
+            //BOT forms initialization
+            BOTsInit();
+            #endregion
 
-            #region MenuItems
+            #region MenuItems and UI elements
             menuItems.Add(dashboardPN);
             menuItems.Add(bot1PN);
             menuItems.Add(bot2PN);
             menuItems.Add(bot2PN);
             menuItems.Add(bot3PN);
             menuItems.Add(bot4PN);
-            menuItems.Add(howToPN);
-            menuItems.Add(configPN);
+            menuItems.Add(helpPN);
+            menuItems.Add(aboutPN);
             foreach (Panel item in menuItems)
             {
-                //item.Parent = PomBotAppForm.ActiveForm;
                 item.Location = new Point(166, 67);
                 item.Visible = false;
             }
-            #endregion
 
             dashboardBT.Focus();
             dashboardPN.Visible = true;
+            #endregion
 
-            //connect this form with all bots so bot have access to its directly
-            foreach (Bot bot in botsList)
-            {
-                bot.mainForm = this;
-            }
-
-            //BOT forms initialization
-            BOTsInit();
+            ReadSavedData();
 
             //DDE Connection
             ConnectDDE();
@@ -125,7 +114,44 @@ namespace Pombot_UI
 
             //Keys Bindings
             InitializeKeys();
+
+            calibrationBot1Bar.Maximum = dashB.historySize;
         }
+
+        #region ReadSavedData
+        private void ReadSavedData()
+        {
+            List<int> dashItems = new List<int>();
+            dashItems = DataBase.ReadDashParameters();
+            List<string> botItems = new List<string>();
+            botItems = DataBase.ReadBotParameters();
+            SetDashParam(dashItems);
+            SetBotParam(botItems);
+        }
+        private void SetDashParam(List<int> list)
+        {
+            if (list.Count() > 0)
+            {
+                dashB.renkoPeriod = list[0];
+                dashB.historySize = list[1];
+                dashB.plot3Size = list[2];
+                SetInversionStrategy(list[3]);
+                SetOpacity(list[4]);
+                TopMostApp(list[5]);
+            }
+        }
+        private void SetBotParam(List<string> list)
+        {
+            if (list.Count() > 0)
+            {
+                this.tickerTB.Text = list[0];
+                SetCalibration(Convert.ToInt32(list[1]));
+                this.autoStartCheck.Checked = list[2] == "True" ? true : false;
+            }
+        }
+        #endregion
+
+        #endregion
 
         #region DDE interface
         private bool ConnectDDE()
@@ -141,6 +167,7 @@ namespace Pombot_UI
                 return false;
             }
             connectedDDE = true;
+            botsList[0].SetProcess(); //---> was accessed straight to strategy before
             return true;
         }
         private void OnDisconnected(object sender, DdeDisconnectedEventArgs args)
@@ -149,20 +176,34 @@ namespace Pombot_UI
         }
         internal void Advise(string ticker, string col)
         {
-            client.StartAdvise($"{ticker}.{col}", 1, true, 500);
-            client.Advise += OnAdvise;
+            try
+            {
+                client.StartAdvise($"{ticker}.{col}", 1, true, 500);
+                client.Advise += OnAdvise;
+            }
+            catch (NDde.DdeException)
+            {
+                resetCalibBT.ForeColor = Color.Lime;
+                tickerLB.ForeColor = Color.Red;
+            }
+            finally
+            {
+                resetCalibBT.Focus();
+            }
         }
         internal void OnAdvise(object sender, DdeAdviseEventArgs args)
         {
-            botsList[0].strategy.Advise(float.Parse(args.Text) / 100);
-            this.Invoke(textBoxDelegate, botsList[0].strategy.temp.ToString("0.00")); //Delegate to update bot form current measure
+            //---> was accessed straight to strategy before
+
+            botsList[0].Advise(float.Parse(args.Text) / 100); 
+            this.Invoke(textBoxDelegate, botsList[0].GetTemp()); //Delegate to update bot form current measure
             if (updateRSI)
             {
-                this.Invoke(rsiDelegate, botsList[0].strategy.rsiMean.ToString("0.00"), botsList[0].strategy.plot3Mean.ToString("0.00"));
+                this.Invoke(rsiDelegate, botsList[0].GetRSIMean(), botsList[0].GetPlotMean()); //Delegate to update RSI and Plot measures
             }
             if (addTableItem)
             {
-                this.Invoke(updateTableDelegate, botsList[0].strategy.action, botsList[0].strategy.price); //Delegate to update operations table with last bot Operations
+                this.Invoke(updateTableDelegate, botsList[0].GetAction(), botsList[0].GetPrice()); //Delegate to update operations table with last bot Operations
                 AddTableItem(false);
             }
         }
@@ -186,7 +227,14 @@ namespace Pombot_UI
         private void formNamePN_MouseUp(object sender, MouseEventArgs e)
         {
             mov = 0;
-            PomBotAppForm.ActiveForm.Opacity = 1;
+            PomBotAppForm.ActiveForm.Opacity = winOpacity;
+        }
+        #endregion
+
+        #region BOT panel initialization
+        private void BOTsInit()
+        {
+            startBot1BT.Enabled = false;
         }
         #endregion
 
@@ -233,6 +281,43 @@ namespace Pombot_UI
         }
         #endregion
 
+        #region MULTITHREAD OPERATIONS
+        //*************DELEGATE METHODS FOR THREADS************//
+        //*****************************************************//
+        private void StartMultiThread()
+        {
+            textBoxDelegate = new UpdateTextBoxDelegate(UpdateCurrentMeasure); 
+            rsiDelegate = new UpdateRSIDelegate(UpdateRSIandPlot);
+            //updateRSI = false; //--->COMMENTED TO SHOW THE CURRENT RSI AND PLOT instead of the one when the period closes
+            updateTableDelegate = new UpdateTableDelegate(UpdateTableItems);
+        }
+        private void UpdateCurrentMeasure(string text)
+        {
+            ddeCurrentMeasureBot1.Text = text;
+        }
+        private void UpdateRSIandPlot(string rsi, string plot)
+        {
+            ddeRSIMeasureBot1.Text = rsi;
+            ddePlotMeasureBot1.Text = plot;
+        }
+        private void UpdateTableItems(string item2, double item3)
+        {
+            ListViewItem newItem = new ListViewItem($"{DateTime.Now.ToString("HH:mm:ss")}");
+            newItem.SubItems.Add(item2);
+            newItem.SubItems.Add(item3.ToString("0.00"));
+
+            bot1Operations.Items.Insert(0, newItem); //-->> Previouslly was Add not Insert
+        }
+        internal void UpdateRSI(bool val)
+        {
+            this.updateRSI = val;
+        }
+        internal void AddTableItem(bool val)
+        {
+            this.addTableItem = val;
+        }
+        #endregion
+
         #region Menu Buttons Click
         private void dashboardBT_Click(object sender, EventArgs e)
         {
@@ -251,6 +336,7 @@ namespace Pombot_UI
             }
 
             bot1PN.Visible = true;
+            tickerTB.Focus();
         }
         private void bot2BT_Click(object sender, EventArgs e)
         {
@@ -287,7 +373,7 @@ namespace Pombot_UI
                 item.Visible = false;
             }
 
-            configPN.Visible = true;
+            aboutPN.Visible = true;
         }
         private void howToBT_Click(object sender, EventArgs e)
         {
@@ -296,7 +382,7 @@ namespace Pombot_UI
                 item.Visible = false;
             }
 
-            howToPN.Visible = true;
+            helpPN.Visible = true;
         }
         private void exitBT_Click(object sender, EventArgs e)
         {
@@ -341,7 +427,7 @@ namespace Pombot_UI
         }
         //*************STRATEGY DASHBOARD INPUT****************//
         //*****************************************************//
-        private void UpdateDDEStrategy() //RETRIEVE SAVED INFORMATIONS - should change later to retrieve from xml file and set to dashB
+        private void UpdateDDEStrategy() //RETRIEVE SAVED INFORMATIONS
         {
             renkoInput.Value = dashB.renkoPeriod;
             renkoTB.Text = renkoInput.Value.ToString() + "R";
@@ -357,16 +443,22 @@ namespace Pombot_UI
             renkoTB.Text = renkoInput.Value.ToString() + "R";
             dashB.renkoPeriod = renkoInput.Value;
         }
-        private void inversionStrategyCB_CheckedChanged(object sender, EventArgs e)
+        private void SetInversionStrategy(int val)
         {
-            if (inversionStrategyCB.Checked) dashB.inversionStrategy = true;
-            else dashB.inversionStrategy = false;
+            dashB.inversionStrategy = val == 1 ? true : false;
+            inversionLB.Text = val == 1 ? "YES" : "NO";
+            inversionLB.ForeColor = val == 1 ? Color.Lime : Color.Red;
+            inversionSelector.Value = val;
+        }
+        private void inversionSelector_Scroll(object sender, ScrollEventArgs e)
+        {
+            SetInversionStrategy(e.NewValue);
         }
         private void rsiHistoryInput_Scroll(object sender, ScrollEventArgs e)
         {
             rsiHistoryTB.Text = rsiHistoryInput.Value.ToString();
             dashB.historySize = rsiHistoryInput.Value;
-            //bots manual txt
+            //bots manual input txt
             manualCalibBot1Txt.Text = $"Enter the closing price of the last {dashB.historySize.ToString()} periods from the newest to the oldest:";
         }
         private void plot3Input_Scroll(object sender, ScrollEventArgs e)
@@ -374,16 +466,22 @@ namespace Pombot_UI
             plot3TB.Text = plot3Input.Value.ToString();
             dashB.plot3Size = plot3Input.Value;
         }
+        //*****************DASHBOARD BUTTONS*******************//
+        //*****************************************************//
         private void saveBT_Click(object sender, EventArgs e)
         {
             countdown = 15;
             saveBT.ForeColor = Color.Lime;
             saveBT.Text = "Saved";
             timer2.Start();
+
+            List<int> temp = new List<int>();
+            temp = DataBase.ConvertToListInt(renkoInput.Value, rsiHistoryInput.Value, plot3Input.Value, inversionSelector.Value, opacityScrollBar.Value, topMostSelector.Value);
+            DataBase.SaveDashParameters(temp);
         }
-        private void stopBotsBT_Click(object sender, EventArgs e)
+        private void stopBotsBT_Click(object sender, EventArgs e) //---->> NOT WORKING, WHY?
         {
-            stopBot1BT.PerformClick();
+            stopBot1BT_Click(sender, e);
         }
         //*************KEYBOARD INPUT MANAGER******************//
         //*****************************************************//
@@ -527,55 +625,6 @@ namespace Pombot_UI
         }
         #endregion
 
-        #region BOT panel initialization
-        private void BOTsInit()
-        {
-            startBot1BT.Enabled = false;
-            autoCalibBot1Check.Select();
-            manCalibBot1TB.Enabled = false;
-        }
-        #endregion
-
-        #region MULTITHREAD OPERATIONS
-        private void StartMultiThread()
-        {
-            textBoxDelegate = new UpdateTextBoxDelegate(UpdateCurrentMeasure); //MULTITHREAD operation
-            rsiDelegate = new UpdateRSIDelegate(UpdateRSIandPlot); //MULTITHREAD operation
-            updateRSI = false;
-            updateTableDelegate = new UpdateTableDelegate(UpdateTableItems); //MULTHREAD operation
-        }
-        private void UpdateCurrentMeasure(string text)
-        {
-            ddeCurrentMeasureBot1.Text = text;
-        }
-
-        private void UpdateRSIandPlot(string rsi, string plot)
-        {
-            ddeRSIMeasureBot1.Text = rsi;
-            ddePlotMeasureBot1.Text = plot;
-        }
-
-        private void UpdateTableItems(string item2, double item3)
-        {
-
-            //string time = client.Request($"{botsList[0].ticker}.HOR", 1);
-            //ListViewItem newItem = new ListViewItem($"{time}");
-            ListViewItem newItem = new ListViewItem($"{DateTime.Now.ToString("HH:mm:ss")}");
-            newItem.SubItems.Add(item2);
-            newItem.SubItems.Add(item3.ToString("0.00"));
-            bot1Operations.Items.Add(newItem);
-        }
-
-        internal void UpdateRSI(bool val)
-        {
-            this.updateRSI = val;
-        }
-        internal void AddTableItem(bool val)
-        {
-            this.addTableItem = val;
-        }
-        #endregion
-
         #region BOT1
         //*************TICKER INPUT FIELD HANDLER**************//
         //*****************************************************//
@@ -590,34 +639,30 @@ namespace Pombot_UI
         {
             if (tickerTB.Text != "")
             {
-                botsList[0].ticker = tickerTB.Text;
-                tickerInput.Text = botsList[0].ticker;
-                tickerTB.Clear();
+                botsList[0].ticker = tickerTB.Text.ToUpper();
+                tickerTB.Text = botsList[0].ticker;
+                tickerTB.Enabled = false;
+            }
+            else
+            {
+                tickerTB.Enabled = true;
             }
         }
-        //*************AUTO CALIBRATION SELECTOR***************//
+        //****************CALIBRATION SELECTOR*****************//
         //*****************************************************//
-        private void autoCalibBot1Check_MouseClick(object sender, MouseEventArgs e)
+        private void SetCalibration(int val) //0 = AUTO; 1 = MANUAL
         {
-            manualCalibBot1Check.Checked = false;
-            autoCalibBot1Check.Select();
-            botsList[0].manualCalib = false;
-            lastperOpenTB.Enabled = true;
-            lastPerCloseTB.Enabled = true;
-            manCalibBot1TB.Enabled = false;
+            botsList[0].manualCalib = val == 1 ? true : false;
+            lastperOpenTB.Enabled = val == 1 ? false : true;
+            lastPerCloseTB.Enabled = val == 1 ? false : true;
+            manCalibBot1TB.Enabled = val == 1 ? true : false;
+            calibrationLB.Text = val == 1 ? "MANUAL" : "AUTO";
         }
-        //***********MANUAL CALIBRATION SELECTOR***************//
-        //*****************************************************//
-        private void manualCalibBot1Check_MouseClick(object sender, MouseEventArgs e)
+        private void calibrationSelector_Scroll(object sender, ScrollEventArgs e)
         {
-            manualCalibBot1Check.Select();
-            autoCalibBot1Check.Checked = false;
-            botsList[0].manualCalib = true;
-            manCalibBot1TB.Enabled = true;
-            lastperOpenTB.Enabled = false;
-            lastPerCloseTB.Enabled = false;
+            SetCalibration(e.NewValue);
         }
-        //******AUTO CALIBRATION INPUT FIELD OPEN HANDLER******//
+        //***AUTO CALIBRATION INPUT FIELD OPEN PRICE HANDLER***//
         //*****************************************************//
         private void lastperOpenTB_KeyUp(object sender, KeyEventArgs e)
         {
@@ -631,12 +676,20 @@ namespace Pombot_UI
             if (lastperOpenTB.Text != "")
             {
                 botsList[0].InitialBrick(System.Convert.ToDouble(lastperOpenTB.Text));
-                enteredBot1OpenTB.Text = botsList[0].GetInitialBrick().ToString();
-                lastperOpenTB.Clear();
+                lastperOpenTB.Text = botsList[0].GetInitialBrick().ToString();
+                lastperOpenTB.Enabled = false;
             }
         }
-        //******AUTO CALIBRATION INPUT FIELD CLOSE HANDLER*****//
-        //*****************************************************//
+        private void lastperOpenTB_TextChanged(object sender, EventArgs e)
+        {
+            if (!Validator.isDigit(this.lastperOpenTB.Text))
+            {
+                this.lastperOpenTB.Text = "";
+                this.lastperOpenTB.Focus();
+            }
+        }
+        //***AUTO CALIBRATION INPUT FIELD CLOSE PRICE HANDLER***//
+        //******************************************************//
         private void lastPerCloseTB_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -649,8 +702,16 @@ namespace Pombot_UI
             if (lastPerCloseTB.Text != "")
             {
                 botsList[0].FinalBrick(Convert.ToDouble(lastPerCloseTB.Text));
-                enteredBot1CloseTB.Text = botsList[0].GetFinalBrick().ToString();
-                lastPerCloseTB.Clear();
+                lastPerCloseTB.Text = botsList[0].GetFinalBrick().ToString();
+                lastPerCloseTB.Enabled = false;
+            }
+        }
+        private void lastPerCloseTB_TextChanged(object sender, EventArgs e)
+        {
+            if (!Validator.isDigit(this.lastPerCloseTB.Text))
+            {
+                this.lastPerCloseTB.Text = "";
+                this.lastPerCloseTB.Focus();
             }
         }
         //*******MANUAL CALIBRATION INPUT FIELD HANDLER********//
@@ -672,17 +733,31 @@ namespace Pombot_UI
                 calibrationBot1Bar.Value++;
             }
         }
+        private void manCalibBot1TB_TextChanged(object sender, EventArgs e)
+        {
+            if (!Validator.isDigit(this.manCalibBot1TB.Text))
+            {
+                this.manCalibBot1TB.Text = "";
+                this.manCalibBot1TB.Focus();
+            }
+        }
         //******************BOT BUTTONS************************//
         //*****************************************************//
         private void resetCalibBT_Click(object sender, EventArgs e)
         {
+            resetCalibBT.ForeColor = Color.Black;
+            tickerLB.ForeColor = Color.Black;
             botsList[0].ResetCalibration();
             calibrationBot1Bar.Value = 0;
-            enteredBot1OpenTB.Text = botsList[0].GetInitialBrick().ToString();
-            enteredBot1CloseTB.Text = botsList[0].GetFinalBrick().ToString();
             lastperOpenTB.Clear();
+            lastperOpenTB.Enabled = true;
             lastPerCloseTB.Clear();
+            lastPerCloseTB.Enabled = true;
+            tickerTB.Clear();
+            tickerTB.Enabled = true;
             calibBot1.Enabled = true;
+            calibrateBot1BT.Enabled = true;
+            tickerTB.Focus();
         }
         private void saveParamsBot1BT_Click(object sender, EventArgs e)
         {
@@ -690,6 +765,9 @@ namespace Pombot_UI
             saveParamsBot1BT.ForeColor = Color.Lime;
             saveParamsBot1BT.Text = "Saved";
             timerBot1.Start();
+
+            List<string> temp = DataBase.ConvertToListString(tickerTB.Text, calibSelectorScroll.Value, autoStartCheck.Checked);
+            DataBase.SaveBotParameters(temp);
         }
         //******TIMER to control saved button change status******//
         //*****************************************************//
@@ -729,13 +807,17 @@ namespace Pombot_UI
                 lastperOpenTB.Enabled = false;
                 lastPerCloseTB.Enabled = false;
                 tickerTB.Enabled = false;
+
+                rsiHistoryInput.Enabled = false;
+                plot3Input.Enabled = false;
+                renkoInput.Enabled = false;
             }
         }
         //*********TIMER FOR CALIBRATION LOAD BAR**************//
         //*****************************************************//
         private void calibBot1_Tick(object sender, EventArgs e)
         {
-            if (botsList[0].strategy.botActive == true)
+            if (botsList[0].GetBotActive() == true)
             {
                 startBot1BT.Enabled = true;
                 if (autoStartCheck.Checked) startBot1BT.PerformClick();
@@ -743,16 +825,10 @@ namespace Pombot_UI
             }
             else
             {
-                calibrationBot1Bar.Value = botsList[0].strategy.maxPeriods.Count() + botsList[0].strategy.threePerMean.Count() > calibrationBot1Bar.Maximum ? 
-                    calibrationBot1Bar.Maximum : botsList[0].strategy.maxPeriods.Count() + botsList[0].strategy.threePerMean.Count();
+                calibrationBot1Bar.Value = botsList[0].GetCalibrationBalance() >= calibrationBot1Bar.Maximum ?
+                    calibrationBot1Bar.Maximum : botsList[0].GetCalibrationBalance();
             }
         }
-
-        private void buyKeyPress_BackgroundImageChanged(object sender, EventArgs e)
-        {
-
-        }
-
         //***************START BOT OPERATIONS******************//
         //*****************************************************//
         private void startBot1BT_Click(object sender, EventArgs e)
@@ -760,13 +836,12 @@ namespace Pombot_UI
             robot1PB.BackgroundImage = Resources.robotIcon2;
             bot1Status.ForeColor = Color.Lime;
             bot1Status.Text = "CONNECTED";
+
             botsList[0].Connect(true); //connect bot actions (buy, sell, zero)
 
             //deactivate items
+            startBot1BT.Enabled = false;
             calibrateBot1BT.Enabled = false;
-            rsiHistoryInput.Enabled = false;
-            plot3Input.Enabled = false;
-            renkoInput.Enabled = false;
         }
         //***************STOP BOT OPERATIONS ******************//
         //*****************************************************//
@@ -777,6 +852,31 @@ namespace Pombot_UI
             robot1PB.BackgroundImage = Resources.robotIcon;
             bot1Status.ForeColor = Color.Red;
             bot1Status.Text = "DISCONNECTED";
+
+            startBot1BT.Enabled = true;
+        }
+        #endregion
+
+        #region CONFIGURATION PANEL
+        private void opacityScrollBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            SetOpacity(opacityScrollBar.Value);
+        }
+        private void topMostSelector_Scroll(object sender, ScrollEventArgs e)
+        {
+            TopMostApp(e.NewValue);
+        }
+        private void SetOpacity(int val)
+        {
+            winOpacity = (float)val / 10;
+            this.Opacity = winOpacity;
+            opacityScrollBar.Value = val;
+        }
+        private void TopMostApp(int val)
+        {
+            topMostSelector.Value = val;
+            this.TopMost = val == 1 ? true : false;
+            topMostLB.Text = val == 1 ? "ON" : "OFF";
         }
         #endregion
     }
