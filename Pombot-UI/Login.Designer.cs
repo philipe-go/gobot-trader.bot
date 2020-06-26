@@ -44,7 +44,7 @@ namespace Pombot_UI
             this.passPic = new System.Windows.Forms.PictureBox();
             this.userPic = new System.Windows.Forms.PictureBox();
             this.PomBotIcon = new System.Windows.Forms.PictureBox();
-            this.wrongTB = new System.Windows.Forms.Label();
+            this.wrongLB = new System.Windows.Forms.Label();
             this.formNamePN.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPic)).BeginInit();
@@ -247,17 +247,16 @@ namespace Pombot_UI
             this.PomBotIcon.TabStop = false;
             this.PomBotIcon.Tag = "1";
             // 
-            // wrongTB
+            // wrongLB
             // 
-            this.wrongTB.AutoSize = true;
-            this.wrongTB.Font = new System.Drawing.Font("Earth 2073", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wrongTB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.wrongTB.Location = new System.Drawing.Point(71, 280);
-            this.wrongTB.Name = "wrongTB";
-            this.wrongTB.Size = new System.Drawing.Size(200, 14);
-            this.wrongTB.TabIndex = 103;
-            this.wrongTB.Text = "WRONG USER OR PASSWORD";
-            this.wrongTB.Visible = false;
+            this.wrongLB.AutoSize = true;
+            this.wrongLB.Font = new System.Drawing.Font("Earth 2073", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wrongLB.ForeColor = System.Drawing.Color.Red;
+            this.wrongLB.Location = new System.Drawing.Point(82, 281);
+            this.wrongLB.Name = "wrongLB";
+            this.wrongLB.Size = new System.Drawing.Size(178, 12);
+            this.wrongLB.TabIndex = 105;
+            this.wrongLB.Text = "WRONG USER OR PASSWORD";
             // 
             // PomBot
             // 
@@ -265,7 +264,7 @@ namespace Pombot_UI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(348, 435);
-            this.Controls.Add(this.wrongTB);
+            this.Controls.Add(this.wrongLB);
             this.Controls.Add(this.formNamePN);
             this.Controls.Add(this.passwordShowBT);
             this.Controls.Add(this.nameApp);
@@ -298,7 +297,6 @@ namespace Pombot_UI
 
         private System.Windows.Forms.PictureBox PomBotIcon;
         private System.Windows.Forms.PictureBox userPic;
-        private System.Windows.Forms.TextBox UserNameTB;
         private System.Windows.Forms.Panel UserNameLn;
         private System.Windows.Forms.Panel PasswordLn;
         private System.Windows.Forms.TextBox PasswordTB;
@@ -310,7 +308,8 @@ namespace Pombot_UI
         private System.Windows.Forms.Button passwordShowBT;
         private System.Windows.Forms.Panel formNamePN;
         private System.Windows.Forms.Label winNameLB;
-        private System.Windows.Forms.Label wrongTB;
+        private System.Windows.Forms.Label wrongLB;
+        internal System.Windows.Forms.TextBox UserNameTB;
     }
 }
 

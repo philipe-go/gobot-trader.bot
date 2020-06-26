@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Pombot_UI.RobotLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,18 +20,38 @@ namespace Pombot_UI
         {
             InitializeComponent();
             nameApp.Text = Program.appName;
+            Pombos.registerForm = this;
+            feedBackLB.Visible = false;
         }
 
         private void RegisterUserBT_Click(object sender, EventArgs e)
         {
+            if (userTB.Text == "username" || passwordTB.Text == "password")
+            {
+                FeedbackTxt("Wrong Data", Color.Red);
+            }
+            else
+            {
+                Pombos.AddUser();
+                timer1.Start();
+                timer1.Interval = 2000;
+            }
+        }
+
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            feedBackLB.Text = "";
+            feedBackLB.Visible = false;
             PomBot login = new PomBot();
             login.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void nameTB_Click(object sender, EventArgs e)
         {
             if (nameTB.Text == "full name") nameTB.Clear();
+            feedBackLB.Visible = false;
             nameTB.SelectAll();
             nameTB.Focus();
             namePic.BackgroundImage = Properties.Resources.userName2;
@@ -50,6 +72,7 @@ namespace Pombot_UI
         private void userTB_Click(object sender, EventArgs e)
         {
             if (userTB.Text == "username") userTB.Clear();
+            feedBackLB.Visible = false;
             userTB.SelectAll();
             userTB.Focus();
             userPic.BackgroundImage = Properties.Resources.userLogin2;
@@ -70,6 +93,7 @@ namespace Pombot_UI
         private void mailTB_Click(object sender, EventArgs e)
         {
             if (mailTB.Text == "e-mail") mailTB.Clear();
+            feedBackLB.Visible = false;
             mailTB.SelectAll();
             mailTB.Focus();
             mailPic.BackgroundImage = Properties.Resources.userEmail2;
@@ -91,6 +115,7 @@ namespace Pombot_UI
         {
             if (passwordTB.Text == "password") passwordTB.Clear();
             if (hiddenPass) passwordTB.UseSystemPasswordChar = true;
+            feedBackLB.Visible = false;
             passwordTB.SelectAll();
             passwordTB.Focus();
             passPic.BackgroundImage = Properties.Resources.userPassword2;
@@ -111,6 +136,7 @@ namespace Pombot_UI
         private void nameTB_Enter(object sender, EventArgs e)
         {
             if (nameTB.Text == "full name") nameTB.Clear();
+            feedBackLB.Visible = false;
             nameTB.SelectAll();
             nameTB.Focus();
             namePic.BackgroundImage = Properties.Resources.userName2;
@@ -131,6 +157,7 @@ namespace Pombot_UI
         private void userTB_Enter(object sender, EventArgs e)
         {
             if (userTB.Text == "username") userTB.Clear();
+            feedBackLB.Visible = false;
             userTB.SelectAll();
             userTB.Focus();
             userPic.BackgroundImage = Properties.Resources.userLogin2;
@@ -151,6 +178,7 @@ namespace Pombot_UI
         private void mailTB_Enter(object sender, EventArgs e)
         {
             if (mailTB.Text == "e-mail") mailTB.Clear();
+            feedBackLB.Visible = false;
             mailTB.SelectAll();
             mailTB.Focus();
             mailPic.BackgroundImage = Properties.Resources.userEmail2;
@@ -171,6 +199,7 @@ namespace Pombot_UI
         private void passwordTB_Enter(object sender, EventArgs e)
         {
             if (passwordTB.Text == "password") passwordTB.Clear();
+            feedBackLB.Visible = false;
             if (hiddenPass) passwordTB.UseSystemPasswordChar = true;
             passwordTB.SelectAll();
             passwordTB.Focus();
@@ -237,5 +266,13 @@ namespace Pombot_UI
             if (mailTB.Text == "") mailTB.Text = "e-mail";
             mailTB.DeselectAll();
         }
+
+        internal void FeedbackTxt(string txt, Color col)
+        {
+            feedBackLB.Visible = true;
+            feedBackLB.ForeColor = col;
+            feedBackLB.Text = txt;
+        }
+
     }
 }

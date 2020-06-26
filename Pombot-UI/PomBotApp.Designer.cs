@@ -1571,7 +1571,7 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Label label42;
     }
 }

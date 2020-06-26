@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.RegisterUserBT = new System.Windows.Forms.Button();
             this.nameApp = new System.Windows.Forms.TextBox();
             this.passwordLn = new System.Windows.Forms.Panel();
@@ -47,6 +48,8 @@
             this.formNamePN = new System.Windows.Forms.Panel();
             this.PomBotIcon = new System.Windows.Forms.PictureBox();
             this.passwordShowBT = new System.Windows.Forms.Button();
+            this.feedBackLB = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.namePic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passPic)).BeginInit();
@@ -65,7 +68,7 @@
             this.RegisterUserBT.Font = new System.Drawing.Font("Earth 2073", 9.75F);
             this.RegisterUserBT.ForeColor = System.Drawing.Color.White;
             this.RegisterUserBT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.RegisterUserBT.Location = new System.Drawing.Point(98, 425);
+            this.RegisterUserBT.Location = new System.Drawing.Point(90, 425);
             this.RegisterUserBT.Name = "RegisterUserBT";
             this.RegisterUserBT.Size = new System.Drawing.Size(166, 37);
             this.RegisterUserBT.TabIndex = 5;
@@ -303,6 +306,23 @@
             this.passwordShowBT.UseVisualStyleBackColor = false;
             this.passwordShowBT.Click += new System.EventHandler(this.passwordShowBT_Click);
             // 
+            // feedBackLB
+            // 
+            this.feedBackLB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.feedBackLB.AutoSize = true;
+            this.feedBackLB.Font = new System.Drawing.Font("Earth 2073", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.feedBackLB.ForeColor = System.Drawing.Color.Lime;
+            this.feedBackLB.Location = new System.Drawing.Point(74, 400);
+            this.feedBackLB.Name = "feedBackLB";
+            this.feedBackLB.Size = new System.Drawing.Size(199, 12);
+            this.feedBackLB.TabIndex = 115;
+            this.feedBackLB.Text = "REGISTRATION REQUEST SENT";
+            this.feedBackLB.Visible = false;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Register
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -310,6 +330,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(348, 562);
+            this.Controls.Add(this.feedBackLB);
             this.Controls.Add(this.passwordShowBT);
             this.Controls.Add(this.PomBotIcon);
             this.Controls.Add(this.formNamePN);
@@ -347,21 +368,23 @@
         private System.Windows.Forms.Button RegisterUserBT;
         private System.Windows.Forms.TextBox nameApp;
         private System.Windows.Forms.Panel passwordLn;
-        private System.Windows.Forms.TextBox passwordTB;
         private System.Windows.Forms.Panel mailLn;
         private System.Windows.Forms.PictureBox passPic;
-        private System.Windows.Forms.TextBox mailTB;
         private System.Windows.Forms.PictureBox mailPic;
         private System.Windows.Forms.Panel userLn;
-        private System.Windows.Forms.TextBox userTB;
         private System.Windows.Forms.PictureBox userPic;
         private System.Windows.Forms.Panel nameLn;
-        private System.Windows.Forms.TextBox nameTB;
         private System.Windows.Forms.PictureBox namePic;
         private System.Windows.Forms.Label winNameLB;
         private System.Windows.Forms.Button closeBT;
         private System.Windows.Forms.Panel formNamePN;
         private System.Windows.Forms.PictureBox PomBotIcon;
         private System.Windows.Forms.Button passwordShowBT;
+        internal System.Windows.Forms.TextBox nameTB;
+        internal System.Windows.Forms.TextBox passwordTB;
+        internal System.Windows.Forms.TextBox mailTB;
+        internal System.Windows.Forms.TextBox userTB;
+        private System.Windows.Forms.Label feedBackLB;
+        private System.Windows.Forms.Timer timer1;
     }
 }

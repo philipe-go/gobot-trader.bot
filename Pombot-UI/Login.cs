@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pombot_UI.RobotLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,9 @@ namespace Pombot_UI
         {
             InitializeComponent();
             nameApp.Text = Program.appName;
+            Pombos.loginForm = this;
+
+            wrongLB.Visible = false;
         }
 
 
@@ -27,23 +31,29 @@ namespace Pombot_UI
             registerForm.Show();
             this.Hide();
         }
-
-
         private void SignInBT_Click(object sender, EventArgs e)
         {
-            if (UserNameTB.Text == "philipe" && PasswordTB.Text == "1")
+            if (UserNameTB.Text != "username" && PasswordTB.Text != "password")
             {
-                PomBotAppForm mainAppForm = new PomBotAppForm();
-                mainAppForm.Show();
-                Program.userName = "philipe";
-                this.Hide();
+                Pombos.ConnectPombosDB();
+                if (Pombos.CheckUser(UserNameTB.Text, PasswordTB.Text))
+                {
+                    PomBotAppForm mainAppForm = new PomBotAppForm();
+                    mainAppForm.Show();
+                    Program.userName = UserNameTB.Text;
+                    this.Hide();
+                    Pombos.DisconnectPombosDB();
+                }
+                else
+                {
+                    WrongUser("Wrong user or password");
+                }
             }
             else
             {
-                wrongTB.Visible = true;
+                WrongUser("Wrong user or password");
             }
         }
-
         private void passwordShowBT_Click(object sender, EventArgs e)
         {
             if (hiddenPass)
@@ -59,10 +69,15 @@ namespace Pombot_UI
                 hiddenPass = true;
             }
         }
-
         private void closeBT_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        internal void WrongUser(string txt)
+        {
+            wrongLB.Visible = true;
+            wrongLB.Text = txt;
         }
 
 
@@ -81,7 +96,7 @@ namespace Pombot_UI
             PasswordLn.BackColor = Color.Black;
             PasswordTB.ForeColor = Color.Black;
 
-            wrongTB.Visible = false;
+            wrongLB.Visible = false;
         }
         private void UserNameTB_Enter(object sender, EventArgs e)
         {
@@ -96,14 +111,14 @@ namespace Pombot_UI
             PasswordLn.BackColor = Color.Black;
             PasswordTB.ForeColor = Color.Black;
 
-            wrongTB.Visible = false;
+            //wrongTB.Visible = false;
         }
         private void UserNameTB_Leave(object sender, EventArgs e)
         {
             if (UserNameTB.Text == "") UserNameTB.Text = "username";
             UserNameTB.DeselectAll();
         }
-        
+
         //Password TextBox
         private void PasswordTB_Click(object sender, EventArgs e)
         {
@@ -119,7 +134,7 @@ namespace Pombot_UI
             UserNameLn.BackColor = Color.Black;
             UserNameTB.ForeColor = Color.Black;
 
-            wrongTB.Visible = false;
+            wrongLB.Visible = false;
         }
         private void PasswordTB_Enter(object sender, EventArgs e)
         {
@@ -135,7 +150,7 @@ namespace Pombot_UI
             UserNameLn.BackColor = Color.Black;
             UserNameTB.ForeColor = Color.Black;
 
-            wrongTB.Visible = false;
+            //wrongTB.Visible = false;
         }
         private void PasswordTB_Leave(object sender, EventArgs e)
         {
@@ -156,7 +171,6 @@ namespace Pombot_UI
             userPic.BackgroundImage = Properties.Resources.userLogin;
             UserNameLn.BackColor = Color.Black;
             UserNameTB.ForeColor = Color.Black;
-
         }
 
         private void closeBT_Enter(object sender, EventArgs e)
