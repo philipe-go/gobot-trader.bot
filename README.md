@@ -57,5 +57,5 @@ deliberately removed.
 //***UNCOMMENT here when inserting the database link on the class Pombos ***//
 //***DELETE HERE when inserting the database link on the class Pombos ***//
 /*Insert you Strategy logic here*/
-
+/*Insert your remote database login and credentials here -> */
 ```
