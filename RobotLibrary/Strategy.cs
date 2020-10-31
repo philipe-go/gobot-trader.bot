@@ -415,7 +415,7 @@ namespace Pombot_UI.RobotLibrary
         {
             if (BollingerCheck())
             {
-                if ((!isBought) && (!isSold) && (mainCurve.RsiMean >= 50) && (mainCurve.RsiMean > mainCurve.Plot3Mean) && CheckVWAP("buy") && CheckUpperRSI("buy")) //buy
+                if ((!isBought) /*Insert you Strategy logic here*/) //buy
                 {
                     KeyBoardOutput(myBot.dashB.buyKeyboard);
                     LogAction("Buy");
@@ -423,7 +423,7 @@ namespace Pombot_UI.RobotLibrary
                     isSold = false;
                     myBot.mainForm.ddeCurrentMeasureBot1.ForeColor = Color.Lime;
                 }
-                else if ((!isSold) && (!isBought) && (mainCurve.RsiMean < 50) && (mainCurve.RsiMean < mainCurve.Plot3Mean) && CheckVWAP("sell") && CheckUpperRSI("sell")) //sell 
+                else if ((!isSold) /*Insert you Strategy logic here*/) //sell 
                 {
                     KeyBoardOutput(myBot.dashB.sellKeyboard);
                     LogAction("Sell");
@@ -447,7 +447,7 @@ namespace Pombot_UI.RobotLibrary
                 }
                 else //zero on RSI + bollinger
                 {
-                    if ((isBought) && (mainCurve.RsiMean < mainCurve.PlotExitMean)) //zero when isBought
+                    if ((isBought) /*Insert you Strategy logic here*/) //zero when isBought
                     {
                         KeyBoardOutput(myBot.dashB.zeroKeyboard);
                         LogAction("Zero");
@@ -455,7 +455,7 @@ namespace Pombot_UI.RobotLibrary
                         isSold = false;
                         myBot.mainForm.ddeCurrentMeasureBot1.ForeColor = Color.Black;
                     }
-                    else if ((isSold) && (mainCurve.RsiMean > mainCurve.PlotExitMean)) //zero when isSold
+                    else if ((isSold) /*Insert you Strategy logic here*/) //zero when isSold
                     {
                         KeyBoardOutput(myBot.dashB.zeroKeyboard);
                         LogAction("Zero");
@@ -482,16 +482,16 @@ namespace Pombot_UI.RobotLibrary
         }
         private bool BollingerMainCheck()
         {
-            return mainCurve.BbWidth > mainCurve.BbMovMean;
+            return /*Insert you Strategy logic here and remove -> */true;
         }
         private bool BollingerUpperCheck()
         {
             if (firstPass) //Means bot was started before the time set inside the method "StartedBot()"
             {
-                if (upperCurve.BbWidth < upperCurve.BbMovMean) firstPass = false;
-                return upperCurve.CurrentBB <= Convert.ToDecimal(0.47) && upperCurve.CurrentBB > upperCurve.CurrentBollMean;
+                if (/*Insert you Strategy logic here and remove -> */true) firstPass = false;
+                return /*Insert you Strategy logic here and remove -> */false;
             }
-            return upperCurve.CurrentBB > upperCurve.CurrentBollMean;
+            return /*Insert you Strategy logic here and remove -> */true;
         }
         #endregion
 
@@ -503,7 +503,7 @@ namespace Pombot_UI.RobotLibrary
         private bool CheckVWAP(string state)
         {
             if (!useVWAP) return true;
-            return state == "buy" ? temp > vwap : temp < vwap;
+            return state == "buy" ? /*Insert you Strategy logic here and remove -> */true : /*Insert you Strategy logic here and remove -> */false;
         }
         internal void VWAPColour()
         {
@@ -516,7 +516,7 @@ namespace Pombot_UI.RobotLibrary
         private bool CheckUpperRSI(string state)
         {
             if (upperCurve == null) return true;
-            return state == "buy" ? upperCurve.CurrentRSI > 50 : upperCurve.CurrentRSI < 50;
+            return state == "buy" ? /*Insert you Strategy logic here and remove -> */true : /*Insert you Strategy logic here and remove -> */false;
         }
         #endregion
     }//Class Strategy

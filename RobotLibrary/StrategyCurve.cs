@@ -8,10 +8,10 @@ using System.Windows.Forms;
 
 namespace Pombot_UI.RobotLibrary
 {
-    sealed class StrategyCurve
+    internal class StrategyCurve
     {
         #region Strategy Properties
-        private Strategy strategy;
+        private StrategyCurve curveType;
         private int renko;
         private int historySize;
         private int plot3Size;
@@ -20,38 +20,34 @@ namespace Pombot_UI.RobotLibrary
         private int bollMeanSize;
         #endregion
 
-        #region Curve Properties
-        private bool isRenko;
-        private bool maxCurve;
-        private bool firstPass;
-        private bool historyComplete;
-        private bool curveBuilt;
-
-        private int tempTime;
-
-        private double renkoPeriod;
-        private double brickInitial;
-        private double brickFinal;
-
-        private Queue<decimal> maxPeriods = new Queue<decimal>();
-        private Queue<decimal> minPeriods = new Queue<decimal>();
-        private Queue<decimal> periodsPrices = new Queue<decimal>();
-
-        private decimal lowMean = 0;
-        private decimal highMean = 0;
-        private decimal rsiMean = 0;
-        private decimal plot3Mean = 0;
-        private decimal plotExitMean = 0;
-        private Queue<decimal> threePerMean = new Queue<decimal>();
-        private Queue<decimal> exitPerMean = new Queue<decimal>();
-
-        private decimal bbMean = 0;
-        private decimal bbTop = 0;
-        private decimal bbLow = 0;
-        private decimal stdDev = 0;
-        private decimal bbWidth = 0;
-        private decimal bbMovMean = 0;
-        private Queue<decimal> bollMovMean = new Queue<decimal>();
+        #region Curves Properties
+        protected Strategy strategy;
+        protected bool isRenko;
+        protected bool maxCurve;
+        protected bool firstPass;
+        protected bool historyComplete;
+        protected bool curveBuilt;
+        protected int tempTime;
+        protected double renkoPeriod;
+        protected double brickInitial;
+        protected double brickFinal;
+        protected Queue<decimal> maxPeriods = new Queue<decimal>();
+        protected Queue<decimal> minPeriods = new Queue<decimal>();
+        protected Queue<decimal> periodsPrices = new Queue<decimal>();
+        protected decimal lowMean = 0;
+        protected decimal highMean = 0;
+        protected decimal rsiMean = 0;
+        protected decimal plot3Mean = 0;
+        protected decimal plotExitMean = 0;
+        protected Queue<decimal> threePerMean = new Queue<decimal>();
+        protected Queue<decimal> exitPerMean = new Queue<decimal>();
+        protected decimal bbMean = 0;
+        protected decimal bbTop = 0;
+        protected decimal bbLow = 0;
+        protected decimal stdDev = 0;
+        protected decimal bbWidth = 0;
+        protected decimal bbMovMean = 0;
+        protected Queue<decimal> bollMovMean = new Queue<decimal>();
         #endregion
 
         #region Events and Delegates
@@ -96,9 +92,9 @@ namespace Pombot_UI.RobotLibrary
             this.bollMeanSize = bollmean;
             this.strategy = strat;
 
-            if (isRenko) { renkoPeriod = (renko / 2) - 0.5; strategy.OnBuildCurve += BuildCurveRenko; }
-            else { renkoPeriod = Convert.ToDouble(renko) * 30; tempTime = Convert.ToInt32(renkoPeriod); strategy.OnBuildCurve += BuildCurveHOR; }
-
+            if (isRenko) { renkoPeriod = (renko / 2) - 0.5; curveType = new RenkoCurve(); }
+            else { renkoPeriod = Convert.ToDouble(renko) * 30; tempTime = Convert.ToInt32(renkoPeriod); curveType = new TimeCurve(); }
+            strategy.OnBuildCurve += curveType.BuildCurve;
             UpdateCurrentMeasure = new CurrentMeasuresDelegate(SetCurrentMeasures);
         }
         #endregion
@@ -164,101 +160,9 @@ namespace Pombot_UI.RobotLibrary
         }
         #endregion
 
-        //TODO -> Split the Curves in two child classes to handle similar methods, signatures and behaviour
         #region Build Curve Methods 
-        internal void BuildCurveRenko()
-        {
-            if (strategy.Temp - brickFinal > renkoPeriod) //complete period for ascending curve
-            {
-                if (maxCurve) //ascending curve
-                {
-                    brickInitial += renkoPeriod;
-                    brickFinal = brickInitial + renkoPeriod;
-
-                    periodsPrices.Enqueue(Convert.ToDecimal(brickFinal));
-                    maxPeriods.Enqueue(Convert.ToDecimal(renkoPeriod));
-                    minPeriods.Enqueue(0);
-
-                    if (historyComplete) BuildProcess();
-                }
-                else if (!maxCurve) //reversion of descending curve point
-                {
-                    if (strategy.Temp - brickInitial > renkoPeriod)
-                    {
-                        maxCurve = true;
-                        brickFinal = brickInitial + renkoPeriod;
-
-                        periodsPrices.Enqueue(Convert.ToDecimal(brickFinal));
-                        maxPeriods.Enqueue(Convert.ToDecimal(2 * renkoPeriod));
-                        minPeriods.Enqueue(0);
-
-                        if (historyComplete) BuildProcess();
-                    }
-                }
-            }
-            if (strategy.Temp - brickFinal < -renkoPeriod) //complete period for descending curve
-            {
-                if (maxCurve) //reversion point of ascending curve
-                {
-                    if (strategy.Temp - brickInitial < -renkoPeriod)
-                    {
-                        maxCurve = false;
-                        brickFinal = brickInitial - renkoPeriod;
-
-                        periodsPrices.Enqueue(Convert.ToDecimal(brickFinal));
-                        minPeriods.Enqueue(Convert.ToDecimal(2 * renkoPeriod));
-                        maxPeriods.Enqueue(0);
-
-                        if (historyComplete) BuildProcess();
-                    }
-                }
-                else if (!maxCurve) //descending curve
-                {
-                    brickInitial -= renkoPeriod;
-                    brickFinal = brickInitial - renkoPeriod;
-
-                    periodsPrices.Enqueue(Convert.ToDecimal(brickFinal));
-                    minPeriods.Enqueue(Convert.ToDecimal(renkoPeriod));
-                    maxPeriods.Enqueue(0);
-
-                    if (historyComplete) BuildProcess();
-                }
-            }
-
-            CheckPeriodsCount();
-        }
-        internal void BuildCurveHOR()
-        {
-            brickFinal = strategy.Temp;
-
-            if (tempTime >= Convert.ToInt32(renkoPeriod))
-            {
-                periodsPrices.Enqueue(Convert.ToDecimal(strategy.Temp));
-
-                if (periodsPrices.Count() > 1)
-                {
-                    if ((periodsPrices.Last() - periodsPrices.ElementAt(periodsPrices.Count() - 2) >= 0))
-                    {
-                        maxPeriods.Enqueue(Convert.ToDecimal((periodsPrices.Last() - periodsPrices.ElementAt(periodsPrices.Count() - 2))));
-                        minPeriods.Enqueue(0);
-                    }
-                    else
-                    {
-                        maxPeriods.Enqueue(0);
-                        minPeriods.Enqueue(Math.Abs(Convert.ToDecimal((periodsPrices.Last() - periodsPrices.ElementAt(periodsPrices.Count() - 2)))));
-                    }
-                }
-
-
-                if (historyComplete) BuildProcess();
-                tempTime = 0;
-            }
-
-            tempTime = (strategy.Now.Second + Convert.ToInt32(tempTime / 60) * 60) - tempTime < 0 ? (strategy.Now.Second + Convert.ToInt32(tempTime / 60) * 60) + 60 : (strategy.Now.Second + Convert.ToInt32(tempTime / 60) * 60);
-
-            CheckPeriodsCount();
-        }
-        private void CheckPeriodsCount()
+        protected virtual void BuildCurve(){ }
+        protected void CheckPeriodsCount()
         {
             if (periodsPrices.Count() > bollSize) periodsPrices.Dequeue();
             if (minPeriods.Count() > historySize) minPeriods.Dequeue();
@@ -271,7 +175,7 @@ namespace Pombot_UI.RobotLibrary
                 OnCurrentMeasuresUpdate?.Invoke();
             }
         }
-        private void BuildProcess() //Plot 3 Curve Build and post-RSI
+        protected void BuildProcess() //Plot 3 Curve Build and post-RSI
         {
             //RSI Calculations
             if (firstPass)

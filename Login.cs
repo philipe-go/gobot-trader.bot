@@ -93,33 +93,46 @@ namespace Pombot_UI
         {
             wrongLB.Invoke((MethodInvoker)delegate { wrongLB.Visible = true; });
             wrongLB.Invoke((MethodInvoker)delegate { wrongLB.Text = txt; });
-            //wrongLB.Visible = true;
-            //wrongLB.Text = txt;
         }
         private void CheckUser()
         {
             if (UserNameTB.Text != "username" && PasswordTB.Text != "password")
             {
-                try
+                //***UNCOMMENT here when inserting the database link on the class Pombos ***//
+                //try
+                //{
+                //    Pombos.ConnectPombosDB(); 
+                //    if (Pombos.CheckUser(UserNameTB.Text, PasswordTB.Text))
+                //    {
+                //        PomBotAppForm mainAppForm = new PomBotAppForm();
+                //        mainAppForm.Show();
+                //        Program.userName = UserNameTB.Text;
+                //        this.Hide();
+                //        Pombos.DisconnectPombosDB();
+                //    }
+                //    else
+                //    {
+                //        WrongUser("WRONG USER OR PASSWORD");
+                //    }
+                //}
+                //catch (SqlException)
+                //{
+                //    WrongUser("404, NO INTERNET CONNECTION");
+                //}
+
+                //***DELETE DOWN here when inserting the database link on the class Pombos ***//
+                if (Pombos.CheckUser(UserNameTB.Text, PasswordTB.Text))
                 {
-                    Pombos.ConnectPombosDB();
-                    if (Pombos.CheckUser(UserNameTB.Text, PasswordTB.Text))
-                    {
-                        PomBotAppForm mainAppForm = new PomBotAppForm();
-                        mainAppForm.Show();
-                        Program.userName = UserNameTB.Text;
-                        this.Hide();
-                        Pombos.DisconnectPombosDB();
-                    }
-                    else
-                    {
-                        WrongUser("WRONG USER OR PASSWORD");
-                    }
+                    PomBotAppForm mainAppForm = new PomBotAppForm();
+                    mainAppForm.Show();
+                    Program.userName = UserNameTB.Text;
+                    this.Hide();
                 }
-                catch (SqlException)
+                else
                 {
-                    WrongUser("404, NO INTERNET CONNECTION");
+                    WrongUser("WRONG USER OR PASSWORD");
                 }
+                //***DELETE UP
             }
             else
             {

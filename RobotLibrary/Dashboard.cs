@@ -14,8 +14,8 @@ namespace Pombot_UI.RobotLibrary
     {
         #region Attributes
         /**** DDE interface ****/
-        internal string app = "profitchart";
-        internal string service = "cot";
+        internal string app = /*Check the DDE application name on the application DDE interface and change here ---> */ "profitchart";
+        internal string service = /*Check the DDE service name on the application DDE interface and change here ---> */ "cot";
 
         /**** Strategy ****/
         internal int renkoPeriod;

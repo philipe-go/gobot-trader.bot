@@ -112,8 +112,10 @@
     <Compile Include="RobotLibrary\Dashboard.cs" />
     <Compile Include="RobotLibrary\DataBase.cs" />
     <Compile Include="RobotLibrary\Pombos.cs" />
+    <Compile Include="RobotLibrary\RenkoCurve.cs" />
     <Compile Include="RobotLibrary\Strategy.cs" />
     <Compile Include="RobotLibrary\StrategyCurve.cs" />
+    <Compile Include="RobotLibrary\TimeCurve.cs" />
     <Compile Include="RobotLibrary\Validator.cs" />
     <Compile Include="SignUp.cs">
       <SubType>Form</SubType>

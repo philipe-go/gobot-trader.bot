@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pombot-UI.exe" size="1447856">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pombot-UI.exe" size="1444784">
       <assemblyIdentity name="Pombot-UI" version="1.9.2.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>3B3B5JVKfaBVwzHN1f/XbOtWxhcPNV+CGp9k7P9zxOI=</dsig:DigestValue>
+        <dsig:DigestValue>n/VcwbwHcrbadiGA8ACuRQPAOC26FS6rOmjuw6EJkJ4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
