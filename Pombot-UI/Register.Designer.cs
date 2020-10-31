@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Register));
             this.RegisterUserBT = new System.Windows.Forms.Button();
             this.nameApp = new System.Windows.Forms.TextBox();
             this.passwordLn = new System.Windows.Forms.Panel();
@@ -50,6 +51,7 @@
             this.passwordShowBT = new System.Windows.Forms.Button();
             this.feedBackLB = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.backBT = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.namePic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passPic)).BeginInit();
@@ -323,6 +325,24 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // backBT
+            // 
+            this.backBT.BackColor = System.Drawing.Color.Transparent;
+            this.backBT.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.backBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.backBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.backBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backBT.Font = new System.Drawing.Font("Earth 2073", 9.75F);
+            this.backBT.ForeColor = System.Drawing.Color.White;
+            this.backBT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.backBT.Location = new System.Drawing.Point(90, 480);
+            this.backBT.Name = "backBT";
+            this.backBT.Size = new System.Drawing.Size(166, 28);
+            this.backBT.TabIndex = 116;
+            this.backBT.Text = "back";
+            this.backBT.UseVisualStyleBackColor = false;
+            this.backBT.Click += new System.EventHandler(this.backBT_Click);
+            // 
             // Register
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -330,6 +350,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(348, 562);
+            this.Controls.Add(this.backBT);
             this.Controls.Add(this.feedBackLB);
             this.Controls.Add(this.passwordShowBT);
             this.Controls.Add(this.PomBotIcon);
@@ -349,9 +370,13 @@
             this.Controls.Add(this.nameApp);
             this.Controls.Add(this.RegisterUserBT);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Register";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Register";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Register_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Register_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Register_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.namePic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.passPic)).EndInit();
@@ -386,5 +411,6 @@
         internal System.Windows.Forms.TextBox userTB;
         private System.Windows.Forms.Label feedBackLB;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button backBT;
     }
 }

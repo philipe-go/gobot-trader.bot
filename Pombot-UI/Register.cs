@@ -15,12 +15,23 @@ namespace Pombot_UI
     public partial class Register : Form
     {
         private bool hiddenPass = true;
+        private int mov, movY, movX;
 
         public Register()
         {
             InitializeComponent();
-            nameApp.Text = Program.appName;
+            nameApp.Text = Program.appName + " - V" + Program.appVersion.Major + "." + Program.appVersion.Minor; //Retrieve app name from Program.cs and set into UI;
             Pombos.registerForm = this;
+            feedBackLB.Visible = false;
+
+            #region Set native Font
+            PomBot.LoadFont(this);
+            #endregion
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            feedBackLB.Text = "";
             feedBackLB.Visible = false;
         }
 
@@ -37,15 +48,30 @@ namespace Pombot_UI
                 timer1.Interval = 2000;
             }
         }
-
-
-        private void timer1_Tick(object sender, EventArgs e)
+        private void closeBT_Click(object sender, EventArgs e)
         {
-            feedBackLB.Text = "";
-            feedBackLB.Visible = false;
+            Application.Exit();
+        }
+        private void backBT_Click(object sender, EventArgs e)
+        {
             PomBot login = new PomBot();
             login.Show();
             this.Close();
+        }
+        private void passwordShowBT_Click(object sender, EventArgs e)
+        {
+            if (hiddenPass)
+            {
+                passwordTB.UseSystemPasswordChar = false;
+                passwordShowBT.BackgroundImage = Properties.Resources.passwordShow2;
+                hiddenPass = false;
+            }
+            else
+            {
+                passwordTB.UseSystemPasswordChar = true;
+                passwordShowBT.BackgroundImage = Properties.Resources.passwordShow;
+                hiddenPass = true;
+            }
         }
 
         private void nameTB_Click(object sender, EventArgs e)
@@ -68,7 +94,6 @@ namespace Pombot_UI
             passwordLn.BackColor = Color.Black;
             passwordTB.ForeColor = Color.Black;
         }
-
         private void userTB_Click(object sender, EventArgs e)
         {
             if (userTB.Text == "username") userTB.Clear();
@@ -89,7 +114,6 @@ namespace Pombot_UI
             passwordLn.BackColor = Color.Black;
             passwordTB.ForeColor = Color.Black;
         }
-
         private void mailTB_Click(object sender, EventArgs e)
         {
             if (mailTB.Text == "e-mail") mailTB.Clear();
@@ -110,7 +134,6 @@ namespace Pombot_UI
             passwordLn.BackColor = Color.Black;
             passwordTB.ForeColor = Color.Black;
         }
-
         private void passwordTB_Click(object sender, EventArgs e)
         {
             if (passwordTB.Text == "password") passwordTB.Clear();
@@ -153,7 +176,6 @@ namespace Pombot_UI
             passwordLn.BackColor = Color.Black;
             passwordTB.ForeColor = Color.Black;
         }
-
         private void userTB_Enter(object sender, EventArgs e)
         {
             if (userTB.Text == "username") userTB.Clear();
@@ -174,7 +196,6 @@ namespace Pombot_UI
             passwordLn.BackColor = Color.Black;
             passwordTB.ForeColor = Color.Black;
         }
-
         private void mailTB_Enter(object sender, EventArgs e)
         {
             if (mailTB.Text == "e-mail") mailTB.Clear();
@@ -195,7 +216,6 @@ namespace Pombot_UI
             passwordLn.BackColor = Color.Black;
             passwordTB.ForeColor = Color.Black;
         }
-
         private void passwordTB_Enter(object sender, EventArgs e)
         {
             if (passwordTB.Text == "password") passwordTB.Clear();
@@ -218,27 +238,6 @@ namespace Pombot_UI
             nameTB.ForeColor = Color.Black;
         }
 
-        private void closeBT_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void passwordShowBT_Click(object sender, EventArgs e)
-        {
-            if (hiddenPass)
-            {
-                passwordTB.UseSystemPasswordChar = false;
-                passwordShowBT.BackgroundImage = Properties.Resources.passwordShow2;
-                hiddenPass = false;
-            }
-            else
-            {
-                passwordTB.UseSystemPasswordChar = true;
-                passwordShowBT.BackgroundImage = Properties.Resources.passwordShow;
-                hiddenPass = true;
-            }
-        }
-
         private void passwordTB_Leave(object sender, EventArgs e)
         {
             if (passwordTB.Text == "")
@@ -248,19 +247,16 @@ namespace Pombot_UI
             }
             passwordTB.DeselectAll();
         }
-
         private void nameTB_Leave(object sender, EventArgs e)
         {
             if (nameTB.Text == "") nameTB.Text = "full name";
             nameTB.DeselectAll();
         }
-
         private void userTB_Leave(object sender, EventArgs e)
         {
             if (userTB.Text == "") userTB.Text = "username";
             userTB.DeselectAll();
         }
-
         private void mailTB_Leave(object sender, EventArgs e)
         {
             if (mailTB.Text == "") mailTB.Text = "e-mail";
@@ -274,5 +270,26 @@ namespace Pombot_UI
             feedBackLB.Text = txt;
         }
 
+        #region Move Window
+        private void Register_MouseDown(object sender, MouseEventArgs e)
+        {
+            mov = 1;
+            movY = e.Y;
+            movX = e.X;
+            this.Opacity = 0.5f;
+        }
+        private void Register_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mov == 1)
+            {
+                this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
+            }
+        }
+        private void Register_MouseUp(object sender, MouseEventArgs e)
+        {
+            mov = 0;
+            this.Opacity = 1;
+        }
+        #endregion
     }
 }

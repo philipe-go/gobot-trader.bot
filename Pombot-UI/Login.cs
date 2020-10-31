@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,18 +15,51 @@ namespace Pombot_UI
 {
     public partial class PomBot : Form
     {
+        private int mov, movY, movX;
         private bool hiddenPass = true;
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
+            IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
+        private static PrivateFontCollection fonts = new PrivateFontCollection();
 
         public PomBot()
         {
             InitializeComponent();
-            nameApp.Text = Program.appName;
+            nameApp.Text = Program.appName + " - V" + Program.appVersion.Major + "." + Program.appVersion.Minor; //Retrieve app name from Program.cs and set into UI;
             Pombos.loginForm = this;
-
             wrongLB.Visible = false;
+            LoadFont(this);
         }
 
 
+        internal static void LoadFont(Form sender)
+        {
+            byte[] fontData = Properties.Resources.Earth_2073;
+            IntPtr fontPtr = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontData.Length);
+            System.Runtime.InteropServices.Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+            uint dummy = 0;
+            AddFontMemResourceEx(fontPtr, (uint)Properties.Resources.Earth_2073.Length, IntPtr.Zero, ref dummy);
+            fonts.AddMemoryFont(fontPtr, Properties.Resources.Earth_2073.Length);
+            System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
+
+            foreach (Control ctr in sender.Controls)
+            {
+                if (ctr.HasChildren) ApplyFont(ctr);
+                float size = ctr.Font.Size;
+                Font font = new Font(fonts.Families[0], size);
+                ctr.Font = font;
+            }
+        }
+        internal static void ApplyFont(Control ctrl)
+        {
+            foreach (Control gb in ctrl.Controls)
+            {
+                if (gb.HasChildren) ApplyFont(gb);
+                float size = gb.Font.Size;
+                Font font = new Font(fonts.Families[0], size);
+                gb.Font = font;
+            }
+        }
         private void RegisterBT_Click(object sender, EventArgs e)
         {
             Register registerForm = new Register();
@@ -33,26 +68,8 @@ namespace Pombot_UI
         }
         private void SignInBT_Click(object sender, EventArgs e)
         {
-            if (UserNameTB.Text != "username" && PasswordTB.Text != "password")
-            {
-                Pombos.ConnectPombosDB();
-                if (Pombos.CheckUser(UserNameTB.Text, PasswordTB.Text))
-                {
-                    PomBotAppForm mainAppForm = new PomBotAppForm();
-                    mainAppForm.Show();
-                    Program.userName = UserNameTB.Text;
-                    this.Hide();
-                    Pombos.DisconnectPombosDB();
-                }
-                else
-                {
-                    WrongUser("Wrong user or password");
-                }
-            }
-            else
-            {
-                WrongUser("Wrong user or password");
-            }
+            SignInBT.Enabled = false;
+            CheckUser();
         }
         private void passwordShowBT_Click(object sender, EventArgs e)
         {
@@ -73,14 +90,42 @@ namespace Pombot_UI
         {
             Application.Exit();
         }
-
         internal void WrongUser(string txt)
         {
-            wrongLB.Visible = true;
-            wrongLB.Text = txt;
+            wrongLB.Invoke((MethodInvoker)delegate { wrongLB.Visible = true; });
+            wrongLB.Invoke((MethodInvoker)delegate { wrongLB.Text = txt; });
         }
-
-
+        private void CheckUser()
+        {
+            if (UserNameTB.Text != "username" && PasswordTB.Text != "password")
+            {
+                try
+                {
+                    Pombos.ConnectPombosDB();
+                    if (Pombos.CheckUser(UserNameTB.Text, PasswordTB.Text))
+                    {
+                        PomBotAppForm mainAppForm = new PomBotAppForm();
+                        mainAppForm.Show();
+                        Program.userName = UserNameTB.Text;
+                        this.Hide();
+                        Pombos.DisconnectPombosDB();
+                    }
+                    else
+                    {
+                        WrongUser("WRONG USER OR PASSWORD");
+                    }
+                }
+                catch (SqlException)
+                {
+                    WrongUser("404, NO INTERNET CONNECTION");
+                }
+            }
+            else
+            {
+                WrongUser("WRONG USER OR PASSWORD");
+            }
+            SignInBT.Enabled = true;
+        }
         #region Fields Behaviours
         //UserName TextBox
         private void UserNameTB_Click(object sender, EventArgs e)
@@ -161,7 +206,6 @@ namespace Pombot_UI
             }
             PasswordTB.DeselectAll();
         }
-
         //Buttons
         private void SignInBT_Enter(object sender, EventArgs e)
         {
@@ -178,10 +222,38 @@ namespace Pombot_UI
             closeBT.BackgroundImage = Properties.Resources.close2;
         }
 
+
+
         private void closeBT_Leave(object sender, EventArgs e)
         {
             closeBT.BackgroundImage = Properties.Resources.close;
         }
         #endregion
+
+        private void PomBot_MouseDown(object sender, MouseEventArgs e)
+        {
+            mov = 1;
+            movY = e.Y;
+            movX = e.X;
+            this.Opacity = 0.5f;
+        }
+
+        private void PasswordTB_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void PomBot_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mov == 1)
+            {
+                this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
+            }
+        }
+        private void PomBot_MouseUp(object sender, MouseEventArgs e)
+        {
+            mov = 0;
+            this.Opacity = 1;
+        }
     }
 }

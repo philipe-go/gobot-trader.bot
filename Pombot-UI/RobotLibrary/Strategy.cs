@@ -2,57 +2,45 @@
 using System.Collections.Generic;
 using System.Data.Odbc;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
+using System.Runtime.Hosting;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 using System.Xml;
 
 namespace Pombot_UI.RobotLibrary
 {
-    internal sealed class Strategy
+    sealed class Strategy
     {
-        //private Dashboard dashB;
+        #region Strategy Attributes
         private Bot myBot;
-
-        private double currentRSI;
-
-        #region Curve Attributes
-        private bool maxCurve;
-        private bool historyComplete;
-        private Queue<double> periods = new Queue<double>();
-        internal bool manualCalibration;
-        internal bool botActive;
-
-        private double brickInitial;
-        private double brickFinal;
-        private Queue<double> maxPeriods = new Queue<double>();
-        private Queue<double> minPeriods = new Queue<double>();
-
-        private double manCalibTemp;
-        private Stack<double> manCalib = new Stack<double>(); //stack instance to handle backwards period insertion
+        private StrategyCurve mainCurve;
+        internal StrategyCurve MainCurve { get => mainCurve; }
+        private StrategyCurve upperCurve;
+        internal StrategyCurve UpperCurve { get => upperCurve; }
         #endregion
 
-        #region Strategy Attributes
-        private double lowMean = 0;
-        private double highMean = 0;
-        private double rsiMean = 0;
-        private double plot3Mean = 0;
-        private bool firstPass = true;
-        private Queue<double> threePerMean = new Queue<double>();
+        #region Curves Delegate Event
+        internal delegate void BuildCurveDelegate();
+        internal event BuildCurveDelegate OnBuildCurve;
+        #endregion
+
+        #region Bot Attributes
+        internal bool botActive;
         #endregion
 
         #region Strategy Options
         private bool isBought = false;
         private bool isSold = false;
-        #endregion
-
-        #region Strategy Bool Checkers
-        internal bool refreshtemp;
-        internal double temp;
-        private double renkoPeriod;
+        private bool useVWAP = false;
+        private bool firstPass = true;
+        private bool zeroWithBollinger;
         #endregion
 
         #region MainForm Table Update Handler
@@ -62,7 +50,7 @@ namespace Pombot_UI.RobotLibrary
 
         #region Win32 foreground application Manager
         private IntPtr prof;
-        string outp = "";
+        private string outp = "";
 
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
@@ -73,226 +61,287 @@ namespace Pombot_UI.RobotLibrary
         #endregion
 
         #region Encapsulation
-        internal void MaxCurve(bool val)
+        internal void MaxCurve()
         {
-            this.maxCurve = val;
-        }
-        internal int GetHistorySize()
-        {
-            return manCalib.Count();
+            if (upperCurve != null)
+            {
+                upperCurve.MaxCurve = GetUpperInitialBrick() < GetUpperFinalBrick() ? true : false;
+                mainCurve.MaxCurve = GetInitialBrick() < GetFinalBrick() ? true : false;
+            }
+            else
+            {
+                mainCurve.MaxCurve = GetInitialBrick() < GetFinalBrick() ? true : false;
+            }
         }
         internal double GetInitialBrick()
         {
-            return brickInitial;
+            return mainCurve.BrickInitial;
         }
         internal double GetFinalBrick()
         {
-            return brickFinal;
+            return mainCurve.BrickFinal;
         }
-        internal void SetBot(Bot obj)
+        internal double GetUpperInitialBrick()
         {
-            this.myBot = obj;
+            return upperCurve != null ? upperCurve.BrickInitial : 1;
+        }
+        internal double GetUpperFinalBrick()
+        {
+            return upperCurve != null ? upperCurve.BrickFinal : 1;
         }
         internal void SetProcess()
         {
             prof = FindWindow("ProfitPro", null);
             SetForegroundWindow(prof);
-            //this.profit = Process.GetProcessesByName("profitchart.exe").FirstOrDefault();
         }
         internal int CalibrationBallance()
         {
-            return maxPeriods.Count() + threePerMean.Count();
+            if (upperCurve != null) return (mainCurve.CalibBalance() + upperCurve.CalibBalance()) / 2;
+            return mainCurve.CalibBalance();
         }
-        internal double RsiMean {  get => this.rsiMean; }
-        internal double Plot3Mean { get => this.plot3Mean; }
+        internal string CalibrationString()
+        {
+            if (upperCurve != null)
+                return $"Main Curve: {mainCurve.CalibBalance().ToString("00")}% \nSupport Curve: {upperCurve.CalibBalance().ToString("00")}%";
+            return $"Main Curve: {mainCurve.CalibBalance().ToString("00")}%";
+        }
+        internal bool GetCurveBuilt(string i)
+        {
+            if (i != "main" && upperCurve != null) return upperCurve.CurveBuilt;
+            return mainCurve.CurveBuilt;
+        }
+        internal void SetZeroWithBollinger(bool val)
+        {
+            this.zeroWithBollinger = val;
+        }
+        internal void StartedBot()
+        {
+            firstPass = ((this.now.Hour == 9 && this.now.Minute < 10)) ? true : false;
+        }
         #endregion
 
-        #region Constructor
-        internal Strategy()
+        #region Constructor and Setters
+        internal Strategy(Bot aBot)
         {
-            historyComplete = false;
             refreshtemp = false;
             botActive = false;
-        }
-        #endregion
+            useVWAP = false;
+            firstPass = true;
+            zeroWithBollinger = aBot.zeroOpt;
 
+            myBot = aBot;
+            mainCurve = new StrategyCurve();
+            upperCurve = new StrategyCurve();
+        }
+
+        internal void UpdateCurves()
+        {
+            mainCurve.UpdateParametres(true, myBot.dashB.renkoPeriod, myBot.dashB.historySize, myBot.dashB.plot3Size, myBot.dashB.plotExitSize, myBot.dashB.bollSize, myBot.dashB.bollMeanSize, this);
+
+            if (upperCurve != null)
+            {
+                if (myBot.mainForm.renkoTimeSelector.Value == 0) upperCurve.UpdateParametres(true, myBot.dashB.upperRenkoPeriod, myBot.dashB.upperHistorySize, myBot.dashB.upperPlot3Size, myBot.dashB.upperPlotExitSize, myBot.dashB.upperBollSize, myBot.dashB.upperBollMeanSize, this);
+                else upperCurve.UpdateParametres(false, myBot.dashB.timeSpamPeriod, myBot.dashB.upperHistorySize, myBot.dashB.upperPlot3Size, myBot.dashB.upperPlotExitSize, myBot.dashB.upperBollSize, myBot.dashB.upperBollMeanSize, this);
+            }
+        }
+        internal void SetUpperCurve(bool val, bool isRenko)
+        {
+            if (!val) upperCurve = null;
+            else
+            {
+                if (upperCurve == null) upperCurve = new StrategyCurve();
+                upperCurve.IsRenko = isRenko;
+            }
+        }
         internal void Reset()
         {
-            manCalib.Clear();
-            brickInitial = 0;
-            brickFinal = 0;
-        }
+            mainCurve.Reset();
+            if (upperCurve != null) upperCurve.Reset();
 
-        #region DDE
-        internal void Advise(float temp) //TO DO ---> this method is being accessed through the mainform via BOT object
-        {
-            if (refreshtemp) this.temp = temp;
-            renkoPeriod = (Convert.ToDouble(myBot.dashB.renkoPeriod) / 2) - 0.5;
-            RSICurve();
+            botActive = false;
             refreshtemp = true;
         }
         #endregion
 
-        #region Calibration
-        internal void ManualEntry(double brick)
+        #region DDE
+
+        #region DDE Checkers & Param
+        private bool refreshtemp;
+        internal bool Refreshtemp { get => refreshtemp; }
+        private double temp;
+        internal double Temp { get => temp; set => temp = value; }
+        private double vwap;
+        internal double Vwap { get => vwap; }
+        private DateTime now;
+        internal DateTime Now { get => now; }
+        #endregion
+
+        internal void Advise(double temp)
         {
-            manCalib.Push(brick);
+            if (refreshtemp) this.temp = temp;
+            else CurvesCallBack();
+            refreshtemp = true;
         }
-        internal void AutoEntryOpen(double brickOpen)
+        internal void AdviseVWAP(double temp)
         {
-            brickInitial = brickOpen;
+            this.vwap = temp;
         }
-        internal void AutoEntryClose(double brickClose)
+        internal void AdviseHOR(DateTime now)
         {
-            brickFinal = brickClose;
-        }
-        internal void RSICurve() //RSI Curve Build
-        {
-            if (!manualCalibration)
-            {
-                if (temp - brickFinal > renkoPeriod) //complete period for ascending curve
-                {
-                    if (maxCurve) //ascending curve
-                    {
-                        brickInitial += renkoPeriod;
-                        brickFinal = brickInitial + renkoPeriod;
-
-                        maxPeriods.Enqueue(renkoPeriod);
-                        minPeriods.Enqueue(0);
-                        periods.Enqueue(brickFinal);
-                        if (periods.Count() > 2) periods.Dequeue();
-                        if (minPeriods.Count() > myBot.dashB.historySize) minPeriods.Dequeue();
-                        if (maxPeriods.Count() > myBot.dashB.historySize) maxPeriods.Dequeue();
-
-                        if (historyComplete) StrategyProcess();
-                    }
-                    else if (!maxCurve) //reversion of descending curve point
-                    {
-                        if (temp - brickInitial > renkoPeriod)
-                        {
-                            maxCurve = true;
-                            brickFinal = brickInitial + renkoPeriod;
-
-                            maxPeriods.Enqueue(2 * renkoPeriod);
-                            minPeriods.Enqueue(0);
-                            periods.Enqueue(brickFinal);
-                            if (periods.Count() > 2) periods.Dequeue();
-                            if (minPeriods.Count() > myBot.dashB.historySize) minPeriods.Dequeue();
-                            if (maxPeriods.Count() > myBot.dashB.historySize) maxPeriods.Dequeue();
-
-                            if (historyComplete) StrategyProcess();
-                        }
-                    }
-                }
-                if (temp - brickFinal < -renkoPeriod) //complete period for descending curve
-                {
-                    if (maxCurve) //reversion point of ascending curve
-                    {
-                        if (temp - brickInitial < -renkoPeriod)
-                        {
-                            maxCurve = false;
-                            brickFinal = brickInitial - renkoPeriod;
-
-                            minPeriods.Enqueue(2 * renkoPeriod);
-                            maxPeriods.Enqueue(0);
-                            periods.Enqueue(brickFinal);
-                            if (periods.Count() > 2) periods.Dequeue();
-                            if (minPeriods.Count() > myBot.dashB.historySize) minPeriods.Dequeue();
-                            if (maxPeriods.Count() > myBot.dashB.historySize) maxPeriods.Dequeue();
-
-                            if (historyComplete) StrategyProcess();
-                        }
-                    }
-                    else if (!maxCurve) //descending curve
-                    {
-                        brickInitial -= renkoPeriod;
-                        brickFinal = brickInitial - renkoPeriod;
-
-                        minPeriods.Enqueue(renkoPeriod);
-                        maxPeriods.Enqueue(0);
-                        periods.Enqueue(brickFinal);
-                        if (periods.Count() > 2) periods.Dequeue();
-                        if (minPeriods.Count() > myBot.dashB.historySize) minPeriods.Dequeue();
-                        if (maxPeriods.Count() > myBot.dashB.historySize) maxPeriods.Dequeue();
-
-                        if (historyComplete) StrategyProcess();
-                    }
-                }
-            }//Automatic Calibration
-
-            else
-            {
-                while (manCalib.Count != 0)
-                {
-                    manCalibTemp = manCalib.Peek();
-                    manCalib.Pop();
-                    if (manCalibTemp - manCalib.Peek() >= 0)
-                    {
-                        maxPeriods.Enqueue(manCalibTemp - manCalib.Peek());
-                        minPeriods.Enqueue(0);
-                        maxCurve = true;
-                    }
-                    else
-                    {
-                        minPeriods.Enqueue(Math.Abs(manCalibTemp - manCalib.Peek()));
-                        maxPeriods.Enqueue(0);
-                        maxCurve = false;
-                    }
-                    if (manCalib.Count == 1)
-                    {
-                        periods.Enqueue(manCalib.Peek());
-                    }
-                }
-                if (historyComplete) StrategyProcess();
-                manualCalibration = false;
-            }//Manual Calibration
-
-            //StrategyProcess Call
-            historyComplete = (maxPeriods.Count() == myBot.dashB.historySize) ? true : false;
-
-        } //RSI Curve Method
-
-        private void StrategyProcess() //Plot 3 Curve Build and post-RSI
-        {
-            if (firstPass)
-            {
-                highMean = maxPeriods.Sum() / myBot.dashB.historySize; //can use maxPeriods.Average() from LinQ
-                lowMean = minPeriods.Sum() / myBot.dashB.historySize; //can use maxPeriods.Average() from LinQ
-            }
-            else
-            {
-                highMean = (highMean * (myBot.dashB.historySize - 1) / myBot.dashB.historySize) + (periods.Last() - periods.First() > 0 ? periods.Last() - periods.First() : 0) / myBot.dashB.historySize; //mean of MaxPeriods
-                lowMean = (lowMean * (myBot.dashB.historySize - 1) / myBot.dashB.historySize) + (periods.Last() - periods.First() < 0 ? Math.Abs(periods.Last() - periods.First()) : 0) / myBot.dashB.historySize; //mean of MinPeriods 
-            }
-
-            Math.Round(highMean, 2);
-            Math.Round(lowMean, 2);
-
-            rsiMean = (lowMean != 0) ? 100 - (100 / (1 + (highMean / lowMean))) : (highMean != 0) ? 100 : 50; //RSI index for the historySize (N periods)
-
-            Math.Round(rsiMean, 2);
-
-            threePerMean.Enqueue(rsiMean);
-            if (threePerMean.Count() > myBot.dashB.plot3Size)
-            {
-                threePerMean.Dequeue();
-                plot3Mean = threePerMean.Average();
-                if (myBot.activated) CallStrategyAction();
-                myBot.mainForm.UpdateRSI(true);
-                botActive = true;
-            }
-
-            firstPass = false;
+            this.now = now;
         }
         #endregion
 
-        #region Strategy
+        #region SaveData
+        internal List<Queue<decimal>> CalibQueue()
+        {
+            List<Queue<decimal>> templist = new List<Queue<decimal>>();
+            templist.Add(mainCurve.PeriodsPrices);
+            templist.Add(mainCurve.MaxPeriods);
+            templist.Add(mainCurve.MinPeriods);
+            templist.Add(mainCurve.ThreePerMean);
+            templist.Add(mainCurve.ExitPerMean);
+            templist.Add(mainCurve.BollMovMean);
+            if (upperCurve == null) upperCurve = new StrategyCurve();
+            templist.Add(upperCurve.PeriodsPrices);
+            templist.Add(upperCurve.MaxPeriods);
+            templist.Add(upperCurve.MinPeriods);
+            templist.Add(upperCurve.ThreePerMean);
+            templist.Add(upperCurve.ExitPerMean);
+            templist.Add(upperCurve.BollMovMean);
+
+            return templist;
+        }
+        internal List<decimal> CalibDoubles()
+        {
+            List<decimal> templist = new List<decimal>();
+            templist.Add(Convert.ToDecimal(mainCurve.BrickInitial));
+            templist.Add(Convert.ToDecimal(mainCurve.BrickFinal));
+            templist.Add(mainCurve.LowMean);
+            templist.Add(mainCurve.HighMean);
+            templist.Add(mainCurve.RsiMean);
+            templist.Add(mainCurve.Plot3Mean);
+            templist.Add(mainCurve.PlotExitMean);
+            templist.Add(mainCurve.BbMean);
+            templist.Add(mainCurve.BbTop);
+            templist.Add(mainCurve.BbLow);
+            templist.Add(mainCurve.BbWidth);
+            templist.Add(mainCurve.BbMovMean);
+            if (upperCurve == null) upperCurve = new StrategyCurve();
+            templist.Add(Convert.ToDecimal(upperCurve.BrickInitial));
+            templist.Add(Convert.ToDecimal(upperCurve.BrickFinal));
+            templist.Add(upperCurve.LowMean);
+            templist.Add(upperCurve.HighMean);
+            templist.Add(upperCurve.RsiMean);
+            templist.Add(upperCurve.Plot3Mean);
+            templist.Add(upperCurve.PlotExitMean);
+            templist.Add(upperCurve.BbMean);
+            templist.Add(upperCurve.BbTop);
+            templist.Add(upperCurve.BbLow);
+            templist.Add(upperCurve.BbWidth);
+            templist.Add(upperCurve.BbMovMean);
+
+
+            return templist;
+        }
+        internal void ReadCalib(List<decimal> doubles, List<Queue<decimal>> queues)
+        {
+            mainCurve.PeriodsPrices = queues[0];
+            mainCurve.MaxPeriods = queues[1];
+            mainCurve.MinPeriods = queues[2];
+            mainCurve.ThreePerMean = queues[3];
+            mainCurve.ExitPerMean = queues[4];
+            mainCurve.BollMovMean = queues[5];
+
+            mainCurve.BrickInitial = Convert.ToDouble(doubles[0]);
+            mainCurve.BrickFinal = Convert.ToDouble(doubles[1]);
+            mainCurve.LowMean = doubles[2];
+            mainCurve.HighMean = doubles[3];
+            mainCurve.RsiMean = doubles[4];
+            mainCurve.Plot3Mean = doubles[5];
+            mainCurve.PlotExitMean = doubles[6];
+            mainCurve.BbMean = doubles[7];
+            mainCurve.BbTop = doubles[8];
+            mainCurve.BbLow = doubles[9];
+            mainCurve.BbWidth = doubles[10];
+            mainCurve.BbMovMean = doubles[11];
+
+            mainCurve.MaxCurve = (mainCurve.BrickFinal - mainCurve.BrickInitial > 0) ? true : false;
+            mainCurve.HistoryComplete = (mainCurve.MaxPeriods.Count() == myBot.dashB.historySize) ? true : false;
+
+            if (upperCurve != null)
+            {
+                upperCurve.PeriodsPrices = queues[6];
+                upperCurve.MaxPeriods = queues[7];
+                upperCurve.MinPeriods = queues[8];
+                upperCurve.ThreePerMean = queues[9];
+                upperCurve.ExitPerMean = queues[10];
+                upperCurve.BollMovMean = queues[11];
+
+                upperCurve.BrickInitial = Convert.ToDouble(doubles[12]);
+                upperCurve.BrickFinal = Convert.ToDouble(doubles[13]);
+                upperCurve.LowMean = doubles[14];
+                upperCurve.HighMean = doubles[15];
+                upperCurve.RsiMean = doubles[16];
+                upperCurve.Plot3Mean = doubles[17];
+                upperCurve.PlotExitMean = doubles[18];
+                upperCurve.BbMean = doubles[19];
+                upperCurve.BbTop = doubles[20];
+                upperCurve.BbLow = doubles[21];
+                upperCurve.BbWidth = doubles[22];
+                upperCurve.BbMovMean = doubles[23];
+
+                upperCurve.MaxCurve = (upperCurve.BrickFinal - upperCurve.BrickInitial > 0) ? true : false;
+                upperCurve.HistoryComplete = (upperCurve.MaxPeriods.Count() == myBot.dashB.upperHistorySize) ? true : false;
+            }
+            //this.botActive = historyComplete == true ? true : false;
+        }
+        #endregion
+
+        #region Calibration
+        internal void AutoEntryOpen(double brickOpen)
+        {
+            mainCurve.BrickInitial = brickOpen;
+        }
+        internal void AutoEntryClose(double brickClose)
+        {
+            mainCurve.BrickFinal = brickClose;
+        }
+        internal void UpperOpenBrick(double openBrick)
+        {
+            upperCurve.BrickInitial = openBrick;
+        }
+        internal void UpperCloseBrick(double closeBrick)
+        {
+            upperCurve.BrickFinal = closeBrick;
+        }
+        internal Task CurvesCallBack()
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                while (true)
+                {
+                    OnBuildCurve?.Invoke();
+                    if (mainCurve.CurveBuilt && (upperCurve != null ? upperCurve.CurveBuilt : true)) StrategyProcess();
+                    Thread.Sleep(10);
+                }
+            });
+        } //Curves Build CallBack to be called as a new Task
+        #endregion
+
+        #region Strategy Actions
+        private void StrategyProcess() //Plot 3 Curve Build and post-RSI
+        {
+            if (myBot.activated) CallStrategyAction();
+            botActive = true;
+        }
         private void KeyBoardOutput(List<Keys> listK)
         {
-            prof = FindWindow("ProfitPro", null);
+            prof = FindWindow(null, "Profit");
             SetForegroundWindow(prof);
             outp = "";
-            SendKeys.Send("{ESC}");
+
+            SendKeys.SendWait("{ESC}");
             switch (listK[0])
             {
                 case (Keys.Shift):
@@ -360,95 +409,131 @@ namespace Pombot_UI.RobotLibrary
                     }
                     break;
             }
+            SendKeys.SendWait("{ESC}");
             outp = "";
-            SendKeys.Send("{ESC}");
         }
-
         private void CallStrategyAction()
         {
-            if (rsiMean > 50) //Condition 1 and 2 for Buy
+            if (BollingerCheck())
             {
-                if (rsiMean > plot3Mean) //buy
+                if ((!isBought) && (!isSold) && (mainCurve.RsiMean >= 50) && (mainCurve.RsiMean > mainCurve.Plot3Mean) && CheckVWAP("buy") && CheckUpperRSI("buy")) //buy
                 {
-                    if (!isBought)
-                    {
-                        action = "Buy";
-                        price = brickFinal;
-                        myBot.mainForm.AddTableItem(true);
-
-                        KeyBoardOutput(myBot.dashB.buyKeyboard);
-                    }
+                    KeyBoardOutput(myBot.dashB.buyKeyboard);
+                    LogAction("Buy");
                     isBought = true;
                     isSold = false;
+                    myBot.mainForm.ddeCurrentMeasureBot1.ForeColor = Color.Lime;
+                    PlayeSound();
                 }
-                else //zero position
+                else if ((!isSold) && (!isBought) && (mainCurve.RsiMean < 50) && (mainCurve.RsiMean < mainCurve.Plot3Mean) && CheckVWAP("sell") && CheckUpperRSI("sell")) //sell 
                 {
-                    if (isBought)
-                    {
-                        action = "Zero";
-                        price = brickFinal;
-                        myBot.mainForm.AddTableItem(true);
-
-                        KeyBoardOutput(myBot.dashB.zeroKeyboard);
-                    }
-                    isBought = false;
-                    isSold = false;
-                }
-            }
-
-            else if (rsiMean < 50) //Condition 1 and 2 for Sell
-            {
-                if (rsiMean < plot3Mean) //sell
-                {
-                    if (!isSold)
-                    {
-                        action = "Sell";
-                        price = brickFinal;
-                        myBot.mainForm.AddTableItem(true);
-
-                        KeyBoardOutput(myBot.dashB.sellKeyboard);
-                    }
+                    KeyBoardOutput(myBot.dashB.sellKeyboard);
+                    LogAction("Sell");
                     isBought = false;
                     isSold = true;
-                }
-                else //zero position
-                {
-                    if (isSold)
-                    {
-                        action = "Zero";
-                        price = brickFinal;
-                        myBot.mainForm.AddTableItem(true);
-
-                        KeyBoardOutput(myBot.dashB.zeroKeyboard);
-                    }
-                    isBought = false;
-                    isSold = false;
+                    myBot.mainForm.ddeCurrentMeasureBot1.ForeColor = Color.Red;
+                    PlayeSound();
                 }
             }
-
-            // if (myBot.dashB.inversionStrategy)
-        
+            else if (!BollingerMainCheck())
+            {
+                if (zeroWithBollinger) //zero on bollinger
+                {
+                    if (isSold != isBought) //zero
+                    {
+                        KeyBoardOutput(myBot.dashB.zeroKeyboard);
+                        LogAction("Zero");
+                        isBought = false;
+                        isSold = false;
+                        myBot.mainForm.ddeCurrentMeasureBot1.ForeColor = Color.Black;
+                        PlayeSound();
+                    }
+                }
+                else //zero on RSI + bollinger
+                {
+                    if ((isBought) && (mainCurve.RsiMean < mainCurve.PlotExitMean)) //zero when isBought
+                    {
+                        KeyBoardOutput(myBot.dashB.zeroKeyboard);
+                        LogAction("Zero");
+                        isBought = false;
+                        isSold = false;
+                        myBot.mainForm.ddeCurrentMeasureBot1.ForeColor = Color.Black;
+                        PlayeSound();
+                    }
+                    else if ((isSold) && (mainCurve.RsiMean > mainCurve.PlotExitMean)) //zero when isSold
+                    {
+                        KeyBoardOutput(myBot.dashB.zeroKeyboard);
+                        LogAction("Zero");
+                        isBought = false;
+                        isSold = false;
+                        myBot.mainForm.ddeCurrentMeasureBot1.ForeColor = Color.Black;
+                        PlayeSound();
+                    }
+                }
+            }
         }//StrategyAction Method
-        
-        internal double CurrentRSI()
+        private void LogAction(string action)
         {
-            double tempHigh, tempLow;
-            tempHigh = (highMean * (myBot.dashB.historySize - 1) / myBot.dashB.historySize) + (temp - periods.Last() > 0 ? temp - periods.Last() : 0) / myBot.dashB.historySize; //mean of MaxPeriods
-            tempLow = (lowMean * (myBot.dashB.historySize - 1) / myBot.dashB.historySize) + (temp - periods.Last() < 0 ? Math.Abs(temp - periods.Last()) : 0) / myBot.dashB.historySize; //mean of MinPeriods 
-            Math.Round(tempHigh, 2);
-            Math.Round(tempLow, 2);
-
-            currentRSI = (tempLow != 0) ? 100 - (100 / (1 + (tempHigh / tempLow))) : 50;
-
-            Math.Round(currentRSI, 2);
-            return currentRSI;
+            this.action = action;
+            price = temp;
+            myBot.mainForm.AddTableItem(true);
+            myBot.mainForm.orderTime = now;
         }
-        internal double CurrentPlot()
+        private Task PlayeSound()
         {
-            return ((threePerMean.Sum() - threePerMean.First()) + currentRSI) / 3;
+            return Task.Factory.StartNew(() =>
+            {
+                System.IO.Stream sound = Properties.Resources.moneyCashier;
+                SoundPlayer player = new SoundPlayer(sound);
+                player.Play();
+            });
         }
         #endregion
 
-    }//Class Strategy
+        #region Bollinger Strategy
+        private bool BollingerCheck()
+        {
+            return BollingerMainCheck() && (upperCurve != null ? BollingerUpperCheck() : true);
+        }
+        private bool BollingerMainCheck()
+        {
+            return mainCurve.BbWidth > mainCurve.BbMovMean;
+        }
+        private bool BollingerUpperCheck()
+        {
+            //if (firstPass) //Means bot was started before the time set inside the method "StartedBot()"
+            //{
+            //    if (upperCurve.BbWidth < upperCurve.BbMovMean) firstPass = false;
+            //    return upperCurve.CurrentBB <= Convert.ToDecimal(0.47) && upperCurve.CurrentBB > upperCurve.CurrentBollMean;
+            //}
+            //else if (upperCurve.CurrentBB > Convert.ToDecimal(1.0)) return false;
+            return upperCurve.CurrentBB > upperCurve.CurrentBollMean;
+        }
+        #endregion
 
+        #region VWAP
+        internal void SetVWAP(bool val)
+        {
+            useVWAP = val;
+        }
+        private bool CheckVWAP(string state)
+        {
+            if (!useVWAP) return true;
+            return state == "buy" ? temp > vwap : temp < vwap;
+        }
+        internal void VWAPColour()
+        {
+            if (useVWAP) myBot.mainForm.ddeVWAP.ForeColor = GetFinalBrick() > vwap ? Color.Lime : Color.Red;
+            else myBot.mainForm.ddeVWAP.ForeColor = Color.Transparent;
+        }
+        #endregion
+
+        #region Check Upper RSI
+        private bool CheckUpperRSI(string state)
+        {
+            if (upperCurve == null) return true;
+            return state == "buy" ? upperCurve.CurrentRSI > 50 : upperCurve.CurrentRSI < 50;
+        }
+        #endregion
+    }//Class Strategy
 }//Namespace
