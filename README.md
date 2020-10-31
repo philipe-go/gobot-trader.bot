@@ -6,7 +6,7 @@
 
 ## External Resources ##
 
-      1 - [Ndde Codeplex](https://ndde.codeplex.com/)
+      [Ndde Codeplex](https://ndde.codeplex.com/)
 
 #######################################################################
 
