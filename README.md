@@ -58,7 +58,5 @@ deliberately removed.
 
 ## External Resource ##
 
-      1 - https://ndde.codeplex.com/
+[Ndde](https://www.codeplex.com/)
 
-
-#######################################################################
