@@ -20,8 +20,19 @@ OBS: the bot was originally designed to work on a software which limits the inte
 therefore it was necessary to find a solution as the client's requirement. Thus, it was found a
 solution using the protocol supported by the trading software and the key bindings to send trade 
 orders.
+
+**Section 2: Asymptotic Analysis - Scalability**
+
+Refering to the mathematical bounds of the application's functions run-time / performance. 
+Functions defined in the scope of the application are in general linear *O(n)* or constant *O(1)*. Even considering scalability 
+of the application it is noted the maintenance of said time complexity. 
+
+**Section 2: Readability**
+
+As the project is a prototype which is in beta versions the code still need to comply with SOLID principles. 
+Though, it is *not predicted* any refactoring for the near future. 
       
-**Section 2: Manual**
+**Section 4: Manual**
 
       2.1 - Application Manual:
 
@@ -41,11 +52,11 @@ the Pombos.cs class created to manage those access and some other aspects.
 The following sourcodes need to be changed when you implement your strategy. Those lines where
 deliberately removed.
 
-[1 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/RobotLibrary/Pombos.cs)
+[1 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/RobotLibrary/Pombos.cs#L30-42)
 
-[2 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/Login.cs)
+[2 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/Login.cs#L102-122)
 
-[3 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/RobotLibrary/Strategy.cs)
+[3 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/RobotLibrary/Strategy.cs#L418)
 
 ```c#
 //***UNCOMMENT here when inserting the database link on the class Pombos ***//
