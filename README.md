@@ -27,7 +27,7 @@ Refering to the mathematical bounds of the application's functions run-time / pe
 Functions defined in the scope of the application are in general linear *O(n)* or constant *O(1)*. Even considering scalability 
 of the application it is noted the maintenance of said time complexity. 
 
-**Section 2: Readability**
+**Section 3: Readability**
 
 As the project is a prototype which is in beta versions the code still need to comply with SOLID principles. 
 Though, it is *not predicted* any refactoring for the near future. 
