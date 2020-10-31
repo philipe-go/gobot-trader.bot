@@ -98,6 +98,7 @@ namespace Pombot_UI
         {
             if (UserNameTB.Text != "username" && PasswordTB.Text != "password")
             {
+                //##section
                 //***UNCOMMENT here when inserting the database link on the class Pombos ***//
                 //try
                 //{

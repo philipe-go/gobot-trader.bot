@@ -15,6 +15,7 @@ namespace Pombot_UI.RobotLibrary
     internal class Pombos
     {
         #region attributes
+        private static string defaultUserPass = "guest";
         private static List<string> adminUsers = new List<string> {"admin"};
         internal static string updateURL = "";
         internal static string appversion = "";
@@ -62,7 +63,7 @@ namespace Pombot_UI.RobotLibrary
             //else return false;
 
             //***DELETE HERE when inserting the database link on the class Pombos ***//
-            return user == "admin" && pass == "admin" ? true : false;
+            return user == defaultUserPass && pass == defaultUserPass ? true : false;
         }
 
         
