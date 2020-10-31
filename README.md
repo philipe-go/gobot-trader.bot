@@ -31,7 +31,7 @@ orders.
 
       2.1 - Application Manual:
 
-![LoginScreen](./Media/login.png)
+![LoginScreen](./Media/login.png?style=centerme)
 
 To login you will use a default username and password, however you can change then on the source 
 code of the class Pombo.cs. Or, create a data base to store those information and access it throw 
@@ -39,7 +39,7 @@ the Pombos.cs class created to manage those access and some other aspects.
 - default username: guest
 - default password: guest 
 
-![AppDashboard](./Media/dashboard.png)
+![AppDashboard](./Media/dashboard.png?style=centerme)
 
 
       2.2 - SourceCode Manual:
