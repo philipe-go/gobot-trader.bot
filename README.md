@@ -4,12 +4,6 @@
 
 #######################################################################
 
-## External Resources ##
-
-      [Ndde Codeplex](https://ndde.codeplex.com/)
-
-#######################################################################
-
 **Section 1: Project**
 
 Trading robot created to operate on the future market. (used: c#, DDE, .net and SQL)
@@ -59,3 +53,12 @@ deliberately removed.
 /*Insert you Strategy logic here*/
 /*Insert your remote database login and credentials here -> */
 ```
+
+#######################################################################
+
+## External Resources ##
+
+[Ndde Codeplex] (https://ndde.codeplex.com/)
+
+
+#######################################################################
