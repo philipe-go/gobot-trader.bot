@@ -52,11 +52,12 @@ the Pombos.cs class created to manage those access and some other aspects.
 The following are a few of source codes which need to be changed when you implement your strategy. Those lines where
 deliberately removed.
 
-[1 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/RobotLibrary/Pombos.cs#L30-L42)
+[] [1 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/RobotLibrary/Pombos.cs#L30-L42)
 
-[2 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/Login.cs#L102-L122)
+[] [2 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/Login.cs#L102-L122)
 
-[3 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/RobotLibrary/Strategy.cs#L418)
+[] [3 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/RobotLibrary/Strategy.cs#L418)
+...
 
 ```c#
 //***UNCOMMENT here when inserting the database link on the class Pombos ***//
