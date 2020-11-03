@@ -6,9 +6,10 @@
 
 **Section 1: Project**
 
-Trading robot created to operate on the future market. (used: c#, DDE, .net and SQL)
-Project was developed using concepts and patterns learnt on Object Oriented Programming course. 
-Additionally, .Net 4.8 and other libraries were used, alongside with multi-threading operations. 
+This project was done on the three months summer break of 2020. 
+It is a trading robot created to operate on the future market. 
+Project was developed using concepts and patterns learnt on Object Oriented Programming course,
+in c#. Additionally, .Net 4.8 and other libraries were used, alongside with multi-threading operations. 
 It was also necessary to use a remote database to handle some aspects consumed by the app. Other 
 than that, due to some limitations, it was found the need to implement a windows' inter-process 
 communication protocol, known as DDE (Dynamic Data Exchange) in order to exchange information 
@@ -29,8 +30,8 @@ of the application it is noted the maintenance of said time complexity.
 
 **Section 3: Readability**
 
-As the project is a prototype which is in beta versions the code still need to comply with SOLID principles. 
-Though, it is *not predicted* any refactoring for the near future. 
+As the project is a prototype which is in beta version the code still needs to comply standards (ie SOLID principles). 
+Though, it is still *not predicted* any refactoring on the near future as my goal is to focus and finish my course.
       
 **Section 4: Manual**
 
