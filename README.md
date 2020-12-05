@@ -1,4 +1,4 @@
-![BOT](./Resources/bird-icon-png.png?Style=centerme)
+![BOT](./Resources/bird-icon-png.png? = 200x200px)
 
 # GObot Trader Robot - PERSONAL PROJECT #
 
