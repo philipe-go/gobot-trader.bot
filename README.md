@@ -1,4 +1,4 @@
-<img src="./Resources/bird-icon-png.png" width="50%" height="50%">
+<p align="center"><img src="./Resources/bird-icon-png.png" width="50%" height="50%"></p>
 
 # GObot Trader Robot - PERSONAL PROJECT #
 
