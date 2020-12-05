@@ -37,7 +37,7 @@ Though, it is still *not predicted* the refactoring on the near future as my goa
 
       4.1 - Application Manual:
 
-![LoginScreen](./Media/login.png?style=centerme)
+<p align="center><img src="./Media/login.png"></p>
 
 To login you will use a default username and password, however you can change then in the source 
 code of the class Pombos.cs. Or, create a data base to store those information and access it through 
@@ -45,7 +45,7 @@ the Pombos.cs class, created to manage those access and some other aspects.
 - default username: guest
 - default password: guest 
 
-![AppDashboard](./Media/dashboard.png?style=centerme)
+<p align="center"><img src="./Media/dashboard.png"></p>
 
 
       4.2 - SourceCode Manual:
