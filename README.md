@@ -6,10 +6,10 @@
 
 **Section 1: Project**
 
-This project was done on the three months summer break of 2020. 
+This project was done during the three months summer break of 2020. 
 It is a trading robot created to operate on the future market. 
-Project was developed using concepts and patterns learnt on Object Oriented Programming course,
-in c#. Additionally, .Net 4.8 and other libraries were used, alongside with multi-threading operations. 
+The project was developed using concepts and patterns learned from the Object Oriented Programming course,
+in c#. Additionally, .Net 4.8 and libraries were used, alongside with multi-threading operations. 
 It was also necessary to use a remote database to handle some aspects consumed by the app. Other 
 than that, due to some limitations, it was found the need to implement a windows' inter-process 
 communication protocol, known as DDE (Dynamic Data Exchange) in order to exchange information 
@@ -17,9 +17,9 @@ between applications.
 
 Progress: 1) First version deployed to be used by market strategy experts.
 
-OBS: the bot was originally designed to work on a software which limits the interface through API,
-therefore it was necessary to find a solution as the client's requirement. Thus, it was found a
-solution using the protocol supported by the trading software and the key bindings to send trade 
+OBS: the bot was originally designed to work with a software that limits the interface with external applications.
+Therefore, it was necessary to find a solution to convey with client's requirements. Thus, I saw a
+solution using a protocol supported by the trading software and using key bindings to send trade 
 orders.
 
 **Section 2: Asymptotic Analysis - Scalability**
@@ -31,27 +31,27 @@ of the application it is noted the maintenance of said time complexity.
 **Section 3: Readability**
 
 As the project is a prototype which is in beta version the code still needs to comply standards (ie SOLID principles). 
-Though, it is still *not predicted* any refactoring on the near future as my goal is to focus and finish my course.
+Though, it is still *not predicted* the refactoring on the near future as my goal is to focus and finish my course.
       
 **Section 4: Manual**
 
-      2.1 - Application Manual:
+      4.1 - Application Manual:
 
 ![LoginScreen](./Media/login.png?style=centerme)
 
-To login you will use a default username and password, however you can change then on the source 
-code of the class Pombo.cs. Or, create a data base to store those information and access it throw 
-the Pombos.cs class created to manage those access and some other aspects. 
+To login you will use a default username and password, however you can change then in the source 
+code of the class Pombos.cs. Or, create a data base to store those information and access it through 
+the Pombos.cs class, created to manage those access and some other aspects. 
 - default username: guest
 - default password: guest 
 
 ![AppDashboard](./Media/dashboard.png?style=centerme)
 
 
-      2.2 - SourceCode Manual:
+      4.2 - SourceCode Manual:
       
-The following are a few of source codes which need to be changed when you implement your strategy. Those lines where
-deliberately removed.
+The following are few source codes which need to be changed when you implement your strategy. Those lines where
+deliberately removed / commented.
 
 [1 - Code that needs to be changed](https://github.com/philipe-go/GObot-TraderRobot/blob/master/RobotLibrary/Pombos.cs#L30-L42)
 
