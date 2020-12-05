@@ -2,7 +2,6 @@
 
 <h1 align="center"> GObot Trader Robot - PERSONAL PROJECT </h1>
 
-<hr>
 <p align="center"> ####################################################################### </p>
 
 **Section 1: Project**
