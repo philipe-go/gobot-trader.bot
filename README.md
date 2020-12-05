@@ -37,7 +37,7 @@ Though, it is still *not predicted* the refactoring on the near future as my goa
 
       4.1 - Application Manual:
 
-<p align="center><img src="./Media/login.png"></p>
+<p align="center"><img src="./Media/login.png"></p>
 
 To login you will use a default username and password, however you can change then in the source 
 code of the class Pombos.cs. Or, create a data base to store those information and access it through 
