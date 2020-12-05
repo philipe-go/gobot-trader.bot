@@ -1,6 +1,6 @@
 <p align="center"><img src="./Resources/bird-icon-png.png" width="50%" height="50%"></p>
 
-<p align="center"># GObot Trader Robot - PERSONAL PROJECT #</p>
+<p align="center"><h1> GObot Trader Robot - PERSONAL PROJECT </h1></p>
 
 #######################################################################
 
